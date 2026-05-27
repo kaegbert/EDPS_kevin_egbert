@@ -1,30 +1,49 @@
 /* ==========================================================================
-   Kevin Egbert — Personal site
+   Kevin Egbert — NVIDIA design system (DESIGN.md)
    ========================================================================== */
 
 :root {
-  --color-bg: #0c0f14;
-  --color-bg-elevated: #141a24;
-  --color-bg-card: #1a2230;
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-text: #e8ecf4;
-  --color-text-muted: #8b95a8;
-  --color-accent: #5eead4;
-  --color-accent-dim: rgba(94, 234, 212, 0.15);
-  --color-accent-hover: #99f6e4;
-  --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
-  --font-display: "Fraunces", Georgia, serif;
-  --space-xs: 0.5rem;
-  --space-sm: 1rem;
-  --space-md: 1.5rem;
-  --space-lg: 2.5rem;
-  --space-xl: 4rem;
-  --space-2xl: 6rem;
-  --radius: 12px;
-  --radius-lg: 20px;
-  --nav-height: 4rem;
-  --max-width: 72rem;
-  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  /* NVIDIA color tokens */
+  --nvidia-primary: #76b900;
+  --nvidia-primary-dark: #5a8d00;
+  --nvidia-on-primary: #000000;
+  --nvidia-ink: #000000;
+  --nvidia-canvas: #ffffff;
+  --nvidia-surface-dark: #000000;
+  --nvidia-surface-soft: #f7f7f7;
+  --nvidia-surface-elevated: #1a1a1a;
+  --nvidia-hairline: #cccccc;
+  --nvidia-hairline-strong: #5e5e5e;
+  --nvidia-body: #1a1a1a;
+  --nvidia-mute: #757575;
+  --nvidia-stone: #898989;
+  --nvidia-ash: #a7a7a7;
+  --nvidia-on-dark: #ffffff;
+  --nvidia-on-dark-mute: rgba(255, 255, 255, 0.7);
+  --nvidia-link-blue: #0046a4;
+
+  /* Typography — Inter substitutes NVIDIA-EMEA */
+  --font-sans: "Inter", Arial, Helvetica, sans-serif;
+
+  /* Spacing (8px base) */
+  --space-xxs: 2px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-xxl: 32px;
+  --space-section: 64px;
+
+  /* Geometry */
+  --rounded-sm: 2px;
+  --rounded-none: 0;
+  --corner-square-size: 12px;
+
+  /* Layout */
+  --nav-height: 64px;
+  --max-width: 80rem;
+  --transition: 0.2s ease;
 }
 
 *,
@@ -54,13 +73,11 @@ html {
 body {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: 1.0625rem;
-  line-height: 1.65;
-  color: var(--color-text);
-  background-color: var(--color-bg);
-  background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(94, 234, 212, 0.12), transparent),
-    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(94, 234, 212, 0.06), transparent);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--nvidia-body);
+  background-color: var(--nvidia-canvas);
   min-height: 100vh;
 }
 
@@ -70,36 +87,44 @@ img {
   display: block;
 }
 
-a {
-  color: var(--color-accent);
-  text-decoration: none;
-  transition: color var(--transition);
+/* Prose links only — link-blue per DESIGN.md */
+.about-text a,
+.section-intro a,
+.contact-card-desc a,
+.form-note a {
+  color: var(--nvidia-link-blue);
+  text-decoration: underline;
 }
 
-a:hover,
-a:focus-visible {
-  color: var(--color-accent-hover);
+.about-text a:hover,
+.section-intro a:hover,
+.contact-card-desc a:hover,
+.form-note a:hover {
+  color: var(--nvidia-link-blue);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 3px;
+  outline: 2px solid var(--nvidia-primary);
+  outline-offset: 2px;
 }
 
 .skip-link {
   position: absolute;
   top: -100%;
-  left: var(--space-sm);
+  left: var(--space-lg);
   z-index: 200;
-  padding: var(--space-xs) var(--space-sm);
-  background: var(--color-accent);
-  color: var(--color-bg);
-  border-radius: var(--radius);
-  font-weight: 600;
+  padding: 11px 24px;
+  min-height: 44px;
+  background: var(--nvidia-primary);
+  color: var(--nvidia-on-primary);
+  border-radius: var(--rounded-sm);
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
 }
 
 .skip-link:focus {
-  top: var(--space-sm);
+  top: var(--space-lg);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -107,12 +132,17 @@ a:focus-visible {
 /* -------------------------------------------------------------------------- */
 
 .container {
-  width: min(100% - 2rem, var(--max-width));
+  width: min(100% - 48px, var(--max-width));
   margin-inline: auto;
 }
 
 .section {
-  padding-block: var(--space-2xl);
+  padding-block: var(--space-section);
+}
+
+.section--canvas {
+  background-color: var(--nvidia-canvas);
+  color: var(--nvidia-body);
 }
 
 .section-header {
@@ -120,32 +150,36 @@ a:focus-visible {
 }
 
 .section-label {
-  display: inline-block;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.43;
+  letter-spacing: 0;
   text-transform: uppercase;
-  color: var(--color-accent);
+  color: var(--nvidia-mute);
   margin-bottom: var(--space-sm);
 }
 
 .section-title {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 2.75rem);
-  font-weight: 500;
-  line-height: 1.2;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0;
+  color: var(--nvidia-ink);
   margin: 0;
-  letter-spacing: -0.02em;
 }
 
 .section-intro {
-  margin-top: var(--space-md);
-  max-width: 38rem;
-  color: var(--color-text-muted);
+  margin-top: var(--space-lg);
+  max-width: 40rem;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--nvidia-body);
 }
 
 /* -------------------------------------------------------------------------- */
-/* Navigation                                                                 */
+/* Navigation — primary-nav                                                   */
 /* -------------------------------------------------------------------------- */
 
 .site-header {
@@ -155,18 +189,13 @@ a:focus-visible {
   right: 0;
   z-index: 100;
   height: var(--nav-height);
-  background: rgba(12, 15, 20, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--nvidia-surface-dark);
   border-bottom: 1px solid transparent;
-  transition:
-    border-color var(--transition),
-    box-shadow var(--transition);
+  transition: box-shadow var(--transition);
 }
 
 .site-header.is-scrolled {
-  border-bottom-color: var(--color-border);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
 }
 
 .nav {
@@ -177,15 +206,16 @@ a:focus-visible {
 }
 
 .nav-logo {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--color-text);
-  letter-spacing: -0.02em;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--nvidia-on-dark);
+  text-decoration: none;
 }
 
-.nav-logo:hover {
-  color: var(--color-accent);
+.nav-logo:hover,
+.nav-logo:focus-visible {
+  color: var(--nvidia-primary);
 }
 
 .nav-toggle {
@@ -193,13 +223,13 @@ a:focus-visible {
   flex-direction: column;
   justify-content: center;
   gap: 5px;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 44px;
+  height: 44px;
   padding: 0;
   border: none;
   background: transparent;
   cursor: pointer;
-  border-radius: var(--radius);
+  border-radius: var(--rounded-sm);
 }
 
 .nav-toggle-bar {
@@ -207,8 +237,8 @@ a:focus-visible {
   width: 1.375rem;
   height: 2px;
   margin-inline: auto;
-  background: var(--color-text);
-  border-radius: 2px;
+  background: var(--nvidia-on-dark);
+  border-radius: var(--rounded-sm);
   transition:
     transform var(--transition),
     opacity var(--transition);
@@ -233,24 +263,28 @@ a:focus-visible {
 }
 
 .nav-link {
-  color: var(--color-text-muted);
-  font-size: 0.9375rem;
-  font-weight: 500;
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius);
+  color: var(--nvidia-on-dark-mute);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  padding: 10px 18px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--rounded-sm);
+  text-decoration: none;
   transition:
     color var(--transition),
     background var(--transition);
 }
 
-.nav-link:hover,
-.nav-link.is-active {
-  color: var(--color-text);
+.nav-link:hover {
+  color: var(--nvidia-on-dark);
 }
 
 .nav-link.is-active {
-  background: var(--color-accent-dim);
-  color: var(--color-accent);
+  background: var(--nvidia-ink);
+  color: var(--nvidia-on-dark);
 }
 
 @media (max-width: 47.99rem) {
@@ -266,10 +300,10 @@ a:focus-visible {
     bottom: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-md);
-    background: var(--color-bg);
+    align-items: stretch;
+    padding: var(--space-xl);
+    gap: var(--space-sm);
+    background: var(--nvidia-surface-dark);
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -285,7 +319,8 @@ a:focus-visible {
   }
 
   .nav-link {
-    font-size: 1.25rem;
+    justify-content: center;
+    font-size: 18px;
   }
 }
 
@@ -301,7 +336,85 @@ a:focus-visible {
 }
 
 /* -------------------------------------------------------------------------- */
-/* Hero                                                                       */
+/* Buttons                                                                    */
+/* -------------------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  min-height: 44px;
+  padding: 11px 24px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0;
+  border-radius: var(--rounded-sm);
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color var(--transition),
+    border-color var(--transition),
+    color var(--transition);
+}
+
+.btn:active {
+  transform: none;
+}
+
+.btn-primary {
+  background: var(--nvidia-primary);
+  color: var(--nvidia-on-primary);
+  border-color: var(--nvidia-primary);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: var(--nvidia-primary-dark);
+  border-color: var(--nvidia-primary-dark);
+  color: var(--nvidia-on-primary);
+}
+
+.btn-primary:active {
+  background: var(--nvidia-primary-dark);
+  border-color: var(--nvidia-primary-dark);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--nvidia-on-dark);
+  border: 1px solid var(--nvidia-on-dark);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+  background: transparent;
+  color: var(--nvidia-on-dark);
+  border-color: var(--nvidia-on-dark);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--nvidia-ink);
+  border: 2px solid var(--nvidia-primary);
+}
+
+.btn-outline:hover,
+.btn-outline:focus-visible {
+  background: transparent;
+  color: var(--nvidia-ink);
+  border-color: var(--nvidia-primary-dark);
+}
+
+.btn-outline:active {
+  border-color: var(--nvidia-primary-dark);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Hero — hero-card-dark                                                      */
 /* -------------------------------------------------------------------------- */
 
 .hero {
@@ -309,104 +422,140 @@ a:focus-visible {
   display: flex;
   align-items: center;
   padding-top: var(--nav-height);
+  background: var(--nvidia-surface-dark);
+  color: var(--nvidia-on-dark);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.75) 45%, rgba(0, 0, 0, 0.4) 100%),
+    repeating-linear-gradient(
+      -12deg,
+      transparent,
+      transparent 40px,
+      rgba(118, 185, 0, 0.03) 40px,
+      rgba(118, 185, 0, 0.03) 41px
+    );
+  pointer-events: none;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-content {
-  max-width: 42rem;
+  max-width: 36rem;
+  padding-block: 80px;
+}
+
+.hero .corner-square {
+  margin-bottom: var(--space-xl);
 }
 
 .hero-greeting {
-  font-size: 1rem;
-  font-weight: 500;
-  color: var(--color-accent);
-  margin-bottom: var(--space-sm);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.43;
+  text-transform: uppercase;
+  color: var(--nvidia-primary);
+  margin: 0 0 var(--space-lg);
 }
 
 .hero-title {
-  font-family: var(--font-display);
-  font-size: clamp(2.75rem, 8vw, 4.5rem);
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  margin: 0 0 var(--space-md);
-}
-
-.hero-title em {
-  font-style: italic;
-  color: var(--color-accent);
+  font-size: clamp(32px, 8vw, 48px);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0;
+  color: var(--nvidia-on-dark);
+  margin: 0 0 var(--space-lg);
 }
 
 .hero-tagline {
-  font-size: clamp(1.125rem, 2.5vw, 1.375rem);
-  color: var(--color-text-muted);
-  margin: 0 0 var(--space-lg);
+  font-size: clamp(18px, 2.5vw, 22px);
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--nvidia-on-dark-mute);
+  margin: 0 0 var(--space-xl);
   max-width: 32rem;
 }
 
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-sm);
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.875rem 1.5rem;
-  font-family: inherit;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  border-radius: var(--radius);
-  border: none;
-  cursor: pointer;
-  transition:
-    background var(--transition),
-    color var(--transition),
-    transform var(--transition),
-    box-shadow var(--transition);
-}
-
-.btn-primary {
-  background: var(--color-accent);
-  color: var(--color-bg);
-}
-
-.btn-primary:hover,
-.btn-primary:focus-visible {
-  background: var(--color-accent-hover);
-  color: var(--color-bg);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(94, 234, 212, 0.25);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
-}
-
-.btn-secondary:hover,
-.btn-secondary:focus-visible {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-  transform: translateY(-2px);
+  gap: var(--space-lg);
 }
 
 .hero-scroll {
-  margin-top: var(--space-2xl);
-  display: flex;
-  align-items: center;
-  gap: var(--space-sm);
-  font-size: 0.875rem;
-  color: var(--color-text-muted);
+  margin-top: var(--space-section);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--nvidia-on-dark-mute);
 }
 
-.hero-scroll-line {
-  width: 3rem;
-  height: 1px;
-  background: linear-gradient(90deg, var(--color-accent), transparent);
+/* -------------------------------------------------------------------------- */
+/* Corner square — signature motif                                            */
+/* -------------------------------------------------------------------------- */
+
+.corner-square {
+  display: block;
+  width: var(--corner-square-size);
+  height: var(--corner-square-size);
+  background: var(--nvidia-primary);
+  flex-shrink: 0;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Cards — hairline borders, no shadow                                        */
+/* -------------------------------------------------------------------------- */
+
+.card {
+  position: relative;
+  background: var(--nvidia-canvas);
+  border: 1px solid var(--nvidia-hairline);
+  border-radius: var(--rounded-sm);
+  padding: var(--space-xl);
+}
+
+.card > .corner-square {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.card-title {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.47;
+  color: var(--nvidia-ink);
+  margin: 0 0 var(--space-sm);
+}
+
+.card-subtitle {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.67;
+  color: var(--nvidia-mute);
+  margin: 0 0 var(--space-lg);
+}
+
+.badge-tag {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.43;
+  text-transform: uppercase;
+  color: var(--nvidia-body);
+  background: var(--nvidia-surface-soft);
+  padding: 4px 10px;
+  border-radius: var(--rounded-sm);
+  margin-bottom: var(--space-lg);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -426,38 +575,22 @@ a:focus-visible {
 }
 
 .about-card {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
+  padding-top: calc(var(--space-xl) + var(--corner-square-size));
 }
 
 .about-avatar {
-  width: 5rem;
-  height: 5rem;
+  width: 4rem;
+  height: 4rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-accent-dim), var(--color-bg-elevated));
-  border: 2px solid var(--color-accent);
+  background: var(--nvidia-surface-soft);
+  border: 1px solid var(--nvidia-hairline);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--color-accent);
-  margin-bottom: var(--space-md);
-}
-
-.about-card h3 {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  margin: 0 0 var(--space-xs);
-}
-
-.about-role {
-  color: var(--color-text-muted);
-  font-size: 0.9375rem;
-  margin: 0 0 var(--space-md);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--nvidia-primary);
+  margin-bottom: var(--space-lg);
 }
 
 .about-highlights {
@@ -466,29 +599,33 @@ a:focus-visible {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: var(--space-md);
 }
 
 .about-highlights li {
   display: flex;
   align-items: flex-start;
-  gap: var(--space-sm);
-  font-size: 0.9375rem;
+  gap: var(--space-md);
+  font-size: 15px;
+  line-height: 1.67;
+  color: var(--nvidia-body);
 }
 
 .about-highlights li::before {
   content: "";
   flex-shrink: 0;
-  width: 6px;
-  height: 6px;
-  margin-top: 0.55em;
-  border-radius: 50%;
-  background: var(--color-accent);
+  width: var(--corner-square-size);
+  height: var(--corner-square-size);
+  margin-top: 0.35em;
+  background: var(--nvidia-primary);
+  border-radius: var(--rounded-none);
 }
 
 .about-text p {
-  margin: 0 0 var(--space-md);
-  color: var(--color-text-muted);
+  margin: 0 0 var(--space-lg);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--nvidia-body);
 }
 
 .about-text p:last-child {
@@ -498,26 +635,28 @@ a:focus-visible {
 .skill-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-xs);
-  margin-top: var(--space-lg);
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
 }
 
 .skill-tag {
-  font-size: 0.8125rem;
-  font-weight: 500;
-  padding: 0.375rem 0.75rem;
-  background: var(--color-accent-dim);
-  color: var(--color-accent);
-  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.43;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  background: var(--nvidia-surface-soft);
+  color: var(--nvidia-body);
+  border-radius: var(--rounded-sm);
 }
 
 /* -------------------------------------------------------------------------- */
-/* Projects                                                                   */
+/* Projects — resource-card grid                                              */
 /* -------------------------------------------------------------------------- */
 
 .projects-grid {
   display: grid;
-  gap: var(--space-lg);
+  gap: var(--space-xl);
 }
 
 @media (min-width: 40rem) {
@@ -535,95 +674,68 @@ a:focus-visible {
 .project-card {
   display: flex;
   flex-direction: column;
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  transition:
-    border-color var(--transition),
-    transform var(--transition),
-    box-shadow var(--transition);
-}
-
-.project-card:hover {
-  border-color: rgba(94, 234, 212, 0.3);
-  transform: translateY(-4px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
-}
-
-.project-card-header {
-  padding: var(--space-lg);
-  padding-bottom: 0;
-}
-
-.project-icon {
-  width: 2.75rem;
-  height: 2.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--color-accent-dim);
-  border-radius: var(--radius);
-  font-size: 1.25rem;
-  margin-bottom: var(--space-md);
-}
-
-.project-card h3 {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  margin: 0 0 var(--space-xs);
+  padding-top: calc(var(--space-xl) + var(--corner-square-size));
 }
 
 .project-card-body {
-  padding: var(--space-md) var(--space-lg);
   flex: 1;
 }
 
 .project-card-body p {
   margin: 0;
-  font-size: 0.9375rem;
-  color: var(--color-text-muted);
+  font-size: 15px;
+  line-height: 1.67;
+  color: var(--nvidia-body);
 }
 
 .project-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-xs);
-  padding: 0 var(--space-lg) var(--space-md);
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
 }
 
 .project-tag {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--color-text-muted);
-  padding: 0.25rem 0.5rem;
-  background: var(--color-bg-elevated);
-  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.43;
+  text-transform: uppercase;
+  color: var(--nvidia-body);
+  padding: 4px 10px;
+  background: var(--nvidia-surface-soft);
+  border-radius: var(--rounded-sm);
 }
 
 .project-card-footer {
-  padding: var(--space-md) var(--space-lg) var(--space-lg);
-  border-top: 1px solid var(--color-border);
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--nvidia-hairline);
   display: flex;
-  gap: var(--space-md);
+  flex-wrap: wrap;
+  gap: var(--space-lg);
 }
 
 .project-link {
-  font-size: 0.875rem;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--nvidia-primary);
+  text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: var(--space-xs);
+  min-height: 44px;
+  padding: var(--space-sm) 0;
+}
+
+.project-link:hover,
+.project-link:focus-visible {
+  color: var(--nvidia-primary-dark);
 }
 
 .project-link svg {
   width: 1rem;
   height: 1rem;
-  transition: transform var(--transition);
-}
-
-.project-link:hover svg {
-  transform: translateX(3px);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -643,15 +755,27 @@ a:focus-visible {
 }
 
 .contact-card {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
+  padding-top: calc(var(--space-xl) + var(--corner-square-size));
+}
+
+.contact-card-title {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--nvidia-ink);
+  margin: 0 0 var(--space-sm);
+}
+
+.contact-card-desc {
+  font-size: 15px;
+  line-height: 1.67;
+  color: var(--nvidia-body);
+  margin: 0;
 }
 
 .contact-links {
   list-style: none;
-  margin: var(--space-lg) 0 0;
+  margin: var(--space-xl) 0 0;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -661,21 +785,21 @@ a:focus-visible {
 .contact-link-item a {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-md);
-  background: var(--color-bg-elevated);
-  border-radius: var(--radius);
-  border: 1px solid var(--color-border);
-  color: var(--color-text);
-  transition:
-    border-color var(--transition),
-    background var(--transition);
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+  min-height: 44px;
+  background: var(--nvidia-surface-soft);
+  border: 1px solid var(--nvidia-hairline);
+  border-radius: var(--rounded-sm);
+  color: var(--nvidia-ink);
+  text-decoration: none;
+  transition: border-color var(--transition);
 }
 
-.contact-link-item a:hover {
-  border-color: var(--color-accent);
-  background: var(--color-accent-dim);
-  color: var(--color-text);
+.contact-link-item a:hover,
+.contact-link-item a:focus-visible {
+  border-color: var(--nvidia-primary);
+  color: var(--nvidia-ink);
 }
 
 .contact-link-icon {
@@ -684,9 +808,10 @@ a:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-accent-dim);
-  border-radius: var(--radius);
-  color: var(--color-accent);
+  background: var(--nvidia-canvas);
+  border: 1px solid var(--nvidia-hairline);
+  border-radius: var(--rounded-sm);
+  color: var(--nvidia-primary);
   flex-shrink: 0;
 }
 
@@ -697,44 +822,53 @@ a:focus-visible {
 
 .contact-link-text strong {
   display: block;
-  font-size: 0.9375rem;
-  margin-bottom: 0.125rem;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: var(--space-xxs);
 }
 
 .contact-link-text span {
-  font-size: 0.8125rem;
-  color: var(--color-text-muted);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.67;
+  color: var(--nvidia-mute);
 }
 
 .contact-form label {
   display: block;
-  font-size: 0.875rem;
-  font-weight: 500;
-  margin-bottom: var(--space-xs);
-  color: var(--color-text-muted);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: var(--space-sm);
+  color: var(--nvidia-ink);
 }
 
 .contact-form .form-group {
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-lg);
 }
 
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  padding: 0.75rem 1rem;
+  padding: 12px 16px;
+  min-height: 44px;
   font-family: inherit;
-  font-size: 1rem;
-  color: var(--color-text);
-  background: var(--color-bg-elevated);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--nvidia-ink);
+  background: var(--nvidia-canvas);
+  border: 1px solid var(--nvidia-hairline);
+  border-radius: var(--rounded-sm);
   transition: border-color var(--transition);
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
   outline: none;
-  border-color: var(--color-accent);
+  border: 2px solid var(--nvidia-primary);
+  padding: 11px 15px;
 }
 
 .contact-form textarea {
@@ -742,17 +876,24 @@ a:focus-visible {
   resize: vertical;
 }
 
+.contact-form textarea:focus {
+  padding: 11px 15px;
+}
+
 .form-note {
-  font-size: 0.8125rem;
-  color: var(--color-text-muted);
-  margin-top: var(--space-sm);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--nvidia-mute);
+  margin-top: var(--space-lg);
 }
 
 .form-status {
-  margin-top: var(--space-md);
-  padding: var(--space-sm) var(--space-md);
-  border-radius: var(--radius);
-  font-size: 0.875rem;
+  margin-top: var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  border: 1px solid var(--nvidia-hairline);
+  border-radius: var(--rounded-sm);
+  font-size: 15px;
   display: none;
 }
 
@@ -761,53 +902,66 @@ a:focus-visible {
 }
 
 .form-status.is-success {
-  background: var(--color-accent-dim);
-  color: var(--color-accent);
+  background: var(--nvidia-surface-soft);
+  color: var(--nvidia-body);
+  border-color: var(--nvidia-primary);
 }
 
 /* -------------------------------------------------------------------------- */
-/* Footer                                                                     */
+/* Footer — footer-section                                                    */
 /* -------------------------------------------------------------------------- */
 
 .site-footer {
-  padding-block: var(--space-lg);
-  border-top: 1px solid var(--color-border);
+  background: var(--nvidia-surface-dark);
+  color: var(--nvidia-on-dark-mute);
+  padding-block: var(--space-section);
+  border-top: 1px solid var(--nvidia-hairline-strong);
 }
 
 .footer-inner {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: var(--space-sm);
-  text-align: center;
+  align-items: flex-start;
+  gap: var(--space-xl);
 }
 
 @media (min-width: 48rem) {
   .footer-inner {
     flex-direction: row;
     justify-content: space-between;
-    text-align: left;
+    align-items: center;
   }
 }
 
 .footer-copy {
   margin: 0;
-  font-size: 0.875rem;
-  color: var(--color-text-muted);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.67;
+  color: var(--nvidia-on-dark-mute);
 }
 
 .footer-links {
   display: flex;
-  gap: var(--space-md);
+  flex-wrap: wrap;
+  gap: var(--space-lg);
 }
 
 .footer-links a {
-  font-size: 0.875rem;
-  color: var(--color-text-muted);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--nvidia-on-dark);
+  text-decoration: none;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-sm) 0;
 }
 
-.footer-links a:hover {
-  color: var(--color-accent);
+.footer-links a:hover,
+.footer-links a:focus-visible {
+  color: var(--nvidia-primary);
 }
 
 /* -------------------------------------------------------------------------- */
@@ -816,10 +970,10 @@ a:focus-visible {
 
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(16px);
   transition:
-    opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity 0.5s ease,
+    transform 0.5s ease;
 }
 
 .reveal.is-visible {
@@ -827,6 +981,30 @@ a:focus-visible {
   transform: translateY(0);
 }
 
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+
+/* -------------------------------------------------------------------------- */
+/* Responsive — section padding scale                                         */
+/* -------------------------------------------------------------------------- */
+
+@media (max-width: 47.99rem) {
+  .section {
+    padding-block: var(--space-xxl);
+  }
+
+  .hero-content {
+    padding-block: 48px;
+  }
+
+  .container {
+    width: min(100% - 32px, var(--max-width));
+  }
+}
+
+@media (min-width: 48rem) and (max-width: 63.99rem) {
+  .section {
+    padding-block: 48px;
+  }
+}
