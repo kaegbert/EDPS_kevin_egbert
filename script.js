@@ -4,9 +4,8 @@
   /* Set your email for the contact form mailto link */
   const CONTACT_EMAIL = "";
 
-  const header = document.querySelector(".site-header");
   const navToggle = document.querySelector(".nav-toggle");
-  const navMenu = document.querySelector(".nav-menu");
+  const sidebarNav = document.querySelector(".sidebar-nav");
   const navLinks = document.querySelectorAll(".nav-link");
   const sections = document.querySelectorAll("section[id]");
   const revealElements = document.querySelectorAll(".reveal");
@@ -19,33 +18,24 @@
     yearEl.textContent = String(new Date().getFullYear());
   }
 
-  /* Sticky header shadow on scroll */
-  function updateHeader() {
-    if (!header) return;
-    header.classList.toggle("is-scrolled", window.scrollY > 8);
-  }
-
-  window.addEventListener("scroll", updateHeader, { passive: true });
-  updateHeader();
-
   /* Mobile navigation */
   function closeNav() {
-    if (!navToggle || !navMenu) return;
+    if (!navToggle || !sidebarNav) return;
     navToggle.setAttribute("aria-expanded", "false");
-    navMenu.classList.remove("is-open");
+    sidebarNav.classList.remove("is-open");
     document.body.style.overflow = "";
   }
 
   function openNav() {
-    if (!navToggle || !navMenu) return;
+    if (!navToggle || !sidebarNav) return;
     navToggle.setAttribute("aria-expanded", "true");
-    navMenu.classList.add("is-open");
+    sidebarNav.classList.add("is-open");
     document.body.style.overflow = "hidden";
   }
 
-  if (navToggle && navMenu) {
+  if (navToggle && sidebarNav) {
     navToggle.addEventListener("click", function () {
-      const isOpen = navMenu.classList.contains("is-open");
+      const isOpen = sidebarNav.classList.contains("is-open");
       if (isOpen) {
         closeNav();
       } else {
@@ -141,7 +131,7 @@
         mailtoBase + "subject=" + subject + "&body=" + body;
 
       formStatus.textContent =
-        "Your email client should open shortly. If it does not, reach out via GitHub.";
+        "Your email client should open shortly. If it does not, reach out on GitHub.";
       formStatus.className = "form-status is-visible is-success";
       contactForm.reset();
     });

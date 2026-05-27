@@ -18,7 +18,6 @@ Static personal website for **EDPS 6560** (Summer 2026), built with plain HTML, 
 ├── index.html    # Entry point
 ├── styles.css    # All styles
 ├── script.js     # Navigation, scroll effects, form
-├── DESIGN.md     # NVIDIA design system tokens
 └── README.md
 ```
 
@@ -45,10 +44,6 @@ Then visit `http://localhost:8000`.
 5. Save. After a minute or two, the site will be live at your Pages URL.
 
 Because `index.html` is at the repository root, GitHub Pages serves it automatically.
-
-## Design system
-
-This snapshot follows the NVIDIA-inspired tokens documented in `DESIGN.md` (from [awesome-design-md](https://github.com/VoltAgent/awesome-design-md)).
 
 ## Customize
 
