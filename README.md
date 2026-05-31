@@ -2,7 +2,7 @@
 
 Static personal website for **EDPS 6560** (Summer 2026), built with plain HTML, CSS, and JavaScript. Deployable on [GitHub Pages](https://pages.github.com/) with no backend.
 
-**Live site:** [kaegbert.github.io/EDPS_kevin_egbert](https://kaegbert.github.io/EDPS_kevin_egbert/)
+**Live site:** [[kaegbert.github.io/EDPS_kevin_egbert](https://kaegbert.github.io/EDPS_kevin_egbert/)](https://kaegbert.github.io/EDPS_kevin_egbert/index.html)
 
 ## Features
 
