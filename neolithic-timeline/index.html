@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Neolithia — place historical events in chronological order."
+    />
+    <title>Neolithia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/proxima-nova-2" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <h1 class="app-title">Neolithia</h1>
+        <p class="tagline">
+          Drag the mystery card from the bottom onto the timeline — earlier on the left, later on the right.
+        </p>
+        <div class="scoreboard" aria-live="polite">
+          <span class="score-label">Score</span>
+          <span class="score-value" id="score">0</span>
+          <span class="score-divider">/</span>
+          <span class="score-total" id="score-total">0</span>
+          <span class="round-label" id="round-label">Round 1</span>
+        </div>
+      </header>
+
+      <div class="game-stage">
+        <div class="game-top">
+          <section class="timeline-section" id="timeline-section" aria-labelledby="timeline-heading">
+            <h2 id="timeline-heading" class="panel-title">Your timeline</h2>
+            <div
+              class="timeline-range"
+              id="timeline-range"
+              role="img"
+              aria-label="Timeline date range"
+              hidden
+            >
+              <span class="timeline-range-label" id="timeline-range-start"></span>
+              <div class="timeline-range-track" aria-hidden="true">
+                <div class="timeline-range-markers" id="timeline-range-markers"></div>
+              </div>
+              <span class="timeline-range-label" id="timeline-range-end"></span>
+            </div>
+            <p class="timeline-empty" id="timeline-empty">Timeline will appear here.</p>
+            <div class="timeline" id="timeline" role="list"></div>
+          </section>
+
+          <section
+            class="placement-panel"
+            id="placement-panel"
+            aria-labelledby="placement-heading"
+            hidden
+          >
+            <h2 id="placement-heading" class="panel-title">Place on timeline</h2>
+            <p class="placement-hint">
+              Drop the mystery card on a slot above, or click a slot if you are not using a mouse.
+            </p>
+          </section>
+        </div>
+
+        <aside class="mystery-dock" aria-labelledby="mystery-heading">
+          <div class="round-actions" id="round-actions" hidden>
+            <button type="button" class="btn btn--primary" id="btn-next">Next card</button>
+          </div>
+          <section class="mystery-panel" aria-labelledby="mystery-heading">
+            <h2 id="mystery-heading" class="panel-title">Mystery card</h2>
+            <p class="drag-hint" id="drag-hint" hidden>
+              Drag this card onto a highlighted slot on the timeline above.
+            </p>
+            <article class="card card--mystery" id="mystery-card" hidden draggable="false">
+              <div class="card-header">
+                <span class="card-geo" id="mystery-geo" role="img" aria-hidden="true"></span>
+                <p class="card-region" id="mystery-region"></p>
+              </div>
+              <h3 class="card-title" id="mystery-title"></h3>
+              <p class="card-description" id="mystery-description"></p>
+              <p class="card-date card-date--hidden" id="mystery-date" aria-hidden="true">
+                <span class="date-label">Date:</span>
+                <span id="mystery-date-text"></span>
+              </p>
+            </article>
+            <p class="placeholder" id="mystery-placeholder">Loading…</p>
+          </section>
+          <div class="feedback" id="feedback" role="status" aria-live="assertive" hidden></div>
+        </aside>
+      </div>
+
+      <!-- Start / end screens -->
+      <div class="overlay" id="start-screen">
+        <div class="overlay-card overlay-card--wide">
+          <h2>Welcome</h2>
+          <p>
+            Choose which geographic regions to include, then place mystery cards in
+            chronological order. Each card’s colored map icon matches a region below.
+          </p>
+          <div class="geo-picker" id="geo-picker" aria-label="Choose geographic regions"></div>
+          <p class="geo-picker-status" id="geo-picker-status" aria-live="polite"></p>
+          <button type="button" class="btn btn--primary" id="btn-start">Start game</button>
+        </div>
+      </div>
+
+      <div class="overlay" id="end-screen" hidden>
+        <div class="overlay-card">
+          <h2>Game over</h2>
+          <p id="end-message"></p>
+          <p class="end-score">
+            Final score: <strong id="end-score">0</strong>
+          </p>
+          <button type="button" class="btn btn--primary" id="btn-restart">Play again</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="card-tooltip" class="card-tooltip" role="tooltip" hidden></div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
