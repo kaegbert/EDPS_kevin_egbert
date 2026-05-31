@@ -11,12 +11,6 @@
   const revealElements = document.querySelectorAll(".reveal");
   const contactForm = document.getElementById("contact-form");
   const formStatus = document.querySelector(".form-status");
-  const yearEl = document.getElementById("year");
-
-  /* Current year in footer */
-  if (yearEl) {
-    yearEl.textContent = String(new Date().getFullYear());
-  }
 
   /* Mobile navigation */
   function closeNav() {
