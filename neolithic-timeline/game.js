@@ -277,6 +277,8 @@
     title: "Norte Chico / Caral",
     date: -3000,
     region: "Peru",
+    lat: -10.89,
+    lon: -77.52,
     description:
       "One of the Americas' earliest urban centers rose on the Pacific coast with pyramids and plazas.",
   },
@@ -1038,6 +1040,8 @@
     title: "Chavín Religious Center",
     date: -3000,
     region: "Peru",
+    lat: -9.59,
+    lon: -77.18,
     geo: "americas",
     description:
       "Temple complexes in the Andes spread art styles and ritual influence across much of Peru.",
@@ -1631,8 +1635,13 @@
 
   /** Mystery cards per session (full deck is shuffled; only this many rounds per game) */
   const MYSTERY_ROUNDS_PER_GAME = 15;
+  const TIMELINE_SLIDE_MS = 480;
+  const CORRECT_CELEBRATE_MS = 720;
+  const CORRECT_SPARK_COUNT = 14;
 
   /** Game phases */
+  const MOBILE_MQ = window.matchMedia("(max-width: 47.9375rem)");
+
   const PHASE = {
     START: "start",
     PLACING: "placing",
@@ -1647,6 +1656,8 @@
   /** All events in play this session (selected regions) — sets range bar bounds */
   /** @type {typeof EVENTS} */
   let gameEventPool = [];
+  /** Geographic areas chosen when the current game started (map zoom) */
+  let gameSelectedGeos = [];
   /** @type {typeof EVENTS[0] | null} */
   let mysteryCard = null;
   let score = 0;
@@ -1657,6 +1668,24 @@
   let lastInsertIndex = -1;
   /** Whether the last placement was correct */
   let lastPlacementCorrect = false;
+  /** Follows cursor while dragging (native ghost hidden via drag-image stub) */
+  let mysteryDragFollower = null;
+  let mysteryDragImageStub = null;
+  let mysteryDragOffsetX = 0;
+  let mysteryDragOffsetY = 0;
+  let timelineFlipFinishTimer = null;
+  let revealFeedbackTimer = null;
+  let correctCelebrateTimer = null;
+  let correctSparkBurstEl = null;
+  /** Timeline index of the reference event for the current round */
+  let roundAnchorIndex = 0;
+  /** True if the mystery card belongs before roundAnchorIndex */
+  let roundCorrectIsBefore = true;
+  /** Insert index when the player answers correctly */
+  let roundCorrectInsertIndex = 0;
+  /** Timeline indices to highlight and scroll into view (anchor + optional neighbor) */
+  let roundHighlightIndices = [];
+  let roundAnchorTitle = "";
 
   const el = {
     score: document.getElementById("score"),
@@ -1672,22 +1701,39 @@
     mysteryPlaceholder: document.getElementById("mystery-placeholder"),
     dragHint: document.getElementById("drag-hint"),
     placementPanel: document.getElementById("placement-panel"),
+    placementPrompt: document.getElementById("placement-prompt"),
+    placementChoices: document.getElementById("placement-choices"),
+    btnPlaceBefore: document.getElementById("btn-place-before"),
+    btnPlaceAfter: document.getElementById("btn-place-after"),
     feedback: document.getElementById("feedback"),
+    gameStage: document.querySelector(".game-stage"),
+    mysteryDock: document.getElementById("mystery-dock"),
     gameTop: document.querySelector(".game-top"),
     timeline: document.getElementById("timeline"),
     timelineSection: document.getElementById("timeline-section"),
-    timelineEmpty: document.getElementById("timeline-empty"),
+    timelineScroll: document.getElementById("timeline-scroll"),
+    timelineTrack: document.getElementById("timeline-track"),
+    timelineWelcomeMap: document.getElementById("timeline-welcome-map"),
+    btnTheme: document.getElementById("btn-theme"),
+    btnHeaderMenu: document.getElementById("btn-header-menu"),
+    headerMenuDropdown: document.getElementById("header-menu-dropdown"),
     timelineRange: document.getElementById("timeline-range"),
     timelineRangeStart: document.getElementById("timeline-range-start"),
     timelineRangeEnd: document.getElementById("timeline-range-end"),
     timelineRangeMarkers: document.getElementById("timeline-range-markers"),
+    timelineWorldMap: document.getElementById("timeline-world-map"),
+    timelineWorldMapSvg: document.getElementById("timeline-world-map-svg"),
+    timelineWorldMapLayer: document.getElementById("timeline-world-map-layer"),
+    timelineWorldMapDots: document.getElementById("timeline-world-map-dots"),
     cardTooltip: document.getElementById("card-tooltip"),
+    mapTooltip: document.getElementById("map-tooltip"),
     startScreen: document.getElementById("start-screen"),
     endScreen: document.getElementById("end-screen"),
     endMessage: document.getElementById("end-message"),
     endScore: document.getElementById("end-score"),
     btnStart: document.getElementById("btn-start"),
     btnRestart: document.getElementById("btn-restart"),
+    btnHeaderRestart: document.getElementById("btn-header-restart"),
     btnNext: document.getElementById("btn-next"),
     roundActions: document.getElementById("round-actions"),
     geoPickerStatus: document.getElementById("geo-picker-status"),
@@ -1716,10 +1762,14 @@
     return "1 CE";
   }
 
-  /** Left to right: dates increase (earlier = more negative) */
+  function eventYear(date) {
+    return Number(date);
+  }
+
+  /** Left to right: non-decreasing years (equal years may be in any order) */
   function isChronological(events) {
     for (let i = 1; i < events.length; i++) {
-      if (events[i].date < events[i - 1].date) {
+      if (eventYear(events[i].date) < eventYear(events[i - 1].date)) {
         return false;
       }
     }
@@ -1727,21 +1777,408 @@
   }
 
   /** True if inserting `event` at `index` keeps timeline in order */
-  function isCorrectPlacement(event, index) {
-    const before = timeline[index - 1];
-    const after = timeline[index];
-    if (before && event.date < before.date) return false;
-    if (after && event.date > after.date) return false;
-    return true;
+  function isValidInsertIndex(event, list, index) {
+    if (Number.isNaN(eventYear(event.date))) return false;
+    const trial = list.slice();
+    trial.splice(index, 0, event);
+    return isChronological(trial);
   }
 
-  /** Index where `event` belongs on a sorted timeline (earliest left) */
-  function findChronologicalInsertIndex(event, list) {
-    let i = 0;
-    while (i < list.length && list[i].date <= event.date) {
-      i++;
+  function isCorrectPlacement(event, index) {
+    return isValidInsertIndex(event, timeline, index);
+  }
+
+  function placementIsBeforeAnchor(insertIndex) {
+    return insertIndex <= roundAnchorIndex;
+  }
+
+  function mysterySameYearAsAnchor() {
+    const anchor = timeline[roundAnchorIndex];
+    if (!mysteryCard || !anchor) return false;
+    return eventYear(mysteryCard.date) === eventYear(anchor.date);
+  }
+
+  /** All indices where `event` may be inserted (same-year neighbors allow either side) */
+  function findValidInsertIndices(event, list) {
+    const indices = [];
+    for (let i = 0; i <= list.length; i++) {
+      if (isValidInsertIndex(event, list, i)) {
+        indices.push(i);
+      }
     }
-    return i;
+    return indices;
+  }
+
+  /** Snap to nearest valid index; prefers the player's slot when same-year */
+  /** Pick anchor event + before/after answer for the current mystery card */
+  function setupRoundPlacement() {
+    const valid = findValidInsertIndices(mysteryCard, timeline);
+    const questionOptions = [];
+
+    valid.forEach(function (insertIdx) {
+      if (insertIdx === 0) {
+        questionOptions.push({ anchor: 0, before: true, insert: 0 });
+      }
+      if (insertIdx === timeline.length) {
+        questionOptions.push({
+          anchor: timeline.length - 1,
+          before: false,
+          insert: timeline.length,
+        });
+      }
+      if (insertIdx > 0 && insertIdx < timeline.length) {
+        questionOptions.push({ anchor: insertIdx, before: true, insert: insertIdx });
+        questionOptions.push({
+          anchor: insertIdx - 1,
+          before: false,
+          insert: insertIdx,
+        });
+      }
+    });
+
+    if (!questionOptions.length) {
+      roundAnchorIndex = 0;
+      roundCorrectIsBefore = true;
+      roundCorrectInsertIndex = 0;
+    } else {
+      const pick = questionOptions[Math.floor(Math.random() * questionOptions.length)];
+      roundAnchorIndex = pick.anchor;
+      roundCorrectIsBefore = pick.before;
+      roundCorrectInsertIndex = pick.insert;
+    }
+
+    roundAnchorTitle = timeline[roundAnchorIndex]
+      ? timeline[roundAnchorIndex].title
+      : "";
+
+    roundHighlightIndices = [roundAnchorIndex];
+    if (timeline.length > 1) {
+      if (roundCorrectIsBefore && roundAnchorIndex > 0) {
+        roundHighlightIndices.push(roundAnchorIndex - 1);
+      } else if (!roundCorrectIsBefore && roundAnchorIndex < timeline.length - 1) {
+        roundHighlightIndices.push(roundAnchorIndex + 1);
+      } else if (roundAnchorIndex > 0) {
+        roundHighlightIndices.push(roundAnchorIndex - 1);
+      } else if (roundAnchorIndex < timeline.length - 1) {
+        roundHighlightIndices.push(roundAnchorIndex + 1);
+      }
+    }
+    roundHighlightIndices = roundHighlightIndices.filter(function (value, index, list) {
+      return list.indexOf(value) === index;
+    });
+  }
+
+  function getRoundFocusElements() {
+    const nodes = [];
+    if (!el.timeline) return nodes;
+
+    const anchorSlot = el.timeline.querySelector(
+      '[data-timeline-index="' + roundAnchorIndex + '"]'
+    );
+    if (!anchorSlot) return nodes;
+
+    let sibling = anchorSlot.previousElementSibling;
+    while (sibling) {
+      if (sibling.classList.contains("drop-zone--anchor-before")) {
+        nodes.push(sibling);
+        break;
+      }
+      if (sibling.classList.contains("timeline-slot")) {
+        break;
+      }
+      sibling = sibling.previousElementSibling;
+    }
+
+    nodes.push(anchorSlot);
+
+    sibling = anchorSlot.nextElementSibling;
+    while (sibling) {
+      if (sibling.classList.contains("drop-zone--anchor-after")) {
+        nodes.push(sibling);
+        break;
+      }
+      if (sibling.classList.contains("timeline-slot")) {
+        break;
+      }
+      sibling = sibling.nextElementSibling;
+    }
+
+    roundHighlightIndices.forEach(function (index) {
+      if (index === roundAnchorIndex) return;
+      const slot = el.timeline.querySelector(
+        '[data-timeline-index="' + index + '"]'
+      );
+      if (slot && nodes.indexOf(slot) < 0) {
+        nodes.push(slot);
+      }
+    });
+
+    return nodes;
+  }
+
+  function getTimelineSlotsForIndices(indices) {
+    if (!el.timeline) return [];
+    return indices
+      .map(function (index) {
+        return el.timeline.querySelector(
+          '[data-timeline-index="' + index + '"]'
+        );
+      })
+      .filter(Boolean);
+  }
+
+  function getMapCenterX() {
+    if (el.timelineWorldMap && !el.timelineWorldMap.hidden) {
+      const mapRect = el.timelineWorldMap.getBoundingClientRect();
+      return mapRect.left + mapRect.width / 2;
+    }
+    if (el.timelineSection) {
+      const sectionRect = el.timelineSection.getBoundingClientRect();
+      return sectionRect.left + sectionRect.width / 2;
+    }
+    return window.innerWidth / 2;
+  }
+
+  function getAnchorSlotElement() {
+    if (!el.timeline) return null;
+    return el.timeline.querySelector(
+      '[data-timeline-index="' + roundAnchorIndex + '"]'
+    );
+  }
+
+  function getOffsetLeftWithin(node, ancestor) {
+    let left = 0;
+    let current = node;
+    while (current && current !== ancestor) {
+      left += current.offsetLeft;
+      current = current.offsetParent;
+      if (!current || !ancestor.contains(current)) {
+        break;
+      }
+    }
+    return left;
+  }
+
+  function getAnchorCenterInTrack() {
+    const anchorSlot = getAnchorSlotElement();
+    if (!anchorSlot || !el.timelineTrack) return 0;
+    return (
+      getOffsetLeftWithin(anchorSlot, el.timelineTrack) + anchorSlot.offsetWidth / 2
+    );
+  }
+
+  function applyTimelineScrollPadding() {
+    if (!el.timelineScroll || !el.timelineTrack || !el.timeline) return false;
+
+    el.timelineTrack.style.paddingLeft = "0";
+    el.timelineTrack.style.paddingRight = "0";
+    el.timelineTrack.classList.remove("timeline-track--fits");
+    void el.timeline.offsetWidth;
+
+    const scrollEl = el.timelineScroll;
+    const contentWidth = el.timeline.scrollWidth;
+    const clientWidth = scrollEl.clientWidth;
+
+    if (clientWidth < 1) return false;
+
+    if (contentWidth <= clientWidth + 1) {
+      el.timelineTrack.classList.add("timeline-track--fits");
+      scrollEl.scrollLeft = 0;
+      return true;
+    }
+
+    const pad = Math.ceil(clientWidth / 2);
+    el.timelineTrack.style.paddingLeft = pad + "px";
+    el.timelineTrack.style.paddingRight = pad + "px";
+    return false;
+  }
+
+  function scrollTimelineToMapCenter(contentCenterX, smooth) {
+    const scrollEl = el.timelineScroll;
+    if (!scrollEl || typeof contentCenterX !== "number") return;
+
+    const mapCenter = getMapCenterX();
+    const scrollRect = scrollEl.getBoundingClientRect();
+    const mapCenterInScroll = mapCenter - scrollRect.left;
+    let targetScroll = contentCenterX - mapCenterInScroll;
+    const maxScroll = Math.max(0, scrollEl.scrollWidth - scrollEl.clientWidth);
+    targetScroll = Math.min(maxScroll, Math.max(0, targetScroll));
+
+    scrollEl.scrollTo({
+      left: targetScroll,
+      behavior: smooth ? "smooth" : "auto",
+    });
+  }
+
+  function getNodeCenterInTrack(node) {
+    if (!node || !el.timelineTrack) return 0;
+    return getOffsetLeftWithin(node, el.timelineTrack) + node.offsetWidth / 2;
+  }
+
+  function centerNodesUnderMap(nodes, smooth) {
+    if (!nodes.length) return;
+
+    let minCenter = Infinity;
+    let maxCenter = -Infinity;
+
+    nodes.forEach(function (node) {
+      const center = getNodeCenterInTrack(node);
+      minCenter = Math.min(minCenter, center);
+      maxCenter = Math.max(maxCenter, center);
+    });
+
+    scrollTimelineToMapCenter((minCenter + maxCenter) / 2, smooth);
+  }
+
+  function centerAnchorUnderMap(smooth) {
+    applyTimelineScrollPadding();
+    scrollTimelineToMapCenter(getAnchorCenterInTrack(), smooth);
+  }
+
+  function syncTimelineScrollLayout() {
+    applyTimelineScrollPadding();
+    if (el.timelineScroll) {
+      void el.timelineScroll.offsetHeight;
+    }
+  }
+
+  function runAfterTimelineLayout(callback) {
+    requestAnimationFrame(function () {
+      applyTimelineScrollPadding();
+      requestAnimationFrame(function () {
+        if (el.timelineScroll) {
+          void el.timelineScroll.offsetWidth;
+        }
+        callback();
+        window.setTimeout(callback, 80);
+      });
+    });
+  }
+
+  function getFocusIndicesForInsert(insertIndex) {
+    const anchorAfter =
+      insertIndex <= roundAnchorIndex ? roundAnchorIndex + 1 : roundAnchorIndex;
+    const indices = [insertIndex, anchorAfter];
+    return indices.filter(function (value, index, list) {
+      return list.indexOf(value) === index;
+    });
+  }
+
+  function getPostPlacementFocusIndices() {
+    return getFocusIndicesForInsert(lastInsertIndex);
+  }
+
+  function centerRoundFocusInTimeline(smooth) {
+    centerAnchorUnderMap(smooth);
+  }
+
+  function centerRevealInTimeline(smooth) {
+    centerNodesUnderMap(
+      getTimelineSlotsForIndices(getPostPlacementFocusIndices()),
+      smooth
+    );
+  }
+
+  function scheduleCenterRevealInTimeline(smooth) {
+    runAfterTimelineLayout(function () {
+      centerRevealInTimeline(smooth);
+    });
+  }
+
+  function scrollTimelineToRoundContext() {
+    if (!el.timelineScroll || !el.timeline) return;
+
+    el.timelineScroll.scrollLeft = 0;
+    runAfterTimelineLayout(function () {
+      centerAnchorUnderMap(false);
+    });
+  }
+
+  function isMobileViewport() {
+    return MOBILE_MQ.matches;
+  }
+
+  function syncPlacementPanelForViewport() {
+    if (!el.placementPanel) return;
+    if (phase !== PHASE.PLACING) {
+      return;
+    }
+    el.placementPanel.hidden = !isMobileViewport();
+    updateDragHint();
+  }
+
+  function updateDragHint() {
+    if (!el.dragHint || el.dragHint.hidden) return;
+    if (isMobileViewport()) {
+      el.dragHint.textContent =
+        "Drag onto Before or After beside the highlighted event, or tap the buttons below.";
+    } else {
+      el.dragHint.textContent =
+        "Drag the mystery card onto Before or After beside the highlighted event on the timeline.";
+    }
+    updateMysteryDockLayout();
+  }
+
+  function updatePlacementUI() {
+    if (!el.placementPanel || !timeline.length) return;
+
+    const anchor = timeline[roundAnchorIndex];
+    if (!anchor) return;
+
+    el.placementPanel.hidden = !isMobileViewport();
+
+    if (el.placementPrompt) {
+      el.placementPrompt.textContent =
+        "Did the mystery card happen before or after “" + anchor.title + "”?";
+    }
+    if (el.btnPlaceBefore) {
+      el.btnPlaceBefore.textContent = "Before — " + anchor.title;
+      el.btnPlaceBefore.setAttribute(
+        "aria-label",
+        "Place before " + anchor.title
+      );
+      el.btnPlaceBefore.disabled = false;
+    }
+    if (el.btnPlaceAfter) {
+      el.btnPlaceAfter.textContent = "After — " + anchor.title;
+      el.btnPlaceAfter.setAttribute("aria-label", "Place after " + anchor.title);
+      el.btnPlaceAfter.disabled = false;
+    }
+    if (el.placementChoices) {
+      el.placementChoices.hidden = false;
+    }
+    updateDragHint();
+  }
+
+  function disablePlacementChoices() {
+    if (el.btnPlaceBefore) el.btnPlaceBefore.disabled = true;
+    if (el.btnPlaceAfter) el.btnPlaceAfter.disabled = true;
+  }
+
+  function submitPlacementChoice(isBefore) {
+    if (!mysteryCard || phase !== PHASE.PLACING) return;
+    const insertIndex = isBefore ? roundAnchorIndex : roundAnchorIndex + 1;
+    placeCard(insertIndex);
+  }
+
+  function findChronologicalInsertIndex(event, list, preferredIndex) {
+    const valid = findValidInsertIndices(event, list);
+    if (!valid.length) {
+      return 0;
+    }
+    if (typeof preferredIndex !== "number") {
+      return valid[0];
+    }
+    let best = valid[0];
+    let bestDist = Math.abs(preferredIndex - best);
+    valid.forEach(function (i) {
+      const dist = Math.abs(preferredIndex - i);
+      if (dist < bestDist) {
+        best = i;
+        bestDist = dist;
+      }
+    });
+    return best;
   }
 
   function updateScoreboard() {
@@ -1835,6 +2272,10 @@
   }
 
   let tooltipAnchor = null;
+  let tooltipHideTimer = null;
+  let mapTooltipAnchor = null;
+  let mapTooltipHideTimer = null;
+  const TOOLTIP_FADE_MS = 220;
 
   function positionCardTooltip(anchor) {
     const tip = el.cardTooltip;
@@ -1854,20 +2295,116 @@
     tip.style.top = top + "px";
   }
 
+  function buildMapTooltipHtml(event) {
+    return (
+      '<p class="map-tooltip-title">' +
+      escapeHtml(event.title) +
+      "</p>" +
+      '<p class="map-tooltip-meta">' +
+      escapeHtml(event.region) +
+      " · " +
+      escapeHtml(formatDate(event.date)) +
+      "</p>"
+    );
+  }
+
+  function positionMapTooltip(anchor) {
+    if (!el.mapTooltip) return;
+    const tip = el.mapTooltip;
+    const rect = anchor.getBoundingClientRect();
+    const tipRect = tip.getBoundingClientRect();
+    const gap = 8;
+    let top = rect.bottom + gap;
+    let left = rect.left + rect.width / 2 - tipRect.width / 2;
+
+    left = Math.max(8, Math.min(left, window.innerWidth - tipRect.width - 8));
+    if (top + tipRect.height > window.innerHeight - 8) {
+      top = rect.top - tipRect.height - gap;
+    }
+    top = Math.max(8, Math.min(top, window.innerHeight - tipRect.height - 8));
+
+    tip.style.left = left + "px";
+    tip.style.top = top + "px";
+  }
+
+  function hideMapTooltip() {
+    if (!el.mapTooltip) return;
+    el.mapTooltip.classList.remove("card-tooltip--visible");
+    if (mapTooltipAnchor) {
+      mapTooltipAnchor.removeAttribute("aria-describedby");
+      mapTooltipAnchor = null;
+    }
+    if (mapTooltipHideTimer) {
+      clearTimeout(mapTooltipHideTimer);
+    }
+    mapTooltipHideTimer = setTimeout(function () {
+      el.mapTooltip.hidden = true;
+      mapTooltipHideTimer = null;
+    }, TOOLTIP_FADE_MS);
+  }
+
+  function showMapTooltip(event, anchor) {
+    if (!el.mapTooltip) return;
+    hideCardTooltip();
+    if (mapTooltipHideTimer) {
+      clearTimeout(mapTooltipHideTimer);
+      mapTooltipHideTimer = null;
+    }
+
+    mapTooltipAnchor = anchor;
+    el.mapTooltip.innerHTML = buildMapTooltipHtml(event);
+    el.mapTooltip.hidden = false;
+    anchor.setAttribute("aria-describedby", "map-tooltip");
+    positionMapTooltip(anchor);
+
+    requestAnimationFrame(function () {
+      el.mapTooltip.classList.add("card-tooltip--visible");
+    });
+  }
+
+  function attachMapMarkerTooltip(marker, event) {
+    marker.addEventListener("mouseenter", function () {
+      showMapTooltip(event, marker);
+    });
+    marker.addEventListener("mouseleave", hideMapTooltip);
+    marker.addEventListener("focus", function () {
+      showMapTooltip(event, marker);
+    });
+    marker.addEventListener("blur", hideMapTooltip);
+  }
+
   function showCardTooltip(event, anchor) {
+    hideMapTooltip();
+    if (tooltipHideTimer) {
+      clearTimeout(tooltipHideTimer);
+      tooltipHideTimer = null;
+    }
+
     tooltipAnchor = anchor;
     el.cardTooltip.innerHTML = buildTooltipHtml(event);
     el.cardTooltip.hidden = false;
     anchor.setAttribute("aria-describedby", "card-tooltip");
     positionCardTooltip(anchor);
+
+    requestAnimationFrame(function () {
+      el.cardTooltip.classList.add("card-tooltip--visible");
+    });
   }
 
   function hideCardTooltip() {
-    el.cardTooltip.hidden = true;
+    el.cardTooltip.classList.remove("card-tooltip--visible");
     if (tooltipAnchor) {
       tooltipAnchor.removeAttribute("aria-describedby");
       tooltipAnchor = null;
     }
+
+    if (tooltipHideTimer) {
+      clearTimeout(tooltipHideTimer);
+    }
+    tooltipHideTimer = setTimeout(function () {
+      el.cardTooltip.hidden = true;
+      tooltipHideTimer = null;
+    }, TOOLTIP_FADE_MS);
   }
 
   function attachTimelineTooltip(card, event) {
@@ -1884,10 +2421,238 @@
     card.addEventListener("blur", hideCardTooltip);
   }
 
-  function createTimelineCardElement(event, index, highlightIndex, revealClass) {
+  function getEventFlipId(event) {
+    return event.title.replace(/:/g, "::") + "::" + String(event.date);
+  }
+
+  function prefersReducedMotion() {
+    return (
+      typeof window.matchMedia === "function" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    );
+  }
+
+  const REVEAL_FEEDBACK_DELAY_MS = 600;
+  const DOCK_REVEAL_FADE_CLASS = "dock-reveal-fade";
+
+  function clearRevealFeedbackTimers() {
+    if (revealFeedbackTimer !== null) {
+      window.clearTimeout(revealFeedbackTimer);
+      revealFeedbackTimer = null;
+    }
+  }
+
+  function bindDockRevealFadeEnd(element) {
+    if (!element) return;
+    element.addEventListener(
+      "animationend",
+      function (event) {
+        if (event.target !== element) return;
+        element.classList.remove(DOCK_REVEAL_FADE_CLASS);
+      },
+      { once: true }
+    );
+  }
+
+  function revealDockElement(element, animate) {
+    if (!element) return;
+    const useFade = animate && !prefersReducedMotion();
+    if (useFade) {
+      element.classList.add(DOCK_REVEAL_FADE_CLASS);
+    } else {
+      element.classList.remove(DOCK_REVEAL_FADE_CLASS);
+    }
+    element.hidden = false;
+    if (useFade) {
+      bindDockRevealFadeEnd(element);
+    }
+  }
+
+  function scheduleRevealFeedback() {
+    clearRevealFeedbackTimers();
+    const delay = prefersReducedMotion() ? 0 : REVEAL_FEEDBACK_DELAY_MS;
+
+    revealFeedbackTimer = window.setTimeout(function () {
+      revealFeedbackTimer = null;
+      populateFeedbackContent();
+      revealDockElement(el.feedback, true);
+      populateRoundActionsContent();
+      revealDockElement(el.roundActions, true);
+      updateMysteryDockLayout();
+    }, delay);
+  }
+
+  function captureTimelineFlipRects() {
+    const rects = new Map();
+    if (!el.timeline) return rects;
+    Array.prototype.forEach.call(el.timeline.children, function (child) {
+      const id = child.dataset.flipId;
+      if (id) rects.set(id, child.getBoundingClientRect());
+    });
+    return rects;
+  }
+
+  function findTimelineSlotForEvent(event) {
+    if (!el.timeline) return null;
+    return el.timeline.querySelector(
+      '[data-flip-id="' + CSS.escape(getEventFlipId(event)) + '"]'
+    );
+  }
+
+  function clearCorrectPlacementCelebration() {
+    if (correctCelebrateTimer !== null) {
+      window.clearTimeout(correctCelebrateTimer);
+      correctCelebrateTimer = null;
+    }
+    if (correctSparkBurstEl && correctSparkBurstEl.parentNode) {
+      correctSparkBurstEl.parentNode.removeChild(correctSparkBurstEl);
+    }
+    correctSparkBurstEl = null;
+    if (!el.timeline) return;
+    el.timeline.querySelectorAll(".card--celebrate-correct").forEach(function (card) {
+      card.classList.remove("card--celebrate-correct");
+    });
+    el.timeline.querySelectorAll(".timeline-slot--celebrate").forEach(function (slot) {
+      slot.classList.remove("timeline-slot--celebrate");
+    });
+  }
+
+  function playCorrectPlacementCelebration() {
+    if (prefersReducedMotion() || !el.timeline) return;
+
+    clearCorrectPlacementCelebration();
+
+    const card = el.timeline.querySelector(".card--revealed-correct");
+    if (!card) return;
+
+    const slot = card.closest(".timeline-slot");
+    card.classList.add("card--celebrate-correct");
+    if (slot) {
+      slot.classList.add("timeline-slot--celebrate");
+    }
+
+    const rect = card.getBoundingClientRect();
+    const burst = document.createElement("div");
+    burst.className = "correct-spark-burst correct-spark-burst--fixed";
+    burst.setAttribute("aria-hidden", "true");
+    burst.style.left = rect.left + rect.width / 2 + "px";
+    burst.style.top = rect.top + rect.height / 2 + "px";
+
+    for (let i = 0; i < CORRECT_SPARK_COUNT; i++) {
+      const spark = document.createElement("span");
+      spark.className = "correct-spark";
+      if (i % 2 === 1) {
+        spark.classList.add("correct-spark--light");
+      }
+      const angle = (360 / CORRECT_SPARK_COUNT) * i + (i % 2 === 0 ? 8 : -8);
+      spark.style.setProperty("--spark-angle", angle + "deg");
+      spark.style.setProperty("--spark-delay", i * 0.02 + "s");
+      burst.appendChild(spark);
+    }
+
+    document.body.appendChild(burst);
+    correctSparkBurstEl = burst;
+    void card.offsetWidth;
+
+    correctCelebrateTimer = window.setTimeout(function () {
+      correctCelebrateTimer = null;
+      card.classList.remove("card--celebrate-correct");
+      if (slot) {
+        slot.classList.remove("timeline-slot--celebrate");
+      }
+      if (correctSparkBurstEl && correctSparkBurstEl.parentNode) {
+        correctSparkBurstEl.parentNode.removeChild(correctSparkBurstEl);
+      }
+      correctSparkBurstEl = null;
+    }, CORRECT_CELEBRATE_MS);
+  }
+
+  function cancelTimelineFlipAnimation() {
+    if (timelineFlipFinishTimer !== null) {
+      window.clearTimeout(timelineFlipFinishTimer);
+      timelineFlipFinishTimer = null;
+    }
+    if (!el.timeline) return;
+    el.timeline.classList.remove("timeline--animating");
+    Array.prototype.forEach.call(el.timeline.children, function (child) {
+      child.style.transition = "";
+      child.style.transform = "";
+    });
+  }
+
+  function playTimelineFlipAnimation(beforeRects, onDone) {
+    cancelTimelineFlipAnimation();
+
+    if (!el.timeline || !beforeRects || beforeRects.size === 0) {
+      if (onDone) onDone();
+      return;
+    }
+
+    if (prefersReducedMotion()) {
+      if (onDone) onDone();
+      return;
+    }
+
+    const moved = [];
+    Array.prototype.forEach.call(el.timeline.children, function (child) {
+      const id = child.dataset.flipId;
+      if (!id || !beforeRects.has(id)) return;
+      const before = beforeRects.get(id);
+      const after = child.getBoundingClientRect();
+      const dx = before.left - after.left;
+      const dy = before.top - after.top;
+      if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) return;
+      child.style.transition = "none";
+      child.style.transform = "translate(" + dx + "px, " + dy + "px)";
+      moved.push(child);
+    });
+
+    if (!moved.length) {
+      if (onDone) onDone();
+      return;
+    }
+
+    el.timeline.classList.add("timeline--animating");
+
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        moved.forEach(function (child) {
+          child.style.transition = "transform " + TIMELINE_SLIDE_MS + "ms ease";
+          child.style.transform = "";
+        });
+
+        timelineFlipFinishTimer = window.setTimeout(function () {
+          timelineFlipFinishTimer = null;
+          moved.forEach(function (child) {
+            child.style.transition = "";
+            child.style.transform = "";
+          });
+          el.timeline.classList.remove("timeline--animating");
+          if (onDone) onDone();
+        }, TIMELINE_SLIDE_MS + 40);
+      });
+    });
+  }
+
+  function createTimelineCardElement(
+    event,
+    index,
+    highlightIndex,
+    revealClass,
+    slotOptions
+  ) {
+    slotOptions = slotOptions || {};
     const slot = document.createElement("div");
     slot.className = "timeline-slot";
     slot.setAttribute("role", "listitem");
+    slot.dataset.flipId = getEventFlipId(event);
+    slot.dataset.timelineIndex = String(index);
+    if (slotOptions.isAnchor) {
+      slot.classList.add("timeline-slot--anchor");
+    }
+    if (slotOptions.isContext) {
+      slot.classList.add("timeline-slot--context");
+    }
 
     const card = document.createElement("article");
     card.className = "card card--timeline card--compact";
@@ -1906,17 +2671,24 @@
     return slot;
   }
 
-  function createDropZone(index) {
+  function createAnchorDropZone(isBefore) {
+    const anchor = timeline[roundAnchorIndex];
+    const anchorTitle = anchor ? anchor.title : "event";
     const zone = document.createElement("div");
-    zone.className = "drop-zone";
-    zone.dataset.insertIndex = String(index);
+    zone.className =
+      "drop-zone drop-zone--anchor-side " +
+      (isBefore ? "drop-zone--anchor-before" : "drop-zone--anchor-after");
+    zone.dataset.placementBefore = isBefore ? "1" : "0";
     zone.setAttribute("role", "button");
     zone.setAttribute("tabindex", "0");
-    zone.setAttribute("aria-label", getDropZoneLabel(index));
+    zone.setAttribute(
+      "aria-label",
+      (isBefore ? "Place before " : "Place after ") + anchorTitle
+    );
 
     const label = document.createElement("span");
     label.className = "drop-zone-label";
-    label.textContent = getDropZoneShortLabel(index);
+    label.textContent = isBefore ? "Before" : "After";
     zone.appendChild(label);
 
     zone.addEventListener("dragover", onDragOver);
@@ -1925,12 +2697,12 @@
     zone.addEventListener("keydown", function (event) {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
-        placeCard(index);
+        submitPlacementChoice(isBefore);
       }
     });
     zone.addEventListener("click", function () {
       if (phase === PHASE.PLACING) {
-        placeCard(index);
+        submitPlacementChoice(isBefore);
       }
     });
 
@@ -1961,10 +2733,77 @@
     const zone = event.currentTarget;
     if (!zone || phase !== PHASE.PLACING) return;
     zone.classList.remove("drop-zone--active");
+    if (zone.dataset.placementBefore !== undefined) {
+      submitPlacementChoice(zone.dataset.placementBefore === "1");
+      return;
+    }
     const index = parseInt(zone.dataset.insertIndex, 10);
     if (!Number.isNaN(index)) {
       placeCard(index);
     }
+  }
+
+  function cleanupMysteryDragVisuals() {
+    document.removeEventListener("dragover", onDocumentDragOver);
+    el.mysteryCard.removeEventListener("drag", onMysteryDrag);
+
+    if (mysteryDragFollower && mysteryDragFollower.parentNode) {
+      mysteryDragFollower.parentNode.removeChild(mysteryDragFollower);
+    }
+    mysteryDragFollower = null;
+
+    if (mysteryDragImageStub && mysteryDragImageStub.parentNode) {
+      mysteryDragImageStub.parentNode.removeChild(mysteryDragImageStub);
+    }
+    mysteryDragImageStub = null;
+
+    document.body.classList.remove("is-dragging-mystery");
+    el.mysteryCard.classList.remove("card--drag-source-hidden");
+  }
+
+  function updateMysteryDragFollowerPosition(clientX, clientY) {
+    if (!mysteryDragFollower) return;
+    if (clientX === 0 && clientY === 0) return;
+    mysteryDragFollower.style.left = clientX - mysteryDragOffsetX + "px";
+    mysteryDragFollower.style.top = clientY - mysteryDragOffsetY + "px";
+  }
+
+  function onDocumentDragOver(event) {
+    updateMysteryDragFollowerPosition(event.clientX, event.clientY);
+  }
+
+  function onMysteryDrag(event) {
+    updateMysteryDragFollowerPosition(event.clientX, event.clientY);
+  }
+
+  function startMysteryDragFollower(event) {
+    const rect = el.mysteryCard.getBoundingClientRect();
+    mysteryDragOffsetX = event.clientX - rect.left;
+    mysteryDragOffsetY = event.clientY - rect.top;
+
+    mysteryDragFollower = el.mysteryCard.cloneNode(true);
+    mysteryDragFollower.classList.add("mystery-drag-follower");
+    mysteryDragFollower.classList.remove("card--dragging", "card--drag-source-hidden");
+    mysteryDragFollower.removeAttribute("id");
+    mysteryDragFollower.removeAttribute("draggable");
+    mysteryDragFollower.setAttribute("aria-hidden", "true");
+    mysteryDragFollower.style.width = rect.width + "px";
+    mysteryDragFollower.style.height = rect.height + "px";
+    document.body.appendChild(mysteryDragFollower);
+    updateMysteryDragFollowerPosition(event.clientX, event.clientY);
+
+    mysteryDragImageStub = document.createElement("div");
+    mysteryDragImageStub.className = "mystery-drag-image-stub";
+    mysteryDragImageStub.setAttribute("aria-hidden", "true");
+    mysteryDragImageStub.textContent = "\u00a0";
+    document.body.appendChild(mysteryDragImageStub);
+    if (event.dataTransfer) {
+      event.dataTransfer.setDragImage(mysteryDragImageStub, 0, 0);
+    }
+
+    el.mysteryCard.classList.add("card--drag-source-hidden");
+    document.addEventListener("dragover", onDocumentDragOver);
+    el.mysteryCard.addEventListener("drag", onMysteryDrag);
   }
 
   function onMysteryDragStart(event) {
@@ -1978,9 +2817,15 @@
       event.dataTransfer.setData("text/plain", "mystery-card");
     }
     el.timeline.classList.add("timeline--dragging");
+    document.body.classList.add("is-dragging-mystery");
+
+    if (!prefersReducedMotion()) {
+      startMysteryDragFollower(event);
+    }
   }
 
   function onMysteryDragEnd() {
+    cleanupMysteryDragVisuals();
     el.mysteryCard.classList.remove("card--dragging");
     el.timeline.classList.remove("timeline--dragging");
     clearDropZoneHighlights();
@@ -2041,40 +2886,181 @@
       marker.title = event.title + " — " + formatDate(event.date);
       el.timelineRangeMarkers.appendChild(marker);
     });
+
+    updateWorldMap();
   }
 
-  function renderTimeline(highlightIndex, revealClass, showDropZones) {
-    hideCardTooltip();
-    el.timeline.innerHTML = "";
-    el.timelineEmpty.hidden = timeline.length > 0;
-    el.timeline.classList.toggle("timeline--placing", !!showDropZones);
+  function updateMysteryDockLayout() {
+    if (!el.mysteryDock) return;
+    const reserveAsideColumn =
+      mysteryCard != null &&
+      (phase === PHASE.PLACING || phase === PHASE.REVEAL);
+    el.mysteryDock.classList.toggle("mystery-dock--split", reserveAsideColumn);
+  }
 
-    if (showDropZones) {
-      for (let i = 0; i <= timeline.length; i++) {
-        el.timeline.appendChild(createDropZone(i));
-        if (i < timeline.length) {
-          el.timeline.appendChild(
-            createTimelineCardElement(timeline[i], i, highlightIndex, revealClass)
-          );
-        }
-      }
-      updateTimelineRange();
+  function updateGameStageLayout() {
+    if (!el.gameStage) return;
+    el.gameStage.classList.toggle("game-stage--in-play", phase !== PHASE.START);
+    updateMysteryDockLayout();
+  }
+
+  function updateWelcomeMap() {
+    if (!el.timelineWelcomeMap) return;
+    const show = phase === PHASE.START && timeline.length === 0;
+    el.timelineWelcomeMap.hidden = !show;
+    if (el.timelineTrack) {
+      el.timelineTrack.classList.toggle("timeline-track--welcome", show);
+    }
+  }
+
+  function updateWorldMap() {
+    if (!el.timelineWorldMap || !el.timelineWorldMapDots || !window.NeolithiaGeo) {
       return;
     }
 
+    hideMapTooltip();
+
+    if (gameEventPool.length === 0) {
+      el.timelineWorldMap.hidden = true;
+      return;
+    }
+
+    el.timelineWorldMap.hidden = false;
+    el.timelineWorldMapDots.innerHTML = "";
+
+    const placed = timeline.length;
+
+    if (el.timelineWorldMapSvg) {
+      el.timelineWorldMapSvg.setAttribute(
+        "viewBox",
+        window.NeolithiaGeo.formatViewBox(window.NeolithiaGeo.MAP_FULL_VIEW)
+      );
+    }
+
+    if (el.timelineWorldMapLayer) {
+      el.timelineWorldMapLayer.removeAttribute("transform");
+    }
+
+    el.timelineWorldMap.setAttribute(
+      "aria-label",
+      placed === 0
+        ? "World map — no events placed yet"
+        : "World map showing " +
+          placed +
+          " placed event" +
+          (placed === 1 ? "" : "s")
+    );
+
+    const svgNs = "http://www.w3.org/2000/svg";
+
+    const mapMarkers = timeline.map(function (event) {
+      const coords = window.NeolithiaGeo.getCoordinates(event, resolveGeo);
+      const point = window.NeolithiaGeo.projectLatLon(coords.lat, coords.lon);
+      return {
+        event: event,
+        geo: resolveGeo(event),
+        x: point.x,
+        y: point.y,
+      };
+    });
+
+    if (window.NeolithiaGeo.spreadProjectedMarkers) {
+      window.NeolithiaGeo.spreadProjectedMarkers(mapMarkers);
+    } else {
+      mapMarkers.forEach(function (pin) {
+        pin.displayX = pin.x;
+        pin.displayY = pin.y;
+        pin.clusterSize = 1;
+      });
+    }
+
+    mapMarkers.forEach(function (pin) {
+      const cx = pin.displayX != null ? pin.displayX : pin.x;
+      const cy = pin.displayY != null ? pin.displayY : pin.y;
+      const event = pin.event;
+      const geo = pin.geo;
+
+      if (pin.clusterSize > 1) {
+        const hub = document.createElementNS(svgNs, "circle");
+        hub.setAttribute("class", "timeline-world-map-cluster");
+        hub.setAttribute("cx", String(pin.clusterCenterX));
+        hub.setAttribute("cy", String(pin.clusterCenterY));
+        hub.setAttribute("r", String(Math.min(9, 2.4 + (pin.clusterSize - 1) * 1.15) + 1.2));
+        hub.setAttribute("aria-hidden", "true");
+        el.timelineWorldMapDots.appendChild(hub);
+      }
+
+      const marker = document.createElementNS(svgNs, "g");
+      marker.setAttribute("class", "timeline-world-map-marker");
+      marker.setAttribute("role", "button");
+      marker.setAttribute("tabindex", "0");
+      marker.setAttribute(
+        "aria-label",
+        event.title + ", " + event.region + ", " + formatDate(event.date)
+      );
+
+      const hit = document.createElementNS(svgNs, "circle");
+      hit.setAttribute("class", "timeline-world-map-dot-hit");
+      hit.setAttribute("cx", String(cx));
+      hit.setAttribute("cy", String(cy));
+      hit.setAttribute("r", pin.clusterSize > 1 ? "5.5" : "7");
+
+      const dot = document.createElementNS(svgNs, "circle");
+      dot.setAttribute("class", "timeline-world-map-dot timeline-world-map-dot--" + geo);
+      dot.setAttribute("cx", String(cx));
+      dot.setAttribute("cy", String(cy));
+      dot.setAttribute("r", "2.6");
+      dot.setAttribute("aria-hidden", "true");
+
+      marker.appendChild(hit);
+      marker.appendChild(dot);
+      attachMapMarkerTooltip(marker, event);
+      el.timelineWorldMapDots.appendChild(marker);
+    });
+  }
+
+  function renderTimeline(highlightIndex, revealClass, renderOptions) {
+    renderOptions = renderOptions || {};
+    const placing = !!renderOptions.placing;
+    const highlightSet = renderOptions.highlightIndices || [];
+
+    hideCardTooltip();
+    hideMapTooltip();
+    el.timeline.innerHTML = "";
+    updateWelcomeMap();
+    const centerRow = placing || phase === PHASE.REVEAL;
+    el.timeline.classList.toggle("timeline--placing", placing);
+    el.timeline.classList.toggle("timeline--center-row", centerRow);
+    if (el.timelineSection) {
+      el.timelineSection.classList.toggle("timeline-section--placing", placing);
+      el.timelineSection.classList.toggle("timeline-section--center-row", centerRow);
+    }
+
     timeline.forEach(function (event, index) {
+      if (placing && index === roundAnchorIndex) {
+        el.timeline.appendChild(createAnchorDropZone(true));
+      }
       if (index > 0) {
         const arrow = document.createElement("span");
         arrow.className = "timeline-arrow";
+        arrow.dataset.flipId = "arrow-" + index;
         arrow.setAttribute("aria-hidden", "true");
         arrow.textContent = "→";
         el.timeline.appendChild(arrow);
       }
       el.timeline.appendChild(
-        createTimelineCardElement(event, index, highlightIndex, revealClass)
+        createTimelineCardElement(event, index, highlightIndex, revealClass, {
+          isAnchor: placing && index === roundAnchorIndex,
+          isContext:
+            placing && highlightSet.indexOf(index) >= 0 && index !== roundAnchorIndex,
+        })
       );
+      if (placing && index === roundAnchorIndex) {
+        el.timeline.appendChild(createAnchorDropZone(false));
+      }
     });
     updateTimelineRange();
+    syncTimelineScrollLayout();
   }
 
   function escapeHtml(text) {
@@ -2109,10 +3095,13 @@
     el.mysteryCard.addEventListener("dragend", onMysteryDragEnd);
     if (el.dragHint) {
       el.dragHint.hidden = false;
+      updateDragHint();
     }
+    updateMysteryDockLayout();
   }
 
   function disableMysteryDrag() {
+    cleanupMysteryDragVisuals();
     el.mysteryCard.draggable = false;
     el.mysteryCard.classList.remove("card--draggable", "card--dragging");
     el.mysteryCard.removeEventListener("dragstart", onMysteryDragStart);
@@ -2120,6 +3109,7 @@
     if (el.dragHint) {
       el.dragHint.hidden = true;
     }
+    updateMysteryDockLayout();
     el.timeline.classList.remove("timeline--dragging");
     clearDropZoneHighlights();
   }
@@ -2127,16 +3117,21 @@
   function placeCard(index) {
     if (!mysteryCard || phase !== PHASE.PLACING) return;
 
-    lastPlacementCorrect = isCorrectPlacement(mysteryCard, index);
-    lastInsertIndex = lastPlacementCorrect
-      ? index
-      : findChronologicalInsertIndex(mysteryCard, timeline);
+    cancelTimelineFlipAnimation();
+    clearCorrectPlacementCelebration();
 
-    timeline.splice(lastInsertIndex, 0, mysteryCard);
+    const attemptedIndex = index;
+    const cardToPlace = mysteryCard;
+    lastPlacementCorrect = isValidInsertIndex(cardToPlace, timeline, attemptedIndex);
+    const targetIndex = lastPlacementCorrect
+      ? attemptedIndex
+      : roundCorrectInsertIndex;
+
     roundsPlayed++;
     phase = PHASE.REVEAL;
 
     el.placementPanel.hidden = true;
+    disablePlacementChoices();
     disableMysteryDrag();
 
     revealMysteryDate();
@@ -2144,50 +3139,132 @@
     const revealClass = lastPlacementCorrect
       ? "card--revealed-correct"
       : "card--revealed-wrong";
-    renderTimeline(lastInsertIndex, revealClass, false);
 
-    if (lastPlacementCorrect) {
-      score++;
+    function finishPlacement() {
+      if (lastPlacementCorrect) {
+        score++;
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            playCorrectPlacementCelebration();
+          });
+        });
+      }
+      updateScoreboard();
+      scheduleRevealFeedback();
     }
 
-    showFeedback();
-    updateScoreboard();
-    showRoundActions(true);
+    const shouldAnimateWrongSlide =
+      !lastPlacementCorrect &&
+      targetIndex !== attemptedIndex &&
+      !prefersReducedMotion();
+
+    if (shouldAnimateWrongSlide) {
+      timeline.splice(attemptedIndex, 0, cardToPlace);
+      renderTimeline(attemptedIndex, revealClass, false);
+      requestAnimationFrame(function () {
+        syncTimelineScrollLayout();
+        centerNodesUnderMap(
+          getTimelineSlotsForIndices(getFocusIndicesForInsert(attemptedIndex)),
+          false
+        );
+        const beforeRects = captureTimelineFlipRects();
+
+        timeline.splice(attemptedIndex, 1);
+        timeline.splice(targetIndex, 0, cardToPlace);
+        lastInsertIndex = targetIndex;
+
+        renderTimeline(lastInsertIndex, revealClass, false);
+        playTimelineFlipAnimation(beforeRects, function () {
+          scheduleCenterRevealInTimeline(true);
+          finishPlacement();
+        });
+      });
+    } else {
+      lastInsertIndex = targetIndex;
+      timeline.splice(lastInsertIndex, 0, cardToPlace);
+      renderTimeline(lastInsertIndex, revealClass, false);
+      scheduleCenterRevealInTimeline(false);
+      finishPlacement();
+    }
+  }
+
+  function populateRoundActionsContent() {
+    if (!el.btnNext) return;
+    el.btnNext.textContent = deck.length > 0 ? "Next card" : "See results";
   }
 
   function showRoundActions(visible) {
     if (!el.roundActions) return;
     el.roundActions.hidden = !visible;
-    if (visible && el.btnNext) {
-      el.btnNext.textContent = deck.length > 0 ? "Next card" : "See results";
+    if (!visible) {
+      el.roundActions.classList.remove(DOCK_REVEAL_FADE_CLASS);
+    }
+    if (visible) {
+      populateRoundActionsContent();
+    }
+    updateMysteryDockLayout();
+  }
+
+  function populateFeedbackContent() {
+    el.feedback.classList.remove(
+      "feedback--correct",
+      "feedback--wrong",
+      DOCK_REVEAL_FADE_CLASS
+    );
+    if (!el.feedback.classList.contains("feedback")) {
+      el.feedback.classList.add("feedback");
+    }
+
+    if (lastPlacementCorrect) {
+      const placedBefore = placementIsBeforeAnchor(lastInsertIndex);
+      el.feedback.classList.add("feedback--correct");
+      if (mysterySameYearAsAnchor()) {
+        el.feedback.textContent =
+          "Correct! " +
+          mysteryCard.title +
+          " (" +
+          formatDate(mysteryCard.date) +
+          ") is the same era as " +
+          roundAnchorTitle +
+          " — either side is fine.";
+      } else {
+        el.feedback.textContent =
+          "Correct! " +
+          mysteryCard.title +
+          " (" +
+          formatDate(mysteryCard.date) +
+          ") is " +
+          (placedBefore ? "before" : "after") +
+          " " +
+          roundAnchorTitle +
+          ".";
+      }
+    } else {
+      el.feedback.classList.add("feedback--wrong");
+      el.feedback.textContent =
+        "Not quite — " +
+        mysteryCard.title +
+        " (" +
+        formatDate(mysteryCard.date) +
+        ") belongs " +
+        (roundCorrectIsBefore ? "before" : "after") +
+        " " +
+        roundAnchorTitle +
+        ". It has been moved to the correct place on the timeline.";
     }
   }
 
   function showFeedback() {
-    el.feedback.hidden = false;
-    el.feedback.className = "feedback";
-
-    if (lastPlacementCorrect) {
-      el.feedback.classList.add("feedback--correct");
-      el.feedback.textContent =
-        "Correct! " +
-        mysteryCard.title +
-        " (" +
-        formatDate(mysteryCard.date) +
-        ") is in the right spot.";
-    } else {
-      el.feedback.classList.add("feedback--wrong");
-      el.feedback.textContent =
-        "Not quite — wrong slot. " +
-        mysteryCard.title +
-        " (" +
-        formatDate(mysteryCard.date) +
-        ") has been moved to the correct place on the timeline.";
-    }
+    populateFeedbackContent();
+    revealDockElement(el.feedback, false);
+    updateMysteryDockLayout();
   }
 
   function nextRound() {
+    cancelTimelineFlipAnimation();
+    clearRevealFeedbackTimers();
     el.feedback.hidden = true;
+    el.feedback.classList.remove(DOCK_REVEAL_FADE_CLASS);
     showRoundActions(false);
 
     mysteryCard = null;
@@ -2203,12 +3280,18 @@
 
   function startPlacingRound() {
     phase = PHASE.PLACING;
+    updateHeaderRestartButton();
     mysteryCard = deck.shift();
     showMysteryCard(mysteryCard);
-    renderTimeline(-1, null, true);
+    setupRoundPlacement();
+    renderTimeline(-1, null, {
+      placing: true,
+      highlightIndices: roundHighlightIndices,
+    });
+    updatePlacementUI();
     enableMysteryDrag();
-    el.placementPanel.hidden = false;
     updateScoreboard();
+    scrollTimelineToRoundContext();
   }
 
   function startGame() {
@@ -2221,6 +3304,7 @@
     }
 
     gameEventPool = pool.slice();
+    gameSelectedGeos = selectedGeos.slice();
 
     const shuffled = shuffle(pool);
     const roundCount = getRoundsForPool(shuffled.length);
@@ -2235,6 +3319,7 @@
     el.endScreen.hidden = true;
     el.feedback.hidden = true;
     showRoundActions(false);
+    updateGameStageLayout();
 
     renderTimeline(-1, null, false);
     updateScoreboard();
@@ -2265,37 +3350,156 @@
 
     el.endScore.textContent = score + " / " + total;
     el.endScreen.hidden = false;
+    updateGameStageLayout();
+    updateHeaderRestartButton();
+  }
+
+  function updateHeaderRestartButton() {
+    if (!el.btnHeaderRestart) return;
+    el.btnHeaderRestart.hidden = phase === PHASE.START;
   }
 
   function showStartScreen() {
     phase = PHASE.START;
     gameEventPool = [];
+    gameSelectedGeos = [];
+    timeline = [];
+    deck = [];
+    mysteryCard = null;
+    score = 0;
+    roundsPlayed = 0;
+    lastInsertIndex = -1;
+    lastPlacementCorrect = false;
+
+    disableMysteryDrag();
+    hideCardTooltip();
+    hideMapTooltip();
+    clearRevealFeedbackTimers();
     el.startScreen.hidden = false;
     el.endScreen.hidden = true;
     el.feedback.hidden = true;
+    el.feedback.classList.remove(DOCK_REVEAL_FADE_CLASS);
+    el.placementPanel.hidden = true;
     showRoundActions(false);
+    updateGameStageLayout();
+    el.mysteryCard.hidden = true;
+    el.mysteryPlaceholder.hidden = false;
+    el.mysteryPlaceholder.textContent = "Start a game to draw a mystery card.";
+    if (el.dragHint) {
+      el.dragHint.hidden = true;
+    }
+
+    renderTimeline(-1, null, false);
+    updateWelcomeMap();
+    updateScoreboard();
     updateTimelineRange();
     updateRegionPickerStatus();
+    updateHeaderRestartButton();
+  }
+
+  function setHeaderMenuOpen(open) {
+    if (!el.btnHeaderMenu || !el.headerMenuDropdown) return;
+    el.btnHeaderMenu.setAttribute("aria-expanded", open ? "true" : "false");
+    el.headerMenuDropdown.hidden = !open;
   }
 
   el.btnStart.addEventListener("click", startGame);
   el.btnRestart.addEventListener("click", showStartScreen);
+  if (el.btnHeaderRestart) {
+    el.btnHeaderRestart.addEventListener("click", function () {
+      setHeaderMenuOpen(false);
+      showStartScreen();
+    });
+  }
   el.btnNext.addEventListener("click", nextRound);
 
-  if (el.timelineSection) {
-    el.timelineSection.addEventListener("scroll", hideCardTooltip, { passive: true });
+  if (el.btnPlaceBefore) {
+    el.btnPlaceBefore.addEventListener("click", function () {
+      submitPlacementChoice(true);
+    });
   }
+  if (el.btnPlaceAfter) {
+    el.btnPlaceAfter.addEventListener("click", function () {
+      submitPlacementChoice(false);
+    });
+  }
+
+  if (el.timelineScroll) {
+    el.timelineScroll.addEventListener("scroll", hideCardTooltip, { passive: true });
+    el.timelineScroll.addEventListener("scroll", hideMapTooltip, { passive: true });
+  }
+    window.addEventListener(
+    "resize",
+    function () {
+      syncTimelineScrollLayout();
+      syncPlacementPanelForViewport();
+      if (phase === PHASE.PLACING) {
+        centerRoundFocusInTimeline(false);
+      }
+    },
+    { passive: true }
+  );
   window.addEventListener(
     "scroll",
     function () {
       if (!el.cardTooltip.hidden) {
         hideCardTooltip();
       }
+      if (el.mapTooltip && !el.mapTooltip.hidden) {
+        hideMapTooltip();
+      }
     },
     { passive: true }
   );
 
+  if (el.btnHeaderMenu && el.headerMenuDropdown) {
+    el.btnHeaderMenu.addEventListener("click", function (event) {
+      event.stopPropagation();
+      setHeaderMenuOpen(el.headerMenuDropdown.hidden);
+    });
+    el.headerMenuDropdown.addEventListener("click", function (event) {
+      event.stopPropagation();
+    });
+    document.addEventListener("click", function () {
+      setHeaderMenuOpen(false);
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        setHeaderMenuOpen(false);
+      }
+    });
+  }
+
+  const THEME_STORAGE_KEY = "neolithia-invert";
+
+  function applyColorInvert(inverted) {
+    document.documentElement.classList.toggle("theme-inverted", inverted);
+    if (!el.btnTheme) return;
+    el.btnTheme.setAttribute("aria-pressed", inverted ? "true" : "false");
+    el.btnTheme.textContent = inverted ? "Light mode" : "Dark mode";
+  }
+
+  if (el.btnTheme) {
+    applyColorInvert(document.documentElement.classList.contains("theme-inverted"));
+    el.btnTheme.addEventListener("click", function () {
+      const inverted = !document.documentElement.classList.contains("theme-inverted");
+      applyColorInvert(inverted);
+      try {
+        localStorage.setItem(THEME_STORAGE_KEY, inverted ? "1" : "0");
+      } catch (e) {}
+      setHeaderMenuOpen(false);
+    });
+  }
+
+  if (typeof MOBILE_MQ.addEventListener === "function") {
+    MOBILE_MQ.addEventListener("change", syncPlacementPanelForViewport);
+  } else if (typeof MOBILE_MQ.addListener === "function") {
+    MOBILE_MQ.addListener(syncPlacementPanelForViewport);
+  }
+
   updateScoreboard();
   el.scoreTotal.textContent = String(MYSTERY_ROUNDS_PER_GAME);
   renderGeoRegionPicker();
+  updateGameStageLayout();
+  updateWelcomeMap();
 })();

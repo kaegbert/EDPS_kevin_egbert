@@ -1,0 +1,4 @@
+<!-- Re-export: use world-map-land.svg (Natural Earth 110m, plate carrée) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0.78 360 155.97">
+  <image href="world-map-land.svg" width="360" height="180"/>
+</svg>
