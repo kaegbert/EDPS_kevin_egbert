@@ -1120,6 +1120,14 @@
       "Ritual cremation at Lake Mungo is among the world's earliest known ceremonial burials.",
   },
   {
+    title: "Willandra Lakes Fisheries",
+    date: -20000,
+    region: "Australia",
+    geo: "oceania",
+    description:
+      "Fish traps and camps at ancient lakes supported stable communities in inland Australia.",
+  },
+  {
     title: "Lapita Pottery Expansion",
     date: -3400,
     region: "Pacific",
@@ -1214,14 +1222,6 @@
     geo: "oceania",
     description:
       "Engravings on northwestern rocks preserve images of extinct animals and early ceremonies.",
-  },
-  {
-    title: "Willandra Lakes Fisheries",
-    date: -20000,
-    region: "Australia",
-    geo: "oceania",
-    description:
-      "Fish traps and camps at ancient lakes supported stable communities in inland Australia.",
   },
   {
     title: "Samoa Settlement",
@@ -1336,7 +1336,8 @@
 
   function getFilteredEvents(selectedGeos) {
     return EVENTS.filter(function (event) {
-      return selectedGeos.indexOf(resolveGeo(event)) !== -1;
+      const geo = resolveGeo(event);
+      return selectedGeos.indexOf(geo) !== -1;
     });
   }
 
