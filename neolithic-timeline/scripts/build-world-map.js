@@ -10,6 +10,9 @@ const path = require("path");
 
 const OUT = path.join(__dirname, "..", "world-map-land.svg");
 const URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/land-110m.json";
+/** Ocean stays white; continents use light grey for contrast */
+const MAP_LAND_FILL = "#e8e8e8";
+const MAP_WATER_FILL = "#ffffff";
 
 function fetchJson(url) {
   return new Promise(function (resolve, reject) {
@@ -303,8 +306,10 @@ async function main() {
 
   const svg =
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + viewBoxStr + '" aria-hidden="true">\n' +
-    '  <rect width="360" height="180" fill="#ffffff"/>\n' +
-    '  <g class="timeline-world-map-land" fill="#ffffff" stroke="#000000" stroke-width="0.5" stroke-linejoin="round" stroke-linecap="round">\n' +
+    '  <rect width="360" height="180" fill="' + MAP_WATER_FILL + '"/>\n' +
+    '  <g class="timeline-world-map-land" fill="' +
+    MAP_LAND_FILL +
+    '" stroke="#000000" stroke-width="0.5" stroke-linejoin="round" stroke-linecap="round">\n' +
     allPaths.map(function (d) {
       return '    <path d="' + d + '"/>';
     }).join("\n") +

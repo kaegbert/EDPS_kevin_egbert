@@ -1304,7 +1304,7 @@ body.is-dragging-mystery {
   height: auto;
   margin: 0 auto;
   border: 1px solid var(--color-border);
-  background: #fff;
+  background: #ffffff;
 }
 
 .timeline-world-map-cluster {

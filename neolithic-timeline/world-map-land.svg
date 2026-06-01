@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0.78 360 155.97" aria-hidden="true">
   <rect width="360" height="180" fill="#ffffff"/>
-  <g class="timeline-world-map-land" fill="#ffffff" stroke="#000000" stroke-width="0.5" stroke-linejoin="round" stroke-linecap="round">
+  <g class="timeline-world-map-land" fill="#e8e8e8" stroke="#000000" stroke-width="0.5" stroke-linejoin="round" stroke-linecap="round">
     <path d="M112.25,143.85L113.55,144.45L114.95,144.7L114.5,145.2L113.55,145.25L113.04,144.9L112.71,145.3L111.85,145.61L110.77,145.5L110.04,145.2L108.99,145.05L107.73,144.49L106.72,143.96L105.34,142.84L106.16,143.05L107.57,143.72L108.89,144.07L109.41,143.62L109.73,142.93L110.65,142.52L111.37,142.64L111.75,143.1L112.25,143.85Z"/>
     <path d="M121.45,141.1L122.25,141.55L121.95,141.9L120.6,142.2L120.15,141.85L119.3,142.3L118.8,141.85L120,141.25L120.85,141.5L121.45,141.1Z"/>
     <path d="M250.28,139.71L248.74,139.77L248.72,139.24L248.87,138.83L248.94,138.62L249.58,138.94L250.53,139.07L250.56,139.25L250.28,139.71Z"/>
