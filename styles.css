@@ -176,7 +176,7 @@ a {
   line-height: 28px;
   color: var(--color-ink);
   margin-bottom: 0;
-  text-transform: lowercase;
+  white-space: pre;
 }
 
 .nav-logo.logo-mark:hover,
