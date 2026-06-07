@@ -16,7 +16,7 @@
 
       <aside class="sidebar">
         
-        <a href="index.html">..\</a>
+        <a href="index.html">kevin egbert</a>
         <nav>
           <a href="about.html">About</a>
           <a href="assets/kevin-egbert-resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
@@ -36,39 +36,39 @@
   <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
   <!-- Main content -->
       <main class="main">
-        <h1>how this site is styled</h1>
-        <div style="margin: 0 0 24px; max-width: 42rem; font-size: 14px; color: #999999;">
-          <strong>What is a class?</strong> — A class is a label on an HTML element. CSS targets
-          that label to apply styles. Example: <code>.sidebar</code> in
-          <code>styles.css</code> styles every element with <code>class="sidebar"</code>.
-        </div>
+      
         <section style="max-width: 42rem; margin-bottom: 2.5rem;">
           <h2>
-            Site files
+            Site map
           </h2>
 
           <ul style="margin: 0; padding-left: 1.25rem; font-size: 14px; color: #999999; line-height: 1.55;">
-            <li><strong style="color: #222222;">index.html</strong> — home / project cards</li>
+            <li><strong style="color: #222222;">index.html</strong> — home / projects + blog / learning cards</li>
             <li><strong style="color: #222222;">about.html</strong> — portrait and bio</li>
-            <!-- <li><strong style="color: #222222;">learning-to-build-use-flexbox.html</strong> — flexbox practice</li>
-            <li><strong style="color: #222222;">how-this-site-is-styled.html</strong> — this page</li> -->
-            <li><strong style="color: #222222;">styles.css</strong> — shared stylesheet (~130 lines)</li>
+            <li><strong style="color: #222222;">learning-to-build-use-flexbox.html</strong> — flexbox practice + class notes</li>
+            <li><strong style="color: #222222;">how-this-site-is-styled.html</strong> — this page</li>
+            <li><strong style="color: #222222;">styles.css</strong> — shared stylesheet (~210 lines)</li>
+            <li><strong style="color: #222222;">assets/</strong> — images and resume PDF</li>
             <li><strong style="color: #222222;">neolithia/</strong> — redirect to the live game</li>
-            <!-- <li><strong style="color: #222222;">learning-html/</strong> — separate exercise, does not use <code>styles.css</code></li>
-            <li><strong style="color: #222222;">archive/</strong> — old CSS, JS, and class reference</li> -->
+            <li><strong style="color: #222222;">learning-html/</strong> — separate exercise, does not use <code>styles.css</code></li>
+            <li><strong style="color: #222222;">archive/</strong> — old CSS, JS, and class reference</li>
           </ul>
         </section>
 
         <section style="max-width: 42rem; margin-bottom: 2.5rem;">
           <h2>
-            Live setup (4 CSS classes only)
+            Live setup — classes in styles.css
           </h2>
 
           <p style="font-size: 14px; color: #999999; margin: 0 0 16px;">
-            Every portfolio page above links to <code>styles.css</code>. Layout is flexbox only — no CSS
-            grid, no JavaScript, no mobile hamburger menu. Learning notes live on this page only; other
-            pages are content + inline experiments.
+            Every portfolio page links to <code>styles.css</code>. Flexbox only — no CSS grid, no
+            JavaScript, no mobile hamburger. The shell uses four classes on every page; the flexbox
+            learning page adds more. About still uses inline flex for the portrait layout.
           </p>
+
+          <h2 style="font-size: 16px; margin: 24px 0 12px;">
+            Shell (every page)
+          </h2>
 
           <table style="width: 100%; border-collapse: collapse; font-size: 14px; margin-bottom: 16px;">
             <thead>
@@ -85,7 +85,7 @@
               <tr>
                 <td style="padding: 8px; border-bottom: 1px solid #eeeeee;"><code>layout</code></td>
                 <td style="padding: 8px; border-bottom: 1px solid #eeeeee; color: #999999;">
-                  Flex row — sidebar + main (<code>display: flex</code>)
+                  Flex row — sidebar + main (<code>display: flex</code>, <code>min-height: 100vh</code>)
                 </td>
               </tr>
               <tr>
@@ -97,19 +97,63 @@
               <tr>
                 <td style="padding: 8px; border-bottom: 1px solid #eeeeee;"><code>main</code></td>
                 <td style="padding: 8px; border-bottom: 1px solid #eeeeee; color: #999999;">
-                  <code>flex: 1</code> content area
+                  <code>flex: 1</code> content area (<code>padding: 60px 5%</code>)
                 </td>
               </tr>
               <tr>
                 <td style="padding: 8px;"><code>card</code></td>
-                <td style="padding: 8px; color: #999999;">Project cards (max-width 42rem)</td>
+                <td style="padding: 8px; color: #999999;">Project cards (max-width 42rem); child selectors style <code>strong</code>, <code>p</code>, <code>img</code>, <code>.placeholder</code></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h2 style="font-size: 16px; margin: 24px 0 12px;">
+            Flexbox helpers (learning-to-build-use-flexbox.html)
+          </h2>
+
+          <table style="width: 100%; border-collapse: collapse; font-size: 14px; margin-bottom: 16px;">
+            <thead>
+              <tr>
+                <th style="text-align: left; padding: 8px; border-bottom: 1px solid #dddddd; color: #222222;">
+                  Class
+                </th>
+                <th style="text-align: left; padding: 8px; border-bottom: 1px solid #dddddd; color: #222222;">
+                  Purpose
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="padding: 8px; border-bottom: 1px solid #eeeeee;"><code>flex-row</code></td>
+                <td style="padding: 8px; border-bottom: 1px solid #eeeeee; color: #999999;">Horizontal flex row, <code>gap: 16px</code></td>
+              </tr>
+              <tr>
+                <td style="padding: 8px; border-bottom: 1px solid #eeeeee;"><code>flex-column</code></td>
+                <td style="padding: 8px; border-bottom: 1px solid #eeeeee; color: #999999;">Vertical stack inside a row; <code>flex: 1</code></td>
+              </tr>
+              <tr>
+                <td style="padding: 8px; border-bottom: 1px solid #eeeeee;"><code>column-box</code></td>
+                <td style="padding: 8px; border-bottom: 1px solid #eeeeee; color: #999999;">Bordered box in the column demo</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px; border-bottom: 1px solid #eeeeee;"><code>card-stack</code></td>
+                <td style="padding: 8px; border-bottom: 1px solid #eeeeee; color: #999999;">Vertical stack of card rows</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px; border-bottom: 1px solid #eeeeee;"><code>justify-left</code> / <code>justify-center</code> / <code>justify-right</code></td>
+                <td style="padding: 8px; border-bottom: 1px solid #eeeeee; color: #999999;">Pair with <code>.flex-row</code> to align a card</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px;"><code>card-placeholder</code></td>
+                <td style="padding: 8px; color: #999999;">Modifier with <code>.card</code> for placeholder projects (no link, no underline on title)</td>
               </tr>
             </tbody>
           </table>
 
           <p style="font-size: 14px; color: #999999; margin: 0;">
-            Everything else — page layout experiments, About portrait sizing, flexbox demos — uses
-            inline <code>style="..."</code> in each HTML file.
+            Combine classes on one element, e.g.
+            <code>class="flex-row justify-center"</code> or
+            <code>class="card card-placeholder"</code>.
           </p>
         </section>
 
@@ -124,8 +168,9 @@
 
           <ul style="margin: 0; padding-left: 1.25rem; font-size: 14px; color: #999999; line-height: 1.55;">
             <li><strong style="color: #222222;">Body</strong> — Courier New, 16px, <code>#222222</code> on white</li>
-            <li><strong style="color: #222222;">Headings / nav / card titles</strong> — Proxima Nova (CDN); page titles via <code>.main h1</code>, section titles via <code>.main h2</code> in <code>styles.css</code></li>
-            <li><strong style="color: #222222;">Muted text</strong> — <code>#999999</code> (sidebar, subtitles, About paragraphs)</li>
+            <li><strong style="color: #222222;">Links</strong> — <code>#2317c2</code> via the global <code>a</code> selector (sidebar nav links override to grey)</li>
+            <li><strong style="color: #222222;">Headings / nav / card titles</strong> — Proxima Nova (CDN); <code>.main h1</code> (24px bold), <code>.main h2</code> (20px bold)</li>
+            <li><strong style="color: #222222;">Muted text</strong> — <code>#999999</code> (sidebar, card subtitles, About paragraphs)</li>
             <li><strong style="color: #222222;">Borders</strong> — <code>#dddddd</code> sidebar rule; <code>#000000</code> 2px on card images</li>
             <li><strong style="color: #222222;">Code in prose</strong> — <code>#0550ae</code> via the <code>code</code> element selector</li>
           </ul>
@@ -138,18 +183,19 @@
 
           <p style="font-size: 14px; color: #999999; margin: 0 0 12px;">
             Same sidebar + main shell on every portfolio page. The home link
-            <code>..\</code> replaces a separate Projects nav item. Sidebar nav is only
-            <strong style="color: #222222;">About</strong>; other pages (including this one) are
-            linked from project cards on the home page.
+            <strong style="color: #222222;">kevin egbert</strong> goes to <code>index.html</code>.
+            Sidebar nav: <strong style="color: #222222;">About</strong> and
+            <strong style="color: #222222;">Resume</strong> (PDF, new tab). Blog / learning pages
+            are linked from cards on the home page, not the sidebar.
           </p>
 
-          <pre style="margin: 0 0 16px; padding: 12px; overflow-x: auto; font-size: 13px; line-height: 1.45; color: #222222; background: #eeeeee; border: 1px solid #dddddd;">layout                    &lt;!-- display: flex; flex-direction: row --&gt;
-├── sidebar               &lt;!-- width: 260px; flex-shrink: 0 --&gt;
-│   ├── a → index.html    &lt;!-- home link ..\ --&gt;
+          <pre style="margin: 0 0 16px; padding: 12px; overflow-x: auto; font-size: 13px; line-height: 1.45; color: #222222; background: #eeeeee; border: 1px solid #dddddd;">layout
+├── sidebar
+│   ├── a → index.html    (kevin egbert)
+│   ├── nav → About, Resume
 │   ├── p (tagline)
-│   ├── nav → a (About)
 │   └── p (external portfolio link)
-└── main                  &lt;!-- flex: 1; padding: 60px 5% --&gt;
+└── main
     └── (page content)</pre>
 
           <dl style="margin: 0; font-size: 14px; line-height: 1.55;">
@@ -205,10 +251,12 @@
           </h2>
 
           <p style="font-size: 14px; color: #999999; margin: 0 0 12px;">
-            Most layout experiments bypass classes and go straight on the element:
+            About portrait layout and hint text on this page still use inline
+            <code>style="..."</code>. The flexbox learning page mixes classes from
+            <code>styles.css</code> with inline notes.
           </p>
 
-          <pre style="margin: 0 0 12px; padding: 12px; overflow-x: auto; font-size: 13px; line-height: 1.45; color: #222222; background: #eeeeee; border: 1px solid #dddddd;">&lt;div style="display: flex; justify-content: center;"&gt;
+          <pre style="margin: 0 0 12px; padding: 12px; overflow-x: auto; font-size: 13px; line-height: 1.45; color: #222222; background: #eeeeee; border: 1px solid #dddddd;">&lt;div class="flex-row justify-center"&gt;
 &lt;p style="color: #999999; margin: 0 0 24px;"&gt;</pre>
 
           <p style="font-size: 14px; color: #999999; margin: 0;">
@@ -241,10 +289,10 @@
           </h2>
 
           <ul style="margin: 0; padding-left: 1.25rem; font-size: 14px; color: #999999; line-height: 1.55;">
-            <li><strong style="color: #222222;">Home</strong> (<code>index.html</code>) — <code>layout</code> + three stacked <code>card</code> links; no page heading, no on-page notes</li>
-            <li><strong style="color: #222222;">About</strong> (<code>about.html</code>) — same shell + inline column flex (portrait centered above text); paragraph color inline</li>
-            <li><strong style="color: #222222;">Learning to build use flexbox</strong> (<code>learning-to-build-use-flexbox.html</code>) — same shell + one flex row per card with inline <code>justify-content</code> + column demo below</li>
-            <li><strong style="color: #222222;">How this site is styled</strong> — same shell + inline hint blocks and this reference content</li>
+            <li><strong style="color: #222222;">Home</strong> (<code>index.html</code>) — <code>layout</code> + <code>card</code>; <code>h1</code> projects + <code>h2</code> blog section</li>
+            <li><strong style="color: #222222;">About</strong> (<code>about.html</code>) — shell + inline column flex (portrait centered above text)</li>
+            <li><strong style="color: #222222;">Learning to build using flexbox</strong> (<code>learning-to-build-use-flexbox.html</code>) — shell + flex helper classes + first-person notes under each demo</li>
+            <li><strong style="color: #222222;">How this site is styled</strong> — shell + this reference (hint blocks use inline styles)</li>
           </ul>
         </section>
 
@@ -256,7 +304,7 @@
             <li>Mobile hamburger — gone (no <code>nav-toggle</code>, no JS)</li>
             <li>CSS grid — shell and About layout now use flexbox only</li>
             <li>JavaScript — removed from pages; old <code>script.js</code> → <code>archive/script.js</code></li>
-            <li>On-page learning notes — moved here; hint boxes use inline styles, not a CSS class</li>
+            <li><code>.note</code> class — removed; hint boxes on this page use inline styles</li>
             <li>Reveal animations, skip link, <code>page-about</code> / <code>page-pseudo</code>, 50+ old classes</li>
             <li>Old class names (<code>site-shell</code>, <code>project-feature</code>, etc.) — see <code>archive/classes.html</code></li>
             <li>Full old CSS → <code>archive/styles-pre-simplify.css</code></li>
@@ -279,17 +327,14 @@
           </div>
 
           <div style="margin-bottom: 1.5rem; max-width: 42rem; font-size: 14px; color: #999999;">
-            <strong>Home</strong> (<code>index.html</code>) — Three project cards in
-            <code>main</code>, each an <code>&lt;a class="card"&gt;</code>. Cards stack vertically
-            via default block layout and <code>margin-bottom: 2.5rem</code> on
-            <code>.card</code>. The page heading is commented out in the HTML.
-            <pre style="margin: 12px 0 0; padding: 12px; overflow-x: auto; font-size: 13px; line-height: 1.45; color: #222222; background: #eeeeee; border: 1px solid #dddddd;">&lt;main class="main"&gt;
-  &lt;a class="card" href="neolithia/"&gt;...&lt;/a&gt;
-  &lt;a class="card" href="learning-to-build-use-flexbox.html"&gt;...&lt;/a&gt;
-  &lt;a class="card" href="how-this-site-is-styled.html"&gt;...&lt;/a&gt;
-&lt;/main&gt;</pre>
-            Try adding <code>style="gap: 24px;"</code> on a flex wrapper around the cards, or
-            <code>style="gap: 24px;"</code> on <code>.layout</code> to space sidebar and main.
+            <strong>Home</strong> (<code>index.html</code>) — Neolithia project card, then an
+            <code>h2</code> “blog / learning documentation” section with two more
+            <code>card</code> links. Headings use <code>.main h1</code> / <code>.main h2</code> from
+            <code>styles.css</code>.
+            <pre style="margin: 12px 0 0; padding: 12px; overflow-x: auto; font-size: 13px; line-height: 1.45; color: #222222; background: #eeeeee; border: 1px solid #dddddd;">&lt;h1&gt;projects&lt;/h1&gt;
+&lt;a class="card" href="neolithia/"&gt;...&lt;/a&gt;
+&lt;h2&gt;blog / learning documentation&lt;/h2&gt;
+&lt;a class="card" href="learning-to-build-use-flexbox.html"&gt;...&lt;/a&gt;</pre>
           </div>
 
           <div style="margin-bottom: 1.5rem; max-width: 42rem; font-size: 14px; color: #999999;">
@@ -304,29 +349,22 @@
           </div>
 
           <div style="margin-bottom: 1.5rem; max-width: 42rem; font-size: 14px; color: #999999;">
-            <strong>Learning to build use flexbox</strong>
-            (<code>learning-to-build-use-flexbox.html</code>) — Each card sits in its own flex row.
-            HTML comments label each card. Edit <code>justify-content</code> on that row to move the
-            card left, center, or right:
-            <pre style="margin: 12px 0 0; padding: 12px; overflow-x: auto; font-size: 13px; line-height: 1.45; color: #222222; background: #eeeeee; border: 1px solid #dddddd;">&lt;!-- Card two — project two --&gt;
-&lt;div style="display: flex; justify-content: center;"&gt;
-  &lt;div class="card" style="margin-bottom: 0; color: #999999;"&gt;...&lt;/div&gt;
-&lt;/div&gt;</pre>
-            Card one uses <code>justify-content: left</code>, card two
-            <code>center</code>, card three <code>right</code>. All three cards are placeholders
-            (no links or screenshots). Prefer <code>flex-start</code> / <code>flex-end</code> in
-            new code — they are the standard flex values for left and right.
-          </div>
+            <strong>Learning to build using flexbox</strong>
+            (<code>learning-to-build-use-flexbox.html</code>) — Project cards use
+            <code>card-stack</code>, <code>flex-row</code>, <code>justify-left</code> /
+            <code>justify-center</code> / <code>justify-right</code>, and
+            <code>card card-placeholder</code>. The column demo uses
+            <code>flex-row</code>, <code>flex-column</code>, and <code>column-box</code>.
+            First-person notes under each demo explain the inline-to-class changes.
+            <pre style="margin: 12px 0 0; padding: 12px; overflow-x: auto; font-size: 13px; line-height: 1.45; color: #222222; background: #eeeeee; border: 1px solid #dddddd;">&lt;div class="flex-row justify-center"&gt;
+  &lt;div class="card card-placeholder"&gt;...&lt;/div&gt;
+&lt;/div&gt;
 
-          <div style="margin: 0 0 24px; max-width: 42rem; font-size: 14px; color: #999999;">
-            <strong>Column layout</strong> (same page) — Three columns, three boxes each. All
-            flexbox, inline on that page:
-            <pre style="margin: 12px 0 0; padding: 12px; overflow-x: auto; font-size: 13px; line-height: 1.45; color: #222222; background: #eeeeee; border: 1px solid #dddddd;">&lt;div style="display: flex; gap: 16px;"&gt;           &lt;!-- row of columns --&gt;
-  &lt;div style="display: flex; flex-direction: column; flex: 1; gap: 16px;"&gt;
-    &lt;div style="border: 1px solid #222; padding: 12px;"&gt;1&lt;/div&gt;
+&lt;div class="flex-row"&gt;
+  &lt;div class="flex-column"&gt;
+    &lt;div class="column-box"&gt;1&lt;/div&gt;
   &lt;/div&gt;
 &lt;/div&gt;</pre>
-            Try <code>flex-direction: column</code> on the outer div to stack columns vertically.
           </div>
         </section>
 
@@ -345,8 +383,8 @@
             Where to edit
           </h2>
           <ul style="margin: 0; padding-left: 1.25rem; font-size: 14px; color: #999999; line-height: 1.55;">
-            <li><strong style="color: #222222;">Shared basics:</strong> <code>styles.css</code> — shell, cards, <code>.main h1</code>, <code>.main h2</code></li>
-            <li><strong style="color: #222222;">Experiments:</strong> inline styles in each HTML file</li>
+            <li><strong style="color: #222222;">Shared basics:</strong> <code>styles.css</code> — shell, cards, headings (<code>.main h1</code>, <code>.main h2</code>), flex helpers</li>
+            <li><strong style="color: #222222;">Per-page layout:</strong> inline styles on About and hint blocks; classes on the flexbox learning page</li>
             <li><strong style="color: #222222;">Old code:</strong> <code>archive/</code> folder</li>
           </ul>
         </section>
