@@ -200,13 +200,13 @@
 
           <ul style="margin: 0; padding-left: 1.25rem; font-size: 14px; color: #999999; line-height: 1.55;">
             <li><strong style="color: #222222;">Home</strong> — <code>layout</code> + <code>card</code></li>
-            <li><strong style="color: #222222;">About</strong> — same shell + inline flex for portrait and text</li>
+            <li><strong style="color: #222222;">About</strong> — same shell + inline column flex (portrait centered above text)</li>
             <li><strong style="color: #222222;">Learning to build use flexbox</strong> — same shell + one flex row for three cards side by side + inline column flex (<code>learning-to-build-use-flexbox.html</code>)</li>
             <li><strong style="color: #222222;">How this site is styled</strong> — same shell + this reference content</li>
           </ul>
         </section>
 
-        <section style="max-width: 42rem; margin-bottom: 2.5rem;">
+        <!-- <section style="max-width: 42rem; margin-bottom: 2.5rem;">
           <h2 style="font-family: 'Proxima Nova', sans-serif; font-size: 14px; font-weight: 400; margin: 0 0 12px;">
             Removed / archived
           </h2>
@@ -218,7 +218,7 @@
             <li>Old class names (<code>site-shell</code>, <code>project-feature</code>, etc.) — see <code>archive/classes.html</code></li>
             <li>Full old CSS → <code>archive/styles-pre-simplify.css</code></li>
           </ul>
-        </section>
+        </section> -->
 
         <section style="max-width: 42rem; margin-bottom: 2.5rem;">
           <h2 style="font-family: 'Proxima Nova', sans-serif; font-size: 14px; font-weight: 400; margin: 0 0 12px;">
@@ -239,12 +239,12 @@
           <div class="note" style="margin-bottom: 1.5rem;">
             <strong>About</strong> (<code>about.html</code>) — Same
             <code>layout</code> / <code>sidebar</code> / <code>main</code> shell as home.
-            The portrait + text row uses <strong>inline flexbox</strong> (not a CSS class):
-            <pre>&lt;div style="display: flex; flex-wrap: wrap; gap: 24px;"&gt;
-  &lt;figure style="max-width: 22rem;"&gt;...&lt;/figure&gt;
-  &lt;div style="flex: 1; min-width: 16rem;"&gt;...&lt;/div&gt;
+            The portrait sits centered above the text using <strong>inline flexbox</strong> (not a CSS class):
+            <pre>&lt;div style="display: flex; flex-direction: column; align-items: center; gap: 32px;"&gt;
+  &lt;figure style="width: 100%; max-width: 42rem;"&gt;...&lt;/figure&gt;
+  &lt;div style="width: 100%;"&gt;...&lt;/div&gt;
 &lt;/div&gt;</pre>
-            Change <code>flex-direction</code> to <code>column</code> in that inline style to stack them.
+            Change <code>max-width</code> on the figure to resize the portrait.
           </div>
 
           <div class="note" style="margin-bottom: 1.5rem;">
