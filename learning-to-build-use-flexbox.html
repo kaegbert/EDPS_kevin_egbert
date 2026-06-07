@@ -1,32 +1,40 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>learning to build use flexbox — kevin egbert</title>
-    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/proxima-nova-2" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.cdnfonts.com/css/proxima-nova-2"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <!-- .layout = flex row → sidebar + main sit side by side (see styles.css) -->
     <div class="layout">
-      
-
       <aside class="sidebar">
-        
         <a href="index.html">..\</a>
         <nav>
           <a href="about.html">About</a>
-          <a href="assets/kevin-egbert-resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+          <a
+            href="assets/kevin-egbert-resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Resume</a
+          >
         </nav>
         <p>
-          Student developer exploring web design and projects at the intersection of art,
-          technology, and learning.
+          Student developer exploring web design and projects at the
+          intersection of art, technology, and learning.
         </p>
-     
+
         <p>
           For interactive art, see my
-          <a href="https://kevinegbert.com/" target="_blank" rel="noopener noreferrer"
+          <a
+            href="https://kevinegbert.com/"
+            target="_blank"
+            rel="noopener noreferrer"
             >creative portfolio</a
           >.
         </p>
@@ -35,69 +43,273 @@
         <!-- <h1 style="font-family: 'Proxima Nova', sans-serif; font-size: 14px; font-weight: 400; margin: 0 0 24px;">
           learning to build use flexbox
         </h1> -->
-
-        <!-- Project cards — one flex row per card; edit justify-content on each row -->
-        <div style="display: flex; flex-direction: column; gap: 2.5rem; margin-bottom: 2.5rem;">
-
+        <h1>learning to build using flexbox</h1>
+        <p>
+          I am building this page in hopes of learning how to use flexbox. I was
+          interested in flexbox when first introduced to it in class. The goal
+          is to use it to build my sidebar navigation and also to create grids
+          as needed.
+        </p>
+<br>
+        <!-- Project cards — one flex row per card; edit justify class on each row -->
+        <div class="card-stack">
           <!-- Card one — project one -->
-          <div style="display: flex; justify-content: left;">
-            <div
-              class="card"
-              style="margin-bottom: 0; color: #999999;"
-            >
-              <strong style="text-decoration: none;">project one</strong>
+          <div class="flex-row justify-left">
+            <div class="card card-placeholder">
+              <strong>project one</strong>
               <p>This is a placeholder for a future project.</p>
-              <span class="placeholder" role="img" aria-label="Placeholder preview"></span>
+              <span
+                class="placeholder"
+                role="img"
+                aria-label="Placeholder preview"
+              ></span>
             </div>
           </div>
 
           <!-- Card two — project two -->
-          <div style="display: flex; justify-content: center;">
-            <div
-              class="card"
-              style="margin-bottom: 0; color: #999999;"
-            >
-              <strong style="text-decoration: none;">project two</strong>
+          <div class="flex-row justify-center">
+            <div class="card card-placeholder">
+              <strong>project two</strong>
               <p>This is a placeholder for a future project.</p>
-              <span class="placeholder" role="img" aria-label="Placeholder preview"></span>
+              <span
+                class="placeholder"
+                role="img"
+                aria-label="Placeholder preview"
+              ></span>
             </div>
           </div>
 
           <!-- Card three — project three -->
-          <div style="display: flex; justify-content: right;">
-            <div
-              class="card"
-              style="margin-bottom: 0; color: #999999;"
-            >
-              <strong style="text-decoration: none;">project three</strong>
+          <div class="flex-row justify-right">
+            <div class="card card-placeholder">
+              <strong>project three</strong>
               <p>This is a placeholder for a future project.</p>
-              <span class="placeholder" role="img" aria-label="Placeholder preview"></span>
+              <span
+                class="placeholder"
+                role="img"
+                aria-label="Placeholder preview"
+              ></span>
             </div>
           </div>
         </div>
 
-        <h2 style="font-family: 'Proxima Nova', sans-serif; font-size: 14px; font-weight: 400; margin: 48px 0 24px; padding-top: 32px; border-top: 1px solid #dddddd;">
-          column layout
-        </h2>
+        <h2>project cards — inline to classes</h2>
 
-        <!-- Column demo — flex row of flex columns (all inline styles) -->
-        <div style="display: flex; flex-direction: row; gap: 16px;">
-          <div style="display: flex; flex-direction: column; flex: 1; gap: 16px;">
-            <div style="border: 1px solid #222222; padding: 12px; min-height: 80px;">1</div>
-            <div style="border: 1px solid #222222; padding: 12px; min-height: 80px;">2</div>
-            <div style="border: 1px solid #222222; padding: 12px; min-height: 80px;">3</div>
+        <p
+          style="
+            max-width: 42rem;
+            font-size: 14px;
+            color: #999999;
+            line-height: 1.55;
+            margin: 0 0 16px;
+          "
+        >
+          I started with inline <code>style="..."</code> on every row and card.
+          I moved the repeated rules into <code>styles.css</code> and kept the
+          HTML shorter with classes.
+        </p>
+
+        <p
+          style="
+            max-width: 42rem;
+            font-size: 14px;
+            color: #999999;
+            line-height: 1.55;
+            margin: 0 0 16px;
+          "
+        >
+          <strong style="color: #222222">.card-stack</strong> — I use this to
+          stack the three card rows vertically. It replaces
+          <code
+            >display: flex; flex-direction: column; gap: 2.5rem; margin-bottom:
+            2.5rem;</code
+          >
+        </p>
+
+        <p
+          style="
+            max-width: 42rem;
+            font-size: 14px;
+            color: #999999;
+            line-height: 1.55;
+            margin: 0 0 16px;
+          "
+        >
+          <strong style="color: #222222">.justify-left</strong>,
+          <strong style="color: #222222">.justify-center</strong>,
+          <strong style="color: #222222">.justify-right</strong> — I pair these
+          with <code>.flex-row</code> to move each card left, center, or right.
+          They replace inline <code>justify-content</code> on each row.
+        </p>
+
+        <p
+          style="
+            max-width: 42rem;
+            font-size: 14px;
+            color: #999999;
+            line-height: 1.55;
+            margin: 0 0 16px;
+          "
+        >
+          <strong style="color: #222222">.card-placeholder</strong> — I use this
+          with <code>.card</code> for grey placeholder projects. It replaces
+          inline <code>color</code>, <code>margin-bottom</code>, and
+          <code>text-decoration: none</code> on the title.
+        </p>
+
+        <pre
+          style="
+            max-width: 42rem;
+            margin: 0 0 16px;
+            padding: 12px;
+            overflow-x: auto;
+            font-size: 13px;
+            line-height: 1.45;
+            color: #222222;
+            background: #eeeeee;
+            border: 1px solid #dddddd;
+          "
+        >
+&lt;!-- before --&gt;
+&lt;div style="display: flex; justify-content: center;"&gt;
+  &lt;div class="card"&gt;
+    &lt;strong style="text-decoration: none;"&gt;project two&lt;/strong&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- after --&gt;
+&lt;div class="flex-row justify-center"&gt;
+  &lt;div class="card card-placeholder"&gt;
+    &lt;strong&gt;project two&lt;/strong&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre
+        >
+
+        <h2>column layout</h2>
+
+        <!-- Column demo — .flex-row holds three .flex-column stacks -->
+        <div class="flex-row">
+          <div class="flex-column">
+            <div class="column-box">1</div>
+            <div class="column-box">2</div>
+            <div class="column-box">3</div>
           </div>
-          <div style="display: flex; flex-direction: column; flex: 1; gap: 16px;">
-            <div style="border: 1px solid #222222; padding: 12px; min-height: 80px;">4</div>
-            <div style="border: 1px solid #222222; padding: 12px; min-height: 80px;">5</div>
-            <div style="border: 1px solid #222222; padding: 12px; min-height: 80px;">6</div>
+          <div class="flex-column">
+            <div class="column-box">4</div>
+            <div class="column-box">5</div>
+            <div class="column-box">6</div>
           </div>
-          <div style="display: flex; flex-direction: column; flex: 1; gap: 16px;">
-            <div style="border: 1px solid #222222; padding: 12px; min-height: 80px;">7</div>
-            <div style="border: 1px solid #222222; padding: 12px; min-height: 80px;">8</div>
-            <div style="border: 1px solid #222222; padding: 12px; min-height: 80px;">9</div>
+          <div class="flex-column">
+            <div class="column-box">7</div>
+            <div class="column-box">8</div>
+            <div class="column-box">9</div>
           </div>
         </div>
+
+        <br />
+        <h2>column layout — inline to classes</h2>
+
+        <p
+          style="
+            max-width: 42rem;
+            font-size: 14px;
+            color: #999999;
+            line-height: 1.55;
+            margin: 0 0 16px;
+          "
+        >
+          I built the column demo the same way — three classes instead of
+          repeating inline flex and box styles.
+        </p>
+
+        <p
+          style="
+            max-width: 42rem;
+            font-size: 14px;
+            color: #999999;
+            line-height: 1.55;
+            margin: 0 0 16px;
+          "
+        >
+          <strong style="color: #222222">.flex-row</strong> — I use this for the
+          outer row of three columns. It replaces
+          <code>display: flex; flex-direction: row; gap: 16px;</code>
+        </p>
+
+        <p
+          style="
+            max-width: 42rem;
+            font-size: 14px;
+            color: #999999;
+            line-height: 1.55;
+            margin: 0 0 16px;
+          "
+        >
+          <strong style="color: #222222">.flex-column</strong> — I use this for
+          each vertical stack inside the row. It replaces
+          <code
+            >display: flex; flex-direction: column; flex: 1; gap: 16px;</code
+          >
+        </p>
+
+        <p
+          style="
+            max-width: 42rem;
+            font-size: 14px;
+            color: #999999;
+            line-height: 1.55;
+            margin: 0 0 16px;
+          "
+        >
+          <strong style="color: #222222">.column-box</strong> — I use this for
+          each numbered box. It replaces
+          <code
+            >border: 1px solid #222222; padding: 12px; min-height: 80px;</code
+          >
+        </p>
+
+        <pre
+          style="
+            max-width: 42rem;
+            margin: 0 0 16px;
+            padding: 12px;
+            overflow-x: auto;
+            font-size: 13px;
+            line-height: 1.45;
+            color: #222222;
+            background: #eeeeee;
+            border: 1px solid #dddddd;
+          "
+        >
+&lt;!-- before --&gt;
+&lt;div style="display: flex; flex-direction: row; gap: 16px;"&gt;
+  &lt;div style="display: flex; flex-direction: column; flex: 1; gap: 16px;"&gt;
+    &lt;div style="border: 1px solid #222222; padding: 12px; min-height: 80px;"&gt;1&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- after --&gt;
+&lt;div class="flex-row"&gt;
+  &lt;div class="flex-column"&gt;
+    &lt;div class="column-box"&gt;1&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre
+        >
+
+        <p
+          style="
+            max-width: 42rem;
+            font-size: 14px;
+            color: #999999;
+            line-height: 1.55;
+            margin: 0;
+          "
+        >
+          Now I can edit a class once in <code>styles.css</code> and every
+          element with that class updates. I can also combine classes on one
+          element — for example <code>class="flex-row justify-center"</code> or
+          <code>class="card card-placeholder"</code>.
+        </p>
       </main>
     </div>
   </body>
