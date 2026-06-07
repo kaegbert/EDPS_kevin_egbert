@@ -6,8 +6,6 @@ Static personal website for **EDPS 6560** (Summer 2026), built with plain HTML, 
 
 **Neolithia** (timeline game): [kaegbert.github.io/neolithia](https://kaegbert.github.io/neolithia/)
 
-**Learning to build use flexbox**: [kaegbert.github.io/EDPS_kevin_egbert/learning-to-build-use-flexbox.html](https://kaegbert.github.io/EDPS_kevin_egbert/learning-to-build-use-flexbox.html)
-
 **CodeAcademy**: https://www.codecademy.com/profiles/doodlebert
 
 ## Features
