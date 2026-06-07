@@ -1,11 +1,19 @@
-/* Global stylesheet — index, about, learning-to-build-use-flexbox.html, how-this-site-is-styled.html
-   Layout uses flexbox only. No CSS grid. No mobile hamburger styles.
-   Old styles archived in archive/styles-pre-simplify.css */
+/* ==========================================================================
+   Global stylesheet — index, about, learning-to-build-use-flexbox.html,
+   how-this-site-is-styled.html
 
+   Layout: flexbox only. No CSS grid. No mobile hamburger. No JavaScript.
+   Old version: archive/styles-pre-simplify.css
+   ========================================================================== */
+
+/* --- Reset / base -------------------------------------------------------- */
+
+/* Include padding and border in width/height calculations */
 * {
   box-sizing: border-box;
 }
 
+/* Default page typography — Courier New body text on white */
 body {
   margin: 0;
   font-family: "Courier New", Courier, monospace;
@@ -15,30 +23,45 @@ body {
   background: #ffffff;
 }
 
+/* Links inherit text color; no underline globally (cards add their own) */
 a {
-  color: inherit;
+  color: #225a30;
   text-decoration: none;
 }
 
+/* Images scale down inside narrow columns; no inline gap below images */
 img {
   max-width: 100%;
   height: auto;
   display: block;
 }
 
+/* Inline code snippets in prose — blue, slightly smaller than body */
 code {
   font-size: 0.9em;
   color: #0550ae;
 }
 
-/* Shell: sidebar + main side by side (flexbox row) */
+/* --- Page titles (edit here) --------------------------------------------- */
+
+/* Main column page title — edit font-size, weight, and spacing here */
+.main h1 {
+  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 24px;
+}
+
+/* --- Shell: sidebar + main side by side -------------------------------- */
+
+/* Outer wrapper — flex row fills at least the viewport height */
 .layout {
   display: flex;
   flex-direction: row;
   min-height: 100vh;
 }
 
-/* Left column — fixed width, does not shrink */
+/* Left column — fixed 260px; does not shrink when main content is wide */
 .sidebar {
   width: 260px;
   flex-shrink: 0;
@@ -46,11 +69,13 @@ code {
   border-right: 1px solid #dddddd;
 }
 
+/* Home link ".." at top of sidebar */
 .sidebar > a {
   font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 20px;
 }
 
+/* Tagline and external portfolio paragraph in sidebar */
 .sidebar > p {
   font-size: 12px;
   color: #999999;
@@ -58,6 +83,7 @@ code {
   max-width: 16rem;
 }
 
+/* Nav links (currently just About) */
 .sidebar nav a {
   display: block;
   margin-top: 10px;
@@ -70,13 +96,15 @@ code {
   color: #222222;
 }
 
-/* Right column — grows to fill remaining space */
+/* Right column — grows to fill space beside the sidebar */
 .main {
   flex: 1;
   padding: 60px 5% 48px;
 }
 
-/* Grey learning notes and code snippets on the page */
+/* --- Learning notes (how-this-site-is-styled.html only) ---------------- */
+
+/* Grey hint boxes with optional <pre> code blocks inside */
 .note {
   margin: 0 0 24px;
   max-width: 42rem;
@@ -84,6 +112,7 @@ code {
   color: #999999;
 }
 
+/* Code samples inside a .note block */
 .note pre {
   margin: 12px 0 0;
   padding: 12px;
@@ -95,7 +124,9 @@ code {
   border: 1px solid #dddddd;
 }
 
-/* Project card — capped width like before */
+/* --- Project cards ----------------------------------------------------- */
+
+/* Card wrapper — block link or div; max width matches content column */
 .card {
   display: block;
   max-width: 42rem;
@@ -103,6 +134,7 @@ code {
   color: #222222;
 }
 
+/* Card title — underlined Proxima Nova */
 .card strong {
   display: block;
   margin-bottom: 0.35rem;
@@ -112,12 +144,14 @@ code {
   text-underline-offset: 2px;
 }
 
+/* Card subtitle / description */
 .card p {
   margin: 0 0 0.75rem;
   font-size: 13px;
   color: #999999;
 }
 
+/* Screenshot or placeholder preview at bottom of card */
 .card img,
 .card .placeholder {
   display: block;
@@ -125,6 +159,7 @@ code {
   border: 2px solid #000000;
 }
 
+/* Grey box when a card has no screenshot yet */
 .card .placeholder {
   aspect-ratio: 1024 / 233;
   min-height: 8rem;
