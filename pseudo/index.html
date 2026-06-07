@@ -20,10 +20,7 @@
     <!-- Loads Proxima Nova font from CDN for UI text (same as main site) -->
 
     <link rel="stylesheet" href="../styles.css" />
-    <!-- Main site styles — shared sidebar and page shell -->
-
-    <link rel="stylesheet" href="styles.css" />
-    <!-- Pseudo-only styles — flexbox grids and column layout -->
+    <!-- Global site stylesheet — shared with index.html and about.html -->
   </head>
 
   <body class="page-pseudo">
@@ -122,10 +119,10 @@
           <p class="projects-note">
           <!-- Hint text for what to edit in CSS -->
 
-            Edit <code>styles.css</code> — try <code>flex-wrap</code>, <code>gap</code>, and
+            Edit <code>../styles.css</code> — try <code>flex-wrap</code>, <code>gap</code>, and
             <!-- <code> renders monospace inline text for class/file names -->
 
-            <code>flex</code> on <code>.project-grid-item</code>.
+            <code>flex</code> on <code>.page-pseudo .project-grid-item</code>.
           </p>
 
           <ul class="project-grid">
@@ -137,8 +134,15 @@
               <a class="project-card" href="https://kaegbert.github.io/neolithia/">
               <!-- Clickable card linking to the Neolithia game -->
 
-                <span class="project-card-thumb"></span>
-                <!-- Empty span styled as a grey preview image area -->
+                <img
+                  class="project-card-thumb"
+                  src="../assets/neolithia-preview.png"
+                  alt="Neolithia — timeline cards with Before and After placement beside a highlighted event"
+                  width="1024"
+                  height="233"
+                  loading="lazy"
+                />
+                <!-- Same preview image as the home page; ../assets/ path from pseudo folder -->
 
                 <span class="project-card-title">Neolithia</span>
                 <!-- Card label text -->
@@ -154,7 +158,7 @@
                 <span class="project-card-thumb"></span>
                 <!-- Placeholder preview block -->
 
-                <span class="project-card-title">project two</span>
+                <span class="project-card-title">project two - this is a placeholder for a future project</span>
                 <!-- Placeholder title -->
               </div>
             </li>
@@ -167,7 +171,7 @@
 
                 <span class="project-card-thumb"></span>
 
-                <span class="project-card-title">project three</span>
+                <span class="project-card-title">project three- this is a placeholder for a future project</span>
               </div>
             </li>
           </ul>
@@ -182,8 +186,8 @@
           <p class="projects-note">
           <!-- Reuses .projects-note styling for the hint paragraph -->
 
-            Three boxes per column — edit <code>.column-grid</code> and
-            <code>.column-stack</code> in <code>styles.css</code>.
+            Three boxes per column — edit <code>.page-pseudo .column-grid</code> and
+            <code>.page-pseudo .column-stack</code> in <code>../styles.css</code>.
           </p>
 
           <div class="column-grid">
@@ -192,34 +196,34 @@
             <div class="column-stack">
             <!-- Flex column: stacks three boxes vertically -->
 
-              <div class="column-box">box 1</div>
+              <div class="column-box">1</div>
               <!-- Individual box in column 1, row 1 -->
 
-              <div class="column-box">box 2</div>
+              <div class="column-box">2</div>
               <!-- Individual box in column 1, row 2 -->
 
-              <div class="column-box">box 3</div>
+              <div class="column-box">3</div>
               <!-- Individual box in column 1, row 3 -->
             </div>
 
             <div class="column-stack">
             <!-- Second column of three stacked boxes -->
 
-              <div class="column-box">box 4</div>
+              <div class="column-box">4</div>
 
-              <div class="column-box">box 5</div>
+              <div class="column-box">5</div>
 
-              <div class="column-box">box 6</div>
+              <div class="column-box">6</div>
             </div>
 
             <div class="column-stack">
             <!-- Third column of three stacked boxes -->
 
-              <div class="column-box">box 7</div>
+              <div class="column-box">7</div>
 
-              <div class="column-box">box 8</div>
+              <div class="column-box">8</div>
 
-              <div class="column-box">box 9</div>
+              <div class="column-box">9</div>
             </div>
           </div>
         </section>

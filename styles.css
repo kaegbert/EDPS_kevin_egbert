@@ -9,6 +9,7 @@
   --color-canvas: #ffffff;
   --color-panel: #eeeeee;
   --color-overlay: rgba(255, 255, 255, 0.3);
+  --color-code: #0550ae;
 
   --font-display: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono: "Courier New", Courier, monospace;
@@ -57,6 +58,7 @@ body {
   line-height: 1.5;
   color: var(--color-ink);
   background: var(--color-canvas);
+  text-transform: lowercase;
 }
 
 /* Headings and UI — Proxima Nova; body copy stays Courier New */
@@ -88,7 +90,7 @@ a {
 
 code {
   font-size: 0.9em;
-  color: #0550ae;
+  color: var(--color-code);
 }
 
 :focus-visible {
@@ -347,6 +349,10 @@ code {
   padding-top: var(--space-section);
 }
 
+.page-pseudo .projects {
+  padding-top: var(--space-section);
+}
+
 .page-about .section-title {
   font-size: clamp(22px, 4vw, 28px);
   font-weight: 400;
@@ -423,13 +429,22 @@ code {
 
 .project-feature-title {
   display: block;
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.35rem;
   font-size: 15px;
   font-weight: 400;
   line-height: 1.3;
   color: var(--color-ink);
   text-decoration: underline;
   text-underline-offset: 2px;
+}
+
+.project-feature-subtitle {
+  display: block;
+  margin: 0 0 0.75rem;
+  max-width: 36rem;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--color-muted);
 }
 
 .project-feature:hover .project-feature-title,
@@ -570,6 +585,112 @@ code {
 }
 
 /* -------------------------------------------------------------------------- */
+/* Pseudo — flexbox practice page                                             */
+/* -------------------------------------------------------------------------- */
+
+.page-pseudo .projects-heading,
+.page-pseudo .about-heading,
+.page-pseudo .column-section-heading {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 400;
+  margin: 0 0 12px;
+}
+
+.page-pseudo .projects-note {
+  margin: 0 0 var(--space-lg);
+  color: var(--color-muted);
+  font-size: 14px;
+}
+
+.page-pseudo .about {
+  margin-top: var(--space-xl);
+  padding-top: 32px;
+  border-top: 1px solid var(--color-faint);
+}
+
+.page-pseudo .project-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.page-pseudo .project-grid-item {
+  /* flex: 1 1 calc(33.333% - 11px); */ /* three cards per row */
+  flex: 1 1 100%;
+  justify-content: center;
+}
+
+.page-pseudo .project-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-ink);
+  background: var(--color-canvas);
+}
+
+.page-pseudo a.project-card:hover {
+  background: var(--color-panel);
+}
+
+.page-pseudo .project-card--placeholder {
+  color: var(--color-muted);
+}
+
+.page-pseudo .project-card-thumb {
+  display: block;
+  border-bottom: 1px solid var(--color-faint);
+}
+
+.page-pseudo span.project-card-thumb {
+  height: 120px;
+  background: var(--color-panel);
+}
+
+.page-pseudo img.project-card-thumb {
+  width: 100%;
+  height: auto;
+}
+
+.page-pseudo .project-card-title {
+  display: block;
+  padding: 12px 14px;
+  font-family: var(--font-display);
+  font-size: 14px;
+}
+
+.page-pseudo .column-section {
+  margin-top: var(--space-xl);
+  padding-top: 32px;
+  border-top: 1px solid var(--color-faint);
+}
+
+.page-pseudo .column-grid {
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-md);
+}
+
+.page-pseudo .column-stack {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: var(--space-md);
+}
+
+.page-pseudo .column-box {
+  flex: 1;
+  min-height: 80px;
+  padding: 12px 14px;
+  border: 1px solid var(--color-ink);
+  background: var(--color-canvas);
+  font-family: var(--font-display);
+  font-size: 14px;
+}
+
+/* -------------------------------------------------------------------------- */
 /* Contact                                                                    */
 /* -------------------------------------------------------------------------- */
 
@@ -652,7 +773,6 @@ code {
   font-size: 12px;
   font-weight: 700;
   line-height: 40px;
-  text-transform: uppercase;
   letter-spacing: 0.02em;
   color: var(--color-ink);
   background: transparent;
@@ -740,6 +860,10 @@ code {
     padding-bottom: 28px;
   }
 
+  .page-pseudo .projects {
+    padding-top: 28px;
+  }
+
   .site-footer {
     padding: 28px 0;
   }
@@ -749,5 +873,9 @@ code {
   .section {
     padding-top: 25px;
     padding-bottom: 25px;
+  }
+
+  .page-pseudo .projects {
+    padding-top: 25px;
   }
 }
