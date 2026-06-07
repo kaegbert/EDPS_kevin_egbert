@@ -584,6 +584,10 @@ code {
 /* Pseudo — flexbox practice page                                             */
 /* -------------------------------------------------------------------------- */
 
+.page-pseudo .content-wrap {
+  padding-bottom: var(--space-section);
+}
+
 .page-pseudo .projects-heading,
 .page-pseudo .about-heading,
 .page-pseudo .column-section-heading {
@@ -612,6 +616,11 @@ code {
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 2.5rem;
+}
+
+.page-pseudo .project-features .project-feature {
+  width: 100%;
+  max-width: 42rem; /* same cap as home page — keeps all cards equal width */
 }
 
 .page-pseudo .project-features .project-feature + .project-feature {
