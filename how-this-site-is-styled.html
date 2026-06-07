@@ -1,5 +1,5 @@
 <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
-<!-- How this site is styled page -->
+<!-- Head -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -34,13 +34,13 @@
   <!-- Main content -->
       <main class="main">
         <h1>how this site is styled</h1>
-        <div class="note">
+        <div style="margin: 0 0 24px; max-width: 42rem; font-size: 14px; color: #999999;">
           <strong>What is a class?</strong> — A class is a label on an HTML element. CSS targets
           that label to apply styles. Example: <code>.sidebar</code> in
           <code>styles.css</code> styles every element with <code>class="sidebar"</code>.
         </div>
         <section style="max-width: 42rem; margin-bottom: 2.5rem;">
-          <h2 style="font-family: 'Proxima Nova', sans-serif; font-size: 14px; font-weight: 400; margin: 0 0 12px;">
+          <h2>
             Site files
           </h2>
 
@@ -57,8 +57,8 @@
         </section>
 
         <section style="max-width: 42rem; margin-bottom: 2.5rem;">
-          <h2 style="font-family: 'Proxima Nova', sans-serif; font-size: 14px; font-weight: 400; margin: 0 0 12px;">
-            Live setup (5 CSS classes only)
+          <h2>
+            Live setup (4 CSS classes only)
           </h2>
 
           <p style="font-size: 14px; color: #999999; margin: 0 0 16px;">
@@ -98,12 +98,6 @@
                 </td>
               </tr>
               <tr>
-                <td style="padding: 8px; border-bottom: 1px solid #eeeeee;"><code>note</code></td>
-                <td style="padding: 8px; border-bottom: 1px solid #eeeeee; color: #999999;">
-                  Grey learning hints + code blocks (used on this reference page)
-                </td>
-              </tr>
-              <tr>
                 <td style="padding: 8px;"><code>card</code></td>
                 <td style="padding: 8px; color: #999999;">Project cards (max-width 42rem)</td>
               </tr>
@@ -117,7 +111,7 @@
         </section>
 
         <section style="max-width: 42rem; margin-bottom: 2.5rem;">
-          <h2 style="font-family: 'Proxima Nova', sans-serif; font-size: 14px; font-weight: 400; margin: 0 0 12px;">
+          <h2>
             Typography and colors
           </h2>
 
@@ -127,7 +121,7 @@
 
           <ul style="margin: 0; padding-left: 1.25rem; font-size: 14px; color: #999999; line-height: 1.55;">
             <li><strong style="color: #222222;">Body</strong> — Courier New, 16px, <code>#222222</code> on white</li>
-            <li><strong style="color: #222222;">Headings / nav / card titles</strong> — Proxima Nova (CDN); page titles via <code>.main h1</code> in <code>styles.css</code></li>
+            <li><strong style="color: #222222;">Headings / nav / card titles</strong> — Proxima Nova (CDN); page titles via <code>.main h1</code>, section titles via <code>.main h2</code> in <code>styles.css</code></li>
             <li><strong style="color: #222222;">Muted text</strong> — <code>#999999</code> (sidebar, subtitles, About paragraphs)</li>
             <li><strong style="color: #222222;">Borders</strong> — <code>#dddddd</code> sidebar rule; <code>#000000</code> 2px on card images</li>
             <li><strong style="color: #222222;">Code in prose</strong> — <code>#0550ae</code> via the <code>code</code> element selector</li>
@@ -135,7 +129,7 @@
         </section>
 
         <section style="max-width: 42rem; margin-bottom: 2.5rem;">
-          <h2 style="font-family: 'Proxima Nova', sans-serif; font-size: 14px; font-weight: 400; margin: 0 0 12px;">
+          <h2>
             Page shell (every page)
           </h2>
 
@@ -179,7 +173,7 @@
         </section>
 
         <section style="max-width: 42rem; margin-bottom: 2.5rem;">
-          <h2 style="font-family: 'Proxima Nova', sans-serif; font-size: 14px; font-weight: 400; margin: 0 0 12px;">
+          <h2>
             Inside a project card
           </h2>
 
@@ -203,7 +197,7 @@
         </section>
 
         <section style="max-width: 42rem; margin-bottom: 2.5rem;">
-          <h2 style="font-family: 'Proxima Nova', sans-serif; font-size: 14px; font-weight: 400; margin: 0 0 12px;">
+          <h2>
             Inline styles
           </h2>
 
@@ -221,7 +215,7 @@
         </section>
 
         <section style="max-width: 42rem; margin-bottom: 2.5rem;">
-          <h2 style="font-family: 'Proxima Nova', sans-serif; font-size: 14px; font-weight: 400; margin: 0 0 12px;">
+          <h2>
             Classes vs IDs
           </h2>
 
@@ -239,7 +233,7 @@
         </section>
 
         <section style="max-width: 42rem; margin-bottom: 2.5rem;">
-          <h2 style="font-family: 'Proxima Nova', sans-serif; font-size: 14px; font-weight: 400; margin: 0 0 12px;">
+          <h2>
             Quick reference by page
           </h2>
 
@@ -247,19 +241,19 @@
             <li><strong style="color: #222222;">Home</strong> (<code>index.html</code>) — <code>layout</code> + three stacked <code>card</code> links; no page heading, no on-page notes</li>
             <li><strong style="color: #222222;">About</strong> (<code>about.html</code>) — same shell + inline column flex (portrait centered above text); paragraph color inline</li>
             <li><strong style="color: #222222;">Learning to build use flexbox</strong> (<code>learning-to-build-use-flexbox.html</code>) — same shell + one flex row per card with inline <code>justify-content</code> + column demo below</li>
-            <li><strong style="color: #222222;">How this site is styled</strong> — same shell + <code>note</code> blocks and this reference content</li>
+            <li><strong style="color: #222222;">How this site is styled</strong> — same shell + inline hint blocks and this reference content</li>
           </ul>
         </section>
 
         <section style="max-width: 42rem; margin-bottom: 2.5rem;">
-          <h2 style="font-family: 'Proxima Nova', sans-serif; font-size: 14px; font-weight: 400; margin: 0 0 12px;">
+          <h2>
             Removed / archived
           </h2>
           <ul style="margin: 0; padding-left: 1.25rem; font-size: 14px; color: #999999; line-height: 1.55;">
             <li>Mobile hamburger — gone (no <code>nav-toggle</code>, no JS)</li>
             <li>CSS grid — shell and About layout now use flexbox only</li>
             <li>JavaScript — removed from pages; old <code>script.js</code> → <code>archive/script.js</code></li>
-            <li>On-page learning notes — moved here from home, about, and flexbox pages</li>
+            <li>On-page learning notes — moved here; hint boxes use inline styles, not a CSS class</li>
             <li>Reveal animations, skip link, <code>page-about</code> / <code>page-pseudo</code>, 50+ old classes</li>
             <li>Old class names (<code>site-shell</code>, <code>project-feature</code>, etc.) — see <code>archive/classes.html</code></li>
             <li>Full old CSS → <code>archive/styles-pre-simplify.css</code></li>
@@ -267,23 +261,26 @@
         </section>
 
         <section style="max-width: 42rem; margin-bottom: 2.5rem;">
-          <h2 style="font-family: 'Proxima Nova', sans-serif; font-size: 14px; font-weight: 400; margin: 0 0 12px;">
+          <h2>
             How each page works
           </h2>
 
-          <div class="note" style="margin-bottom: 1.5rem;">
-            <strong>Page titles</strong> — Use a plain <code>&lt;h1&gt;</code> inside
-            <code>main</code>. Style it in <code>styles.css</code> under
-            <code>.main h1</code> (font, size, margin). On other pages the
-            <code>&lt;h1&gt;</code> is commented out; uncomment to show a title.
+          <div style="margin-bottom: 1.5rem; max-width: 42rem; font-size: 14px; color: #999999;">
+            <strong>Page and section titles</strong> — Use plain <code>&lt;h1&gt;</code> for the page
+            title and <code>&lt;h2&gt;</code> for section headings inside <code>main</code>.
+            Edit both in <code>styles.css</code>:
+            <pre style="margin: 12px 0 0; padding: 12px; overflow-x: auto; font-size: 13px; line-height: 1.45; color: #222222; background: #eeeeee; border: 1px solid #dddddd;">.main h1 { font-size: 24px; font-weight: 700; ... }
+.main h2 { font-size: 20px; font-weight: 700; ... }</pre>
+            On other pages, <code>&lt;h1&gt;</code> may be commented out; uncomment to show a page
+            title. The flexbox page uses <code>&lt;h2&gt;</code> for “column layout”.
           </div>
 
-          <div class="note" style="margin-bottom: 1.5rem;">
+          <div style="margin-bottom: 1.5rem; max-width: 42rem; font-size: 14px; color: #999999;">
             <strong>Home</strong> (<code>index.html</code>) — Three project cards in
             <code>main</code>, each an <code>&lt;a class="card"&gt;</code>. Cards stack vertically
             via default block layout and <code>margin-bottom: 2.5rem</code> on
             <code>.card</code>. The page heading is commented out in the HTML.
-            <pre>&lt;main class="main"&gt;
+            <pre style="margin: 12px 0 0; padding: 12px; overflow-x: auto; font-size: 13px; line-height: 1.45; color: #222222; background: #eeeeee; border: 1px solid #dddddd;">&lt;main class="main"&gt;
   &lt;a class="card" href="neolithia/"&gt;...&lt;/a&gt;
   &lt;a class="card" href="learning-to-build-use-flexbox.html"&gt;...&lt;/a&gt;
   &lt;a class="card" href="how-this-site-is-styled.html"&gt;...&lt;/a&gt;
@@ -292,23 +289,23 @@
             <code>style="gap: 24px;"</code> on <code>.layout</code> to space sidebar and main.
           </div>
 
-          <div class="note" style="margin-bottom: 1.5rem;">
+          <div style="margin-bottom: 1.5rem; max-width: 42rem; font-size: 14px; color: #999999;">
             <strong>About</strong> (<code>about.html</code>) — Same
             <code>layout</code> / <code>sidebar</code> / <code>main</code> shell as home.
             The portrait sits centered above the text using <strong>inline flexbox</strong> (not a CSS class):
-            <pre>&lt;div style="display: flex; flex-direction: column; align-items: center; gap: 32px;"&gt;
+            <pre style="margin: 12px 0 0; padding: 12px; overflow-x: auto; font-size: 13px; line-height: 1.45; color: #222222; background: #eeeeee; border: 1px solid #dddddd;">&lt;div style="display: flex; flex-direction: column; align-items: center; gap: 32px;"&gt;
   &lt;figure style="width: 100%; max-width: 42rem;"&gt;...&lt;/figure&gt;
   &lt;div style="width: 100%;"&gt;...&lt;/div&gt;
 &lt;/div&gt;</pre>
             Change <code>max-width</code> on the figure to resize the portrait.
           </div>
 
-          <div class="note" style="margin-bottom: 1.5rem;">
+          <div style="margin-bottom: 1.5rem; max-width: 42rem; font-size: 14px; color: #999999;">
             <strong>Learning to build use flexbox</strong>
             (<code>learning-to-build-use-flexbox.html</code>) — Each card sits in its own flex row.
             HTML comments label each card. Edit <code>justify-content</code> on that row to move the
             card left, center, or right:
-            <pre>&lt;!-- Card two — project two --&gt;
+            <pre style="margin: 12px 0 0; padding: 12px; overflow-x: auto; font-size: 13px; line-height: 1.45; color: #222222; background: #eeeeee; border: 1px solid #dddddd;">&lt;!-- Card two — project two --&gt;
 &lt;div style="display: flex; justify-content: center;"&gt;
   &lt;div class="card" style="margin-bottom: 0; color: #999999;"&gt;...&lt;/div&gt;
 &lt;/div&gt;</pre>
@@ -318,10 +315,10 @@
             new code — they are the standard flex values for left and right.
           </div>
 
-          <div class="note">
+          <div style="margin: 0 0 24px; max-width: 42rem; font-size: 14px; color: #999999;">
             <strong>Column layout</strong> (same page) — Three columns, three boxes each. All
             flexbox, inline on that page:
-            <pre>&lt;div style="display: flex; gap: 16px;"&gt;           &lt;!-- row of columns --&gt;
+            <pre style="margin: 12px 0 0; padding: 12px; overflow-x: auto; font-size: 13px; line-height: 1.45; color: #222222; background: #eeeeee; border: 1px solid #dddddd;">&lt;div style="display: flex; gap: 16px;"&gt;           &lt;!-- row of columns --&gt;
   &lt;div style="display: flex; flex-direction: column; flex: 1; gap: 16px;"&gt;
     &lt;div style="border: 1px solid #222; padding: 12px;"&gt;1&lt;/div&gt;
   &lt;/div&gt;
@@ -331,7 +328,7 @@
         </section>
 
         <section style="max-width: 42rem; margin-bottom: 2.5rem;">
-          <h2 style="font-family: 'Proxima Nova', sans-serif; font-size: 14px; font-weight: 400; margin: 0 0 12px;">
+          <h2>
             Unchanged
           </h2>
           <ul style="margin: 0; padding-left: 1.25rem; font-size: 14px; color: #999999; line-height: 1.55;">
@@ -341,11 +338,11 @@
         </section>
 
         <section style="max-width: 42rem;">
-          <h2 style="font-family: 'Proxima Nova', sans-serif; font-size: 14px; font-weight: 400; margin: 0 0 12px;">
+          <h2>
             Where to edit
           </h2>
           <ul style="margin: 0; padding-left: 1.25rem; font-size: 14px; color: #999999; line-height: 1.55;">
-            <li><strong style="color: #222222;">Shared basics:</strong> <code>styles.css</code> — shell, cards, <code>.main h1</code>, notes</li>
+            <li><strong style="color: #222222;">Shared basics:</strong> <code>styles.css</code> — shell, cards, <code>.main h1</code>, <code>.main h2</code></li>
             <li><strong style="color: #222222;">Experiments:</strong> inline styles in each HTML file</li>
             <li><strong style="color: #222222;">Old code:</strong> <code>archive/</code> folder</li>
           </ul>

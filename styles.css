@@ -42,12 +42,20 @@ code {
   color: #0550ae;
 }
 
-/* --- Page titles (edit here) --------------------------------------------- */
+/* --- Page and section titles (edit here) --------------------------------- */
 
 /* Main column page title — edit font-size, weight, and spacing here */
 .main h1 {
   font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 24px;
+}
+
+/* Main column section headings — edit font-size, weight, and spacing here */
+.main h2 {
+  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
   font-weight: 700;
   margin: 0 0 24px;
 }
@@ -100,28 +108,6 @@ code {
 .main {
   flex: 1;
   padding: 60px 5% 48px;
-}
-
-/* --- Learning notes (how-this-site-is-styled.html only) ---------------- */
-
-/* Grey hint boxes with optional <pre> code blocks inside */
-.note {
-  margin: 0 0 24px;
-  max-width: 42rem;
-  font-size: 14px;
-  color: #999999;
-}
-
-/* Code samples inside a .note block */
-.note pre {
-  margin: 12px 0 0;
-  padding: 12px;
-  overflow-x: auto;
-  font-size: 13px;
-  line-height: 1.45;
-  color: #222222;
-  background: #eeeeee;
-  border: 1px solid #dddddd;
 }
 
 /* --- Project cards ----------------------------------------------------- */
