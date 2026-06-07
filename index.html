@@ -1,168 +1,62 @@
 <!DOCTYPE html>
-<!-- Declares HTML5 document type so the browser uses modern parsing rules -->
-
 <html lang="en">
-
   <head>
-  <!-- Head holds metadata and links — nothing here appears on the page -->
-
     <meta charset="utf-8" />
-    <!-- Character encoding: supports letters, symbols, and emoji -->
-
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Makes layout scale correctly on phones and tablets -->
-
-    <meta
-      name="description"
-      content="Kevin Egbert — art, electronics, communication, and web development. Portfolio."
-    />
-    <!-- Short summary for search engines and link previews -->
-
     <title>kevin egbert</title>
-    <!-- Text shown in the browser tab -->
-
     <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/proxima-nova-2" />
-    <!-- Loads Proxima Nova font from CDN for UI text -->
-
     <link rel="stylesheet" href="styles.css" />
-    <!-- Loads this site's main stylesheet from the repo root -->
   </head>
-<!-- ///////////////////////////////////////////////////////////////////////////////////////////////// -->
   <body>
-  <!-- Everything visible on the page goes inside body -->
+    <!-- .layout = flex row → sidebar + main sit side by side (see styles.css) -->
+    <div class="layout">
 
-    <a class="skip-link" href="#main">Skip to content</a>
-    <!-- Hidden until keyboard focus: jumps past sidebar straight to main content -->
+      <aside class="sidebar">
+        <a href="index.html">..\</a>
+        <p>
+          Student developer exploring web design and projects at the intersection of art,
+          technology, and learning.
+        </p>
+        <nav>
+          <a href="about.html">About</a>
+        </nav>
+        <p>
+          For interactive art, see my
+          <a href="https://kevinegbert.com/" target="_blank" rel="noopener noreferrer"
+            >creative portfolio</a
+          >.
+        </p>
+      </aside>
 
-    <div class="site-shell">
-    <!-- Outer wrapper: flex layout puts sidebar and main content side by side -->
+      <main class="main">
+        <h1 style="font-family: 'Proxima Nova', sans-serif; font-size: 14px; font-weight: 400; margin: 0 0 24px;">
+          projects
+        </h1>
 
-      <header class="site-header sidebar" role="banner">
-      <!-- Left sidebar column; role="banner" marks this as the site header for assistive tech -->
+        <a class="card" href="neolithia/">
+          <strong>Neolithia</strong>
+          <p>A timeline card game — place Before and After cards beside historical events.</p>
+          <img
+            src="assets/neolithia-preview.png"
+            alt="Neolithia preview"
+            width="1024"
+            height="233"
+            loading="lazy"
+          />
+        </a>
 
-        <div class="sidebar-inner">
-        <!-- Inner padding/spacing wrapper for sidebar content -->
+        <a class="card" href="learning-to-build-use-flexbox.html">
+          <strong>Learning to build use flexbox</strong>
+          <p>Practice flexbox — edit layout inline in the HTML.</p>
+          <span class="placeholder" role="img" aria-label="Placeholder preview"></span>
+        </a>
 
-          <h1 class="sidebar-site-title">
-          <!-- Top-level page heading (site name / logo) -->
-
-            <a class="nav-logo logo-mark" href="index.html" aria-label="Kevin Egbert home">..\</a>
-            <!-- Home link styled as logo; aria-label describes link for screen readers -->
-          </h1>
-
-          <div class="sidebar-intro reveal">
-          <!-- Intro block; "reveal" class triggers fade-in animation via script.js -->
-
-            <p class="sidebar-tagline">
-              Student developer exploring web design and projects at the intersection of art,
-              technology, and learning.
-            </p>
-            <!-- Short bio line shown under the logo -->
-          </div>
-
-          <button
-            class="nav-toggle"
-            type="button"
-            aria-label="Open menu"
-            aria-expanded="false"
-            aria-controls="nav-menu"
-          >
-          <!-- Hamburger button for mobile nav; script.js toggles aria-expanded and menu visibility -->
-
-            <span class="nav-toggle-bar"></span>
-            <!-- First bar of the three-line menu icon -->
-
-            <span class="nav-toggle-bar"></span>
-            <!-- Second bar of the menu icon -->
-
-            <span class="nav-toggle-bar"></span>
-            <!-- Third bar of the menu icon -->
-          </button>
-
-          <nav class="sidebar-nav" aria-label="Primary">
-          <!-- Primary site navigation; aria-label names the nav region -->
-
-            <ul class="nav-menu" id="nav-menu" role="list">
-            <!-- Nav links list; id matches aria-controls on the toggle button -->
-
-              <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-              <!-- Jumps to the projects section on this page -->
-
-              <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-              <!-- Links to the About page -->
-            </ul>
-
-            <p class="nav-external">
-              For interactive art and installation work, see my
-              <a href="https://kevinegbert.com/" target="_blank" rel="noopener noreferrer"
-                >creative portfolio</a
-              >.
-            </p>
-            <!-- External link; target="_blank" opens new tab; rel="noopener noreferrer" is a security best practice -->
-          </nav>
-        </div>
-      </header>
-
-      <div class="site-main">
-      <!-- Right column: grows to fill remaining width beside the sidebar -->
-
-        <main id="main">
-        <!-- Main content landmark; id="main" is the skip-link destination -->
-
-          <section class="section" id="projects" aria-label="Projects">
-          <!-- Projects section; aria-label names it for screen readers -->
-
-            <div class="content-wrap">
-            <!-- Constrains and pads project content within the main column -->
-
-              <a class="project-feature reveal" href="neolithia/">
-              <!-- Large clickable project card linking to Neolithia -->
-
-                <span class="project-feature-title">Neolithia</span>
-                <!-- Project name shown above the preview image -->
-
-                <span class="project-feature-subtitle">
-                  A timeline card game — place Before and After cards beside historical events.
-                </span>
-                <!-- Short description of what the project is -->
-
-                <img
-                  class="project-feature-image"
-                  src="assets/neolithia-preview.png"
-                  alt="Neolithia — timeline cards with Before and After placement beside a highlighted event"
-                  width="1024"
-                  height="233"
-                  loading="lazy"
-                />
-                <!-- Preview screenshot; width/height reserve space before load; loading="lazy" defers off-screen images -->
-              </a>
-
-              <a class="project-feature reveal reveal-delay-1" href="pseudo/">
-              <!-- Second project card; reveal-delay-1 staggers the fade-in animation -->
-
-                <span class="project-feature-title">Pseudo</span>
-                <!-- Project name for the flexbox practice page -->
-
-                <span class="project-feature-subtitle">
-                  A flexbox practice page — sidebar navigation, project grid, and column layouts.
-                </span>
-                <!-- Short description of what the project is -->
-
-                <span
-                  class="project-feature-image project-feature-image--placeholder"
-                  role="img"
-                  aria-label="Flexbox portfolio mockup with sidebar navigation and project grid"
-                ></span>
-                <!-- Empty span styled as preview placeholder; role="img" + aria-label describe it like an image -->
-              </a>
-            </div>
-          </section>
-
-        </main>
-      </div>
+        <a class="card" href="how-this-site-is-styled.html">
+          <strong>How this site is styled</strong>
+          <p>Site reference — the 5 CSS classes, what was archived, and where to edit.</p>
+          <span class="placeholder" role="img" aria-label="How this site is styled page preview"></span>
+        </a>
+      </main>
     </div>
-
-    <script src="script.js"></script>
-    <!-- Loads JavaScript: mobile nav toggle, reveal animations, etc. -->
   </body>
 </html>

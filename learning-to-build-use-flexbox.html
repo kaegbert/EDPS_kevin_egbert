@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>learning to build use flexbox — kevin egbert</title>
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/proxima-nova-2" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="layout">
+
+      <aside class="sidebar">
+        <a href="index.html">..\</a>
+        <p>
+          Student developer exploring web design and projects at the intersection of art,
+          technology, and learning.
+        </p>
+        <nav>
+          <a href="about.html">About</a>
+        </nav>
+        <p>
+          For interactive art, see my
+          <a href="https://kevinegbert.com/" target="_blank" rel="noopener noreferrer"
+            >creative portfolio</a
+          >.
+        </p>
+      </aside>
+
+      <main class="main">
+        <h1 style="font-family: 'Proxima Nova', sans-serif; font-size: 14px; font-weight: 400; margin: 0 0 24px;">
+          learning to build use flexbox
+        </h1>
+
+        <!-- Project cards — one flex row per card; edit justify-content on each row -->
+        <div style="display: flex; flex-direction: column; gap: 2.5rem; margin-bottom: 2.5rem;">
+
+          <!-- Card one — project one -->
+          <div style="display: flex; justify-content: left;">
+            <div
+              class="card"
+              style="margin-bottom: 0; color: #999999;"
+            >
+              <strong style="text-decoration: none;">project one</strong>
+              <p>This is a placeholder for a future project.</p>
+              <span class="placeholder" role="img" aria-label="Placeholder preview"></span>
+            </div>
+          </div>
+
+          <!-- Card two — project two -->
+          <div style="display: flex; justify-content: center;">
+            <div
+              class="card"
+              style="margin-bottom: 0; color: #999999;"
+            >
+              <strong style="text-decoration: none;">project two</strong>
+              <p>This is a placeholder for a future project.</p>
+              <span class="placeholder" role="img" aria-label="Placeholder preview"></span>
+            </div>
+          </div>
+
+          <!-- Card three — project three -->
+          <div style="display: flex; justify-content: right;">
+            <div
+              class="card"
+              style="margin-bottom: 0; color: #999999;"
+            >
+              <strong style="text-decoration: none;">project three</strong>
+              <p>This is a placeholder for a future project.</p>
+              <span class="placeholder" role="img" aria-label="Placeholder preview"></span>
+            </div>
+          </div>
+        </div>
+
+        <h2 style="font-family: 'Proxima Nova', sans-serif; font-size: 14px; font-weight: 400; margin: 48px 0 24px; padding-top: 32px; border-top: 1px solid #dddddd;">
+          column layout
+        </h2>
+
+        <!-- Column demo — flex row of flex columns (all inline styles) -->
+        <div style="display: flex; flex-direction: row; gap: 16px;">
+          <div style="display: flex; flex-direction: column; flex: 1; gap: 16px;">
+            <div style="border: 1px solid #222222; padding: 12px; min-height: 80px;">1</div>
+            <div style="border: 1px solid #222222; padding: 12px; min-height: 80px;">2</div>
+            <div style="border: 1px solid #222222; padding: 12px; min-height: 80px;">3</div>
+          </div>
+          <div style="display: flex; flex-direction: column; flex: 1; gap: 16px;">
+            <div style="border: 1px solid #222222; padding: 12px; min-height: 80px;">4</div>
+            <div style="border: 1px solid #222222; padding: 12px; min-height: 80px;">5</div>
+            <div style="border: 1px solid #222222; padding: 12px; min-height: 80px;">6</div>
+          </div>
+          <div style="display: flex; flex-direction: column; flex: 1; gap: 16px;">
+            <div style="border: 1px solid #222222; padding: 12px; min-height: 80px;">7</div>
+            <div style="border: 1px solid #222222; padding: 12px; min-height: 80px;">8</div>
+            <div style="border: 1px solid #222222; padding: 12px; min-height: 80px;">9</div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

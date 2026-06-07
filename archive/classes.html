@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="How CSS classes are used across the kevin egbert portfolio site."
+    />
+    <title>Classes — kevin egbert</title>
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/proxima-nova-2" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body class="page-guide">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="site-shell">
+      <header class="site-header sidebar" role="banner">
+        <div class="sidebar-inner">
+          <p class="sidebar-site-title">
+            <a class="nav-logo logo-mark" href="index.html" aria-label="Kevin Egbert home">..\</a>
+          </p>
+
+          <div class="sidebar-intro reveal">
+            <p class="sidebar-tagline">
+              Student developer exploring web design and projects at the intersection of art,
+              technology, and learning.
+            </p>
+          </div>
+
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="nav-menu"
+          >
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+          </button>
+
+          <nav class="sidebar-nav" aria-label="Primary">
+            <ul class="nav-menu" id="nav-menu" role="list">
+              <li class="nav-item">
+                <a class="nav-link" href="about.html">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link is-active" href="classes.html" aria-current="page">Classes</a>
+              </li>
+            </ul>
+
+            <p class="nav-external">
+              For interactive art and installation work, see my
+              <a href="https://kevinegbert.com/" target="_blank" rel="noopener noreferrer"
+                >creative portfolio</a
+              >.
+            </p>
+          </nav>
+        </div>
+      </header>
+
+      <div class="site-main">
+        <main id="main">
+          <section class="section" id="guide" aria-labelledby="guide-heading">
+            <div class="content-wrap guide-content">
+              <header class="section-header reveal">
+                <h2 class="section-title" id="guide-heading">How classes work on this site</h2>
+              </header>
+
+              <div class="guide-body reveal">
+                <p class="guide-lead">
+                  A <strong>class</strong> is a label on an HTML element. CSS targets that label to
+                  apply styles. JavaScript can also use classes — for example
+                  <code>.reveal</code> and <code>.nav-toggle</code> in <code>script.js</code>.
+                </p>
+
+                <p>
+                  All portfolio pages share one stylesheet: <code>styles.css</code>.
+                  <code>learning-html/</code> is separate and does not use it.
+                </p>
+
+                <h3 class="guide-heading">Layer 1 — Shared shell (every page)</h3>
+                <p>These classes repeat on <strong>index</strong>, <strong>about</strong>, and <strong>pseudo</strong>:</p>
+
+                <pre class="guide-tree">site-shell
+├── site-header sidebar
+│   └── sidebar-inner
+│       ├── sidebar-site-title → nav-logo logo-mark
+│       ├── sidebar-intro reveal
+│       │   └── sidebar-tagline
+│       ├── nav-toggle (+ nav-toggle-bar × 3)
+│       └── sidebar-nav
+│           ├── nav-menu → nav-item → nav-link
+│           └── nav-external
+└── site-main
+    └── main#main
+        └── content-wrap
+            └── (page-specific content)</pre>
+
+                <dl class="guide-dl">
+                  <dt><code>site-shell</code></dt>
+                  <dd>Wraps sidebar and main content; uses CSS grid on desktop.</dd>
+                  <dt><code>site-header</code> + <code>sidebar</code></dt>
+                  <dd>Left navigation column.</dd>
+                  <dt><code>nav-logo</code> + <code>logo-mark</code></dt>
+                  <dd>The <code>..\</code> home link.</dd>
+                  <dt><code>nav-link</code></dt>
+                  <dd>Navigation text; add <code>is-active</code> on the current page.</dd>
+                  <dt><code>content-wrap</code></dt>
+                  <dd>Limits width and centers main content.</dd>
+                  <dt><code>reveal</code></dt>
+                  <dd>Fade-in on scroll; JS adds <code>is-visible</code>.</dd>
+                </dl>
+
+                <h3 class="guide-heading">Layer 2 — Page-specific body classes</h3>
+                <p>On <code>&lt;body&gt;</code>:</p>
+
+                <dl class="guide-dl">
+                  <dt><em>(none)</em></dt>
+                  <dd><code>index.html</code> — default home styles.</dd>
+                  <dt><code>page-about</code></dt>
+                  <dd><code>about.html</code> — About-only rules.</dd>
+                  <dt><code>page-pseudo</code></dt>
+                  <dd><code>pseudo/index.html</code> — flexbox practice rules.</dd>
+                  <dt><code>page-guide</code></dt>
+                  <dd><code>classes.html</code> — this reference page.</dd>
+                </dl>
+
+                <p>
+                  CSS pattern: <code>.page-pseudo .column-grid</code> only applies when
+                  <code>page-pseudo</code> is on the body <em>and</em> an element inside has
+                  <code>column-grid</code>.
+                </p>
+
+                <h3 class="guide-heading">Layer 3 — Section classes</h3>
+                <dl class="guide-dl">
+                  <dt><code>section</code></dt>
+                  <dd>Main content blocks; controls top and bottom spacing.</dd>
+                  <dt><code>section-header</code> / <code>section-title</code></dt>
+                  <dd>Section title area (used on About and this page).</dd>
+                </dl>
+
+                <h3 class="guide-heading">Layer 4 — Project cards</h3>
+                <p>Shared on the home page and pseudo page:</p>
+
+                <dl class="guide-dl">
+                  <dt><code>project-feature</code></dt>
+                  <dd>Whole project card (link or div).</dd>
+                  <dt><code>project-feature-title</code></dt>
+                  <dd>Project name.</dd>
+                  <dt><code>project-feature-subtitle</code></dt>
+                  <dd>Short description under the title.</dd>
+                  <dt><code>project-feature-image</code></dt>
+                  <dd>Preview screenshot.</dd>
+                  <dt><code>project-feature-image--placeholder</code></dt>
+                  <dd>Modifier — grey placeholder instead of an image.</dd>
+                </dl>
+
+                <p>
+                  <strong>Modifier pattern:</strong>
+                  <code>class="project-feature-image project-feature-image--placeholder"</code>
+                </p>
+
+                <p>Pseudo page adds:</p>
+                <dl class="guide-dl">
+                  <dt><code>project-features</code></dt>
+                  <dd>Vertical stack of project rows.</dd>
+                  <dt><code>project-feature-row</code></dt>
+                  <dd>One flex row per card; set <code>justify-content</code> inline in HTML.</dd>
+                </dl>
+
+                <h3 class="guide-heading">Layer 5 — About-only</h3>
+                <dl class="guide-dl">
+                  <dt><code>about-layout</code></dt>
+                  <dd>Portrait and bio side by side.</dd>
+                  <dt><code>about-portrait</code> / <code>about-content</code></dt>
+                  <dd>Image column and text column.</dd>
+                  <dt><code>about-lead</code></dt>
+                  <dd>First, larger intro paragraph.</dd>
+                </dl>
+
+                <h3 class="guide-heading">Layer 6 — Pseudo flexbox demo</h3>
+                <dl class="guide-dl">
+                  <dt><code>column-section</code></dt>
+                  <dd>Second section on the pseudo page.</dd>
+                  <dt><code>column-grid</code> / <code>column-stack</code> / <code>column-box</code></dt>
+                  <dd>Row of columns, each stacking three boxes.</dd>
+                </dl>
+
+                <h3 class="guide-heading">Multiple classes on one element</h3>
+                <pre class="guide-code">&lt;header class="site-header sidebar"&gt;
+&lt;a class="nav-logo logo-mark"&gt;
+&lt;a class="project-feature reveal"&gt;
+&lt;a class="nav-link is-active"&gt;</pre>
+                <p>Each class adds rules; they stack together on the same element.</p>
+
+                <h3 class="guide-heading">Classes vs IDs</h3>
+                <dl class="guide-dl">
+                  <dt>Class (<code>.name</code>)</dt>
+                  <dd>Reusable on many elements. Example: many <code>nav-link</code> items.</dd>
+                  <dt>ID (<code>#name</code>)</dt>
+                  <dd>One per page. Example: <code>id="main"</code> for the skip link target.</dd>
+                </dl>
+
+                <h3 class="guide-heading">Quick reference by page</h3>
+                <ul class="guide-list">
+                  <li><strong>Home</strong> — shared shell + <code>project-feature*</code></li>
+                  <li><strong>About</strong> — shared shell + <code>page-about</code> + <code>about-*</code></li>
+                  <li><strong>Pseudo</strong> — shared shell + <code>page-pseudo</code> + flexbox classes</li>
+                  <li><strong>Classes</strong> — shared shell + <code>page-guide</code> + <code>guide-*</code></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

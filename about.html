@@ -1,175 +1,67 @@
 <!DOCTYPE html>
-<!-- Declares HTML5 document type so the browser uses modern parsing rules -->
-
 <html lang="en">
-<!-- Root element; lang="en" helps screen readers and search engines -->
-
   <head>
-  <!-- Head holds metadata and links — nothing here appears on the page -->
-
     <meta charset="utf-8" />
-    <!-- Character encoding: supports letters, symbols, and emoji -->
-
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!-- Makes layout scale correctly on phones and tablets -->
-
-    <meta
-      name="description"
-      content="About Kevin Egbert — art, electronics, communication, and the natural world."
-    />
-    <!-- Short summary for search engines and link previews -->
-
     <title>About — kevin egbert</title>
-    <!-- Text shown in the browser tab -->
-
     <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/proxima-nova-2" />
-    <!-- Loads Proxima Nova font from CDN for UI text -->
-
     <link rel="stylesheet" href="styles.css" />
-    <!-- Loads this site's main stylesheet from the repo root -->
   </head>
+  <body>
+    <div class="layout">
 
-  <body class="page-about">
-  <!-- page-about class allows about-specific styles in styles.css -->
+      <aside class="sidebar">
+        <a href="index.html">..\</a>
+        <p>
+          Student developer exploring web design and projects at the intersection of art,
+          technology, and learning.
+        </p>
+        <nav>
+          <a href="about.html">About</a>
+        </nav>
+        <p>
+          For interactive art, see my
+          <a href="https://kevinegbert.com/" target="_blank" rel="noopener noreferrer"
+            >creative portfolio</a
+          >.
+        </p>
+      </aside>
 
-    <a class="skip-link" href="#main">Skip to content</a>
-    <!-- Hidden until keyboard focus: jumps past sidebar straight to main content -->
+      <main class="main">
+        <h1 style="font-family: 'Proxima Nova', sans-serif; font-size: 14px; font-weight: 400; margin: 0 0 24px;">
+          about
+        </h1>
 
-    <div class="site-shell">
-    <!-- Outer wrapper: flex layout puts sidebar and main content side by side -->
+        <!-- Inline flexbox: portrait left, text right (wraps on narrow screens) -->
+        <div style="display: flex; flex-wrap: wrap; gap: 24px; max-width: 52rem;">
+          <figure style="margin: 0; max-width: 22rem;">
+            <img
+              src="assets/about-portrait.png"
+              alt="Silhouette at the coast at dusk"
+              width="1024"
+              height="692"
+              loading="lazy"
+              style="width: 100%; border: 1px solid #dddddd;"
+            />
+          </figure>
 
-      <header class="site-header sidebar" role="banner">
-      <!-- Left sidebar column; role="banner" marks this as the site header for assistive tech -->
-
-        <div class="sidebar-inner">
-        <!-- Inner padding/spacing wrapper for sidebar content -->
-
-          <p class="sidebar-site-title">
-          <!-- Site title wrapper; <p> instead of <h1> because About page has its own h2 -->
-
-            <a class="nav-logo logo-mark" href="index.html" aria-label="Kevin Egbert home">..\</a>
-            <!-- Home link styled as logo; aria-label describes link for screen readers -->
-          </p>
-
-          <div class="sidebar-intro reveal">
-          <!-- Intro block; "reveal" class triggers fade-in animation via script.js -->
-
-            <p class="sidebar-tagline">
-              Student developer exploring web design and projects at the intersection of art,
-              technology, and learning.
+          <div style="flex: 1; min-width: 16rem; max-width: 40rem;">
+            <p style="font-size: 18px; color: #222222; margin: 0 0 24px;">
+              I am interested in the intersection between art, electronics, communication, and the
+              natural world.
             </p>
-            <!-- Short bio line shown under the logo -->
+            <p style="color: #999999; margin: 0 0 24px;">
+              I am currently pursuing a Master of Education in Instructional Design &amp; Educational
+              Technology at the University of Utah, and work in the Exhibits department at the
+              Natural History Museum of Utah in Salt Lake City.
+            </p>
+            <p style="color: #999999; margin: 0;">
+              I graduated from SUNY Adirondack with an AAS in Media Arts in 2014 and from Purchase
+              College with a BA in New Media in 2017.
+            </p>
           </div>
-
-          <button
-            class="nav-toggle"
-            type="button"
-            aria-label="Open menu"
-            aria-expanded="false"
-            aria-controls="nav-menu"
-          >
-          <!-- Hamburger button for mobile nav; script.js toggles aria-expanded and menu visibility -->
-
-            <span class="nav-toggle-bar"></span>
-            <!-- First bar of the three-line menu icon -->
-
-            <span class="nav-toggle-bar"></span>
-            <!-- Second bar of the menu icon -->
-
-            <span class="nav-toggle-bar"></span>
-            <!-- Third bar of the menu icon -->
-          </button>
-
-          <nav class="sidebar-nav" aria-label="Primary">
-          <!-- Primary site navigation; aria-label names the nav region -->
-
-            <ul class="nav-menu" id="nav-menu" role="list">
-            <!-- Nav links list; id matches aria-controls on the toggle button -->
-
-              <li class="nav-item">
-                <a class="nav-link" href="index.html#projects">Projects</a>
-                <!-- Links to the projects section on the home page -->
-              </li>
-              <li class="nav-item">
-                <a class="nav-link is-active" href="about.html" aria-current="page">About</a>
-                <!-- is-active styles current page; aria-current="page" tells screen readers this is the active link -->
-              </li>
-            </ul>
-
-            <p class="nav-external">
-              For interactive art and installation work, see my
-              <a href="https://kevinegbert.com/" target="_blank" rel="noopener noreferrer"
-                >creative portfolio</a
-              >.
-            </p>
-            <!-- External link; target="_blank" opens new tab; rel="noopener noreferrer" is a security best practice -->
-          </nav>
         </div>
-      </header>
-
-      <div class="site-main">
-      <!-- Right column: grows to fill remaining width beside the sidebar -->
-
-        <main id="main">
-        <!-- Main content landmark; id="main" is the skip-link destination -->
-
-          <section class="section" id="about" aria-labelledby="about-heading">
-          <!-- About section; aria-labelledby points to the visible h2 id for its accessible name -->
-
-            <div class="content-wrap">
-            <!-- Constrains and pads content within the main column -->
-
-              <header class="section-header reveal">
-              <!-- Section title block; "reveal" class triggers fade-in animation via script.js -->
-
-                <h2 class="section-title" id="about-heading">About</h2>
-                <!-- Page heading; id links section to aria-labelledby and in-page anchors -->
-              </header>
-
-              <div class="about-layout reveal">
-              <!-- Two-column layout: portrait on one side, text on the other (styled in styles.css) -->
-
-                <figure class="about-portrait">
-                <!-- Semantic wrapper for the portrait image and optional caption -->
-
-                  <img
-                    src="assets/about-portrait.png"
-                    alt="Silhouette at the coast at dusk"
-                    width="1024"
-                    height="692"
-                    loading="lazy"
-                  />
-                  <!-- Portrait image; width/height reserve space before load; loading="lazy" defers off-screen loading -->
-                </figure>
-
-                <div class="about-content">
-                <!-- Text column beside the portrait -->
-
-                  <p class="about-lead">
-                    I am interested in the intersection between art, electronics, communication,
-                    and the natural world.
-                  </p>
-                  <!-- Lead paragraph — typically styled larger or bolder in CSS -->
-
-                  <p>
-                    I am currently pursuing a Master of Education in Instructional Design & Educational Technology at the University of Utah, and work in the Exhibits department at the Natural History
-                    Museum of Utah in Salt Lake City.
-                  </p>
-                  <!-- Body paragraph: current work and study -->
-
-                  <p>I graduated from SUNY Adirondack with an AAS in Media Arts in 2014 and from Purchase College with a BA in New Media in 2017.
-                  </p>
-                  <!-- Body paragraph: education background -->
-
-                </div>
-              </div>
-            </div>
-          </section>
-        </main>
-      </div>
+      </main>
     </div>
-
-    <script src="script.js"></script>
-    <!-- Loads JavaScript: mobile nav toggle, reveal animations, etc. -->
   </body>
 </html>
