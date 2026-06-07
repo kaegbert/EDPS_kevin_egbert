@@ -100,7 +100,7 @@
           </nav>
         </div>
       </header>
-
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
       <div class="site-main">
       <!-- Right column: grows to fill remaining width beside the sidebar -->
 
@@ -119,14 +119,18 @@
           <p class="projects-note">
           <!-- Hint text for what to edit in CSS -->
 
-            Edit <code>../styles.css</code> — try <code>flex-direction</code>, <code>gap</code>, and
-            <code>align-items</code> on <code>.page-pseudo .project-features</code>.
+            Edit each <code>project-feature-row</code> below — change
+            <code>style="justify-content: …"</code> on that row in this HTML file.
           </p>
-
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+ <!-- Card one -->
           <div class="project-features">
-          <!-- Flexbox container for project cards (display: flex in CSS) -->
+          <!-- Outer stack — one flex row per project card -->
 
-            <a class="project-feature reveal" href="https://kaegbert.github.io/neolithia/">
+            <div class="project-feature-row" style="justify-content: flex-start;">
+            <!-- flex-start = left | try: center | flex-end | space-between -->
+
+              <a class="project-feature reveal" href="https://kaegbert.github.io/neolithia/">
             <!-- Same project card pattern as the home page -->
 
               <span class="project-feature-title">Neolithia</span>
@@ -144,8 +148,14 @@
                 loading="lazy"
               />
             </a>
+            </div>
 
-            <div class="project-feature project-feature--placeholder reveal reveal-delay-1">
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- Card two -->
+            <div class="project-feature-row" style="justify-content: center;">
+            <!-- Second card — centered in its row -->
+
+              <div class="project-feature project-feature--placeholder reveal reveal-delay-1">
             <!-- Placeholder card — same markup as home page, not a link -->
 
               <span class="project-feature-title">project two</span>
@@ -160,8 +170,13 @@
                 aria-label="Placeholder project preview"
               ></span>
             </div>
+            </div>
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+ <!-- Card three -->
+            <div class="project-feature-row" style="justify-content: flex-end;">
+            <!-- Third card — aligned right in its row -->
 
-            <div class="project-feature project-feature--placeholder reveal reveal-delay-2">
+              <div class="project-feature project-feature--placeholder reveal reveal-delay-2">
             <!-- Another placeholder card -->
 
               <span class="project-feature-title">project three</span>
@@ -176,6 +191,9 @@
                 aria-label="Placeholder project preview"
               ></span>
             </div>
+            </div>
+ <!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+           
           </div>
         </section>
 

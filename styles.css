@@ -609,22 +609,26 @@ code {
   border-top: 1px solid var(--color-faint);
 }
 
-/* Flexbox project list — same cards as home page (.project-feature) */
+/* Flexbox project list — one row per card so justify-content works individually */
 .page-pseudo .project-features {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  align-items: flex-start;
   gap: 2.5rem;
 }
 
-.page-pseudo .project-features .project-feature {
-  width: 100%;
-  max-width: 42rem; /* same cap as home page — keeps all cards equal width */
+.page-pseudo .project-feature-row {
+  display: flex;
+  flex-wrap: wrap;
+  /* justify-content: set inline on each .project-feature-row in pseudo/index.html */
 }
 
-.page-pseudo .project-features .project-feature + .project-feature {
-  margin-top: 0; /* gap handles spacing inside flex container */
+.page-pseudo .project-feature-row .project-feature {
+  flex: 0 1 100%;
+  max-width: 42rem;
+}
+
+.page-pseudo .project-feature-row .project-feature + .project-feature {
+  margin-top: 0;
 }
 
 .page-pseudo .project-feature--placeholder {
