@@ -61,6 +61,9 @@
 
     navLinks.forEach(function (link) {
       const href = link.getAttribute("href");
+      if (!href || href.charAt(0) !== "#") {
+        return;
+      }
       const isActive = href === "#" + current;
       link.classList.toggle("is-active", isActive);
     });

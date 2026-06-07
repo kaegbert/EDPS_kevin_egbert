@@ -1,133 +1,116 @@
-/* pseudo — simple flexbox boilerplate */
+/* pseudo — flexbox practice styles */
+/* Sidebar and page shell come from ../styles.css */
 
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 16px;
-  line-height: 1.5;
-  color: #222222;
-  background: #ffffff;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
+/* Inline code snippets in hint paragraphs */
 code {
-  font-size: 0.9em;
+  font-size: 0.9em; /* slightly smaller than surrounding text (0.9 × parent size) */
+  color: #0550ae; /* blue so code stands out from grey hint text */
 }
 
-/* Sidebar + main content side by side */
-.layout {
-  display: flex;
-  min-height: 100vh;
-}
-
-.nav {
-  width: 220px;
-  padding: 24px 20px;
-  border-right: 1px solid #dddddd;
-}
-
-.nav-home {
-  display: block;
-  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 20px;
-  margin-bottom: 24px;
-}
-
-.nav-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-list li + li {
-  margin-top: 10px;
-}
-
-.nav-link {
-  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 12px;
-  color: #999999;
-}
-
-.nav-link:hover {
-  color: #222222;
-}
-
-.main {
-  flex: 1;
-  padding: 32px 20px 48px;
-}
-
+/* Shared heading style for pseudo section titles */
 .projects-heading,
-.about-heading {
-  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-  margin: 0 0 12px;
+.about-heading,
+.column-section-heading {
+  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif; /* sans-serif headings */
+  font-size: 14px; /* small caps-like section title size */
+  font-weight: 400; /* normal weight, not bold */
+  margin: 0 0 12px; /* no top margin; 12px below heading */
 }
 
+/* Grey hint text under section headings */
 .projects-note {
-  margin: 0 0 24px;
-  color: #999999;
-  font-size: 14px;
+  margin: 0 0 24px; /* no top/sides; 24px below before the grid/columns */
+  color: #999999; /* muted grey */
+  font-size: 14px; /* matches section heading size */
 }
 
+/* About section spacing (used when uncommented in HTML) */
 .about {
-  margin-top: 48px;
-  padding-top: 32px;
-  border-top: 1px solid #dddddd;
+  margin-top: 48px; /* space above section */
+  padding-top: 32px; /* space inside, above heading */
+  border-top: 1px solid #dddddd; /* horizontal divider line */
 }
 
-/* Project grid — flex container */
+/* Project grid — flex container for card row(s) */
 .project-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  display: flex; /* children (.project-grid-item) are flex items */
+  flex-wrap: wrap; /* items wrap to next row when they run out of room */
+  gap: 16px; /* space between items horizontally and vertically */
+  margin: 0; /* remove default ul margin */
+  padding: 0; /* remove default ul padding */
+  list-style: none; /* remove bullet points from ul */
 }
 
-/* Three boxes per row — change calc() to fit fewer/more columns */
+/* Each cell in the project grid */
 .project-grid-item {
-  /* flex: 1 1 calc(33.333% - 11px); */
-  flex: 1 1 100%;
-  justify-content: center;
+  /* flex: 1 1 calc(33.333% - 11px); */ /* uncomment for three cards per row (33.333% minus gap share) */
+  flex: 1 1 100%; /* grow, shrink, basis 100% — one full-width card per row for now */
+  justify-content: center; /* centers flex content along main axis (only affects flex containers inside) */
 }
 
+/* Card shell — thumbnail on top, title below */
 .project-card {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #222222;
-  background: #ffffff;
+  display: flex; /* stack thumb and title vertically */
+  flex-direction: column; /* main axis runs top to bottom */
+  border: 1px solid #222222; /* card outline */
+  background: #ffffff; /* white card background */
 }
 
+/* Hover state only for linked cards (<a class="project-card">) */
 a.project-card:hover {
-  background: #eeeeee;
+  background: #eeeeee; /* light grey on hover */
 }
 
+/* Placeholder cards use grey text instead of black */
 .project-card--placeholder {
-  color: #999999;
+  color: #999999; /* muted grey to show these are not real projects yet */
 }
 
+/* Grey preview block at top of each card */
 .project-card-thumb {
-  display: block;
-  height: 120px;
-  background: #eeeeee;
-  border-bottom: 1px solid #dddddd;
+  display: block; /* span behaves as a block-level box */
+  height: 120px; /* fixed preview height */
+  background: #eeeeee; /* light grey fill standing in for an image */
+  border-bottom: 1px solid #dddddd; /* line between thumb and title */
 }
 
+/* Text label at bottom of each card */
 .project-card-title {
-  display: block;
-  padding: 12px 14px;
-  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  display: block; /* title on its own line */
+  padding: 12px 14px; /* inner spacing around title text */
+  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif; /* sans-serif card label */
+  font-size: 14px; /* matches section heading size */
+}
+
+/* Column layout section — spacing below project grid */
+.column-section {
+  margin-top: 48px; /* space above section */
+  padding-top: 32px; /* space inside, above heading */
+  border-top: 1px solid #dddddd; /* divider between sections */
+}
+
+/* Outer flex row: columns sit side by side */
+.column-grid {
+  display: flex; /* .column-stack children are flex items */
+  flex-direction: row; /* main axis left to right (default, written explicitly for clarity) */
+  gap: 16px; /* space between columns */
+}
+
+/* Inner flex column: three boxes stacked vertically */
+.column-stack {
+  display: flex; /* .column-box children are flex items */
+  flex-direction: column; /* main axis top to bottom */
+  flex: 1; /* each column gets equal width */
+  gap: 16px; /* space between stacked boxes */
+}
+
+/* Individual box inside a column stack */
+.column-box {
+  flex: 1; /* boxes grow to share vertical space evenly within the column */
+  min-height: 80px; /* never shorter than 80px */
+  padding: 12px 14px; /* inner spacing around label text */
+  border: 1px solid #222222; /* box outline */
+  background: #ffffff; /* white fill */
+  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif; /* sans-serif box label */
+  font-size: 14px; /* matches card title size */
 }

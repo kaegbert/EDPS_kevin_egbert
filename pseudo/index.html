@@ -1,57 +1,241 @@
 <!DOCTYPE html>
+<!-- Declares HTML5 document type so the browser uses modern parsing rules -->
+
 <html lang="en">
+<!-- Root element; lang="en" helps screen readers and search engines -->
+
   <head>
+  <!-- Head holds metadata and links — nothing here appears on the page -->
+
     <meta charset="utf-8" />
+    <!-- Character encoding: supports letters, symbols, and emoji -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Makes layout scale correctly on phones and tablets -->
+
     <title>pseudo — flexbox practice</title>
+    <!-- Text shown in the browser tab -->
+
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/proxima-nova-2" />
+    <!-- Loads Proxima Nova font from CDN for UI text (same as main site) -->
+
+    <link rel="stylesheet" href="../styles.css" />
+    <!-- Main site styles — shared sidebar and page shell -->
+
     <link rel="stylesheet" href="styles.css" />
+    <!-- Pseudo-only styles — flexbox grids and column layout -->
   </head>
-  <body>
-    <div class="layout">
-      <header class="nav">
-        <a class="nav-home" href="../index.html">..&#92;</a>
-        <nav class="nav-menu">
-          <ul class="nav-list">
-            <li><a class="nav-link" href="#projects">Projects</a></li>
-            <li><a class="nav-link" href="#about">About</a></li>
-          </ul>
-        </nav>
+
+  <body class="page-pseudo">
+  <!-- page-pseudo class allows pseudo-specific styles if needed -->
+
+    <a class="skip-link" href="#main">Skip to content</a>
+    <!-- Hidden until keyboard focus: jumps past sidebar straight to main content -->
+
+    <div class="site-shell">
+    <!-- Outer wrapper: grid layout puts sidebar and main content side by side -->
+
+      <header class="site-header sidebar" role="banner">
+      <!-- Left sidebar column — same structure as index.html and about.html -->
+
+        <div class="sidebar-inner">
+        <!-- Inner padding/spacing wrapper for sidebar content -->
+
+          <p class="sidebar-site-title">
+          <!-- Site title wrapper; <p> instead of <h1> because this page has h2 section headings -->
+
+            <a class="nav-logo logo-mark" href="../index.html" aria-label="Kevin Egbert home">..\</a>
+            <!-- Home link back to portfolio; ../ goes up one folder to repo root -->
+          </p>
+
+          <div class="sidebar-intro reveal">
+          <!-- Intro block; "reveal" class triggers fade-in animation via script.js -->
+
+            <p class="sidebar-tagline">
+              Student developer exploring web design and projects at the intersection of art,
+              technology, and learning.
+            </p>
+            <!-- Short bio line shown under the logo -->
+          </div>
+
+          <button
+            class="nav-toggle"
+            type="button"
+            aria-label="Open menu"
+            aria-expanded="false"
+            aria-controls="nav-menu"
+          >
+          <!-- Hamburger button for mobile nav; script.js toggles aria-expanded and menu visibility -->
+
+            <span class="nav-toggle-bar"></span>
+            <!-- First bar of the three-line menu icon -->
+
+            <span class="nav-toggle-bar"></span>
+            <!-- Second bar of the menu icon -->
+
+            <span class="nav-toggle-bar"></span>
+            <!-- Third bar of the menu icon -->
+          </button>
+
+          <nav class="sidebar-nav" aria-label="Primary">
+          <!-- Primary site navigation; aria-label names the nav region -->
+
+            <ul class="nav-menu" id="nav-menu" role="list">
+            <!-- Nav links list; id matches aria-controls on the toggle button -->
+
+              <li class="nav-item">
+                <a class="nav-link" href="../index.html#projects">Projects</a>
+                <!-- Links to the projects section on the home page -->
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="../about.html">About</a>
+                <!-- Links to the About page on the main portfolio site -->
+              </li>
+            </ul>
+
+            <p class="nav-external">
+              For interactive art and installation work, see my
+              <a href="https://kevinegbert.com/" target="_blank" rel="noopener noreferrer"
+                >creative portfolio</a
+              >.
+            </p>
+            <!-- External link; target="_blank" opens new tab; rel="noopener noreferrer" is a security best practice -->
+          </nav>
+        </div>
       </header>
 
-      <main id="main" class="main">
+      <div class="site-main">
+      <!-- Right column: grows to fill remaining width beside the sidebar -->
+
+        <main id="main">
+        <!-- Main content landmark; id="main" is the skip-link destination -->
+
+          <div class="content-wrap">
+          <!-- Constrains and pads content within the main column -->
+
         <section class="projects" id="projects">
+        <!-- First section: project card grid; id matches nav #projects link -->
+
           <h2 class="projects-heading">pseudo — flexbox practice</h2>
+          <!-- Section title -->
+
           <p class="projects-note">
+          <!-- Hint text for what to edit in CSS -->
+
             Edit <code>styles.css</code> — try <code>flex-wrap</code>, <code>gap</code>, and
+            <!-- <code> renders monospace inline text for class/file names -->
+
             <code>flex</code> on <code>.project-grid-item</code>.
           </p>
 
           <ul class="project-grid">
+          <!-- Flex container for project cards (display: flex in CSS) -->
+
             <li class="project-grid-item">
+            <!-- One grid cell; flex sizing set on .project-grid-item -->
+
               <a class="project-card" href="https://kaegbert.github.io/neolithia/">
+              <!-- Clickable card linking to the Neolithia game -->
+
                 <span class="project-card-thumb"></span>
+                <!-- Empty span styled as a grey preview image area -->
+
                 <span class="project-card-title">Neolithia</span>
+                <!-- Card label text -->
               </a>
             </li>
+
             <li class="project-grid-item">
+            <!-- Second grid cell -->
+
               <div class="project-card project-card--placeholder">
+              <!-- div instead of <a> — not a link; --placeholder greys out text -->
+
                 <span class="project-card-thumb"></span>
+                <!-- Placeholder preview block -->
+
                 <span class="project-card-title">project two</span>
+                <!-- Placeholder title -->
               </div>
             </li>
+
             <li class="project-grid-item">
+            <!-- Third grid cell -->
+
               <div class="project-card project-card--placeholder">
+              <!-- Another non-link placeholder card -->
+
                 <span class="project-card-thumb"></span>
+
                 <span class="project-card-title">project three</span>
               </div>
             </li>
           </ul>
         </section>
 
+        <section class="column-section" id="columns">
+        <!-- Second section: columns of stacked boxes; id for future nav links -->
+
+          <h2 class="column-section-heading">Column layout</h2>
+          <!-- Section title -->
+
+          <p class="projects-note">
+          <!-- Reuses .projects-note styling for the hint paragraph -->
+
+            Three boxes per column — edit <code>.column-grid</code> and
+            <code>.column-stack</code> in <code>styles.css</code>.
+          </p>
+
+          <div class="column-grid">
+          <!-- Flex row: holds three .column-stack columns side by side -->
+
+            <div class="column-stack">
+            <!-- Flex column: stacks three boxes vertically -->
+
+              <div class="column-box">box 1</div>
+              <!-- Individual box in column 1, row 1 -->
+
+              <div class="column-box">box 2</div>
+              <!-- Individual box in column 1, row 2 -->
+
+              <div class="column-box">box 3</div>
+              <!-- Individual box in column 1, row 3 -->
+            </div>
+
+            <div class="column-stack">
+            <!-- Second column of three stacked boxes -->
+
+              <div class="column-box">box 4</div>
+
+              <div class="column-box">box 5</div>
+
+              <div class="column-box">box 6</div>
+            </div>
+
+            <div class="column-stack">
+            <!-- Third column of three stacked boxes -->
+
+              <div class="column-box">box 7</div>
+
+              <div class="column-box">box 8</div>
+
+              <div class="column-box">box 9</div>
+            </div>
+          </div>
+        </section>
+
         <!-- <section class="about" id="about">
           <h2 class="about-heading">About</h2>
           <p>Placeholder section for the About nav link.</p>
         </section> -->
-      </main>
+        <!-- About section commented out; About nav now links to ../about.html -->
+
+          </div>
+        </main>
+      </div>
     </div>
+
+    <script src="../script.js"></script>
+    <!-- Loads JavaScript: mobile nav toggle, reveal animations, etc. -->
   </body>
 </html>
