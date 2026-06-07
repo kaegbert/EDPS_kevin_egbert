@@ -349,10 +349,6 @@ code {
   padding-top: var(--space-section);
 }
 
-.page-pseudo .projects {
-  padding-top: var(--space-section);
-}
-
 .page-about .section-title {
   font-size: clamp(22px, 4vw, 28px);
   font-weight: 400;
@@ -609,56 +605,26 @@ code {
   border-top: 1px solid var(--color-faint);
 }
 
-.page-pseudo .project-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-md);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.page-pseudo .project-grid-item {
-  /* flex: 1 1 calc(33.333% - 11px); */ /* three cards per row */
-  flex: 1 1 100%;
-  justify-content: center;
-}
-
-.page-pseudo .project-card {
+/* Flexbox project list — same cards as home page (.project-feature) */
+.page-pseudo .project-features {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--color-ink);
-  background: var(--color-canvas);
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 2.5rem;
 }
 
-.page-pseudo a.project-card:hover {
-  background: var(--color-panel);
+.page-pseudo .project-features .project-feature + .project-feature {
+  margin-top: 0; /* gap handles spacing inside flex container */
 }
 
-.page-pseudo .project-card--placeholder {
+.page-pseudo .project-feature--placeholder {
   color: var(--color-muted);
+  cursor: default;
 }
 
-.page-pseudo .project-card-thumb {
-  display: block;
-  border-bottom: 1px solid var(--color-faint);
-}
-
-.page-pseudo span.project-card-thumb {
-  height: 120px;
-  background: var(--color-panel);
-}
-
-.page-pseudo img.project-card-thumb {
-  width: 100%;
-  height: auto;
-}
-
-.page-pseudo .project-card-title {
-  display: block;
-  padding: 12px 14px;
-  font-family: var(--font-display);
-  font-size: 14px;
+.page-pseudo .project-feature--placeholder .project-feature-title {
+  text-decoration: none;
 }
 
 .page-pseudo .column-section {
@@ -860,10 +826,6 @@ code {
     padding-bottom: 28px;
   }
 
-  .page-pseudo .projects {
-    padding-top: 28px;
-  }
-
   .site-footer {
     padding: 28px 0;
   }
@@ -873,9 +835,5 @@ code {
   .section {
     padding-top: 25px;
     padding-bottom: 25px;
-  }
-
-  .page-pseudo .projects {
-    padding-top: 25px;
   }
 }

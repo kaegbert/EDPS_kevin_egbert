@@ -110,8 +110,8 @@
           <div class="content-wrap">
           <!-- Constrains and pads content within the main column -->
 
-        <section class="projects" id="projects">
-        <!-- First section: project card grid; id matches nav #projects link -->
+        <section class="section" id="projects" aria-label="Projects">
+        <!-- Same section class as home page; id matches nav #projects link -->
 
           <h2 class="projects-heading">pseudo — flexbox practice</h2>
           <!-- Section title -->
@@ -119,62 +119,64 @@
           <p class="projects-note">
           <!-- Hint text for what to edit in CSS -->
 
-            Edit <code>../styles.css</code> — try <code>flex-wrap</code>, <code>gap</code>, and
-            <!-- <code> renders monospace inline text for class/file names -->
-
-            <code>flex</code> on <code>.page-pseudo .project-grid-item</code>.
+            Edit <code>../styles.css</code> — try <code>flex-direction</code>, <code>gap</code>, and
+            <code>align-items</code> on <code>.page-pseudo .project-features</code>.
           </p>
 
-          <ul class="project-grid">
-          <!-- Flex container for project cards (display: flex in CSS) -->
+          <div class="project-features">
+          <!-- Flexbox container for project cards (display: flex in CSS) -->
 
-            <li class="project-grid-item">
-            <!-- One grid cell; flex sizing set on .project-grid-item -->
+            <a class="project-feature reveal" href="https://kaegbert.github.io/neolithia/">
+            <!-- Same project card pattern as the home page -->
 
-              <a class="project-card" href="https://kaegbert.github.io/neolithia/">
-              <!-- Clickable card linking to the Neolithia game -->
+              <span class="project-feature-title">Neolithia</span>
 
-                <img
-                  class="project-card-thumb"
-                  src="../assets/neolithia-preview.png"
-                  alt="Neolithia — timeline cards with Before and After placement beside a highlighted event"
-                  width="1024"
-                  height="233"
-                  loading="lazy"
-                />
-                <!-- Same preview image as the home page; ../assets/ path from pseudo folder -->
+              <span class="project-feature-subtitle">
+                A timeline card game — place Before and After cards beside historical events.
+              </span>
 
-                <span class="project-card-title">Neolithia - a timeline card game</span>
-                <!-- Card label text -->
-              </a>
-            </li>
+              <img
+                class="project-feature-image"
+                src="../assets/neolithia-preview.png"
+                alt="Neolithia — timeline cards with Before and After placement beside a highlighted event"
+                width="1024"
+                height="233"
+                loading="lazy"
+              />
+            </a>
 
-            <li class="project-grid-item">
-            <!-- Second grid cell -->
+            <div class="project-feature project-feature--placeholder reveal reveal-delay-1">
+            <!-- Placeholder card — same markup as home page, not a link -->
 
-              <div class="project-card project-card--placeholder">
-              <!-- div instead of <a> — not a link; --placeholder greys out text -->
+              <span class="project-feature-title">project two</span>
 
-                <span class="project-card-thumb"></span>
-                <!-- Placeholder preview block -->
+              <span class="project-feature-subtitle">
+                This is a placeholder for a future project.
+              </span>
 
-                <span class="project-card-title">project two - this is a placeholder for a future project</span>
-                <!-- Placeholder title -->
-              </div>
-            </li>
+              <span
+                class="project-feature-image project-feature-image--placeholder"
+                role="img"
+                aria-label="Placeholder project preview"
+              ></span>
+            </div>
 
-            <li class="project-grid-item">
-            <!-- Third grid cell -->
+            <div class="project-feature project-feature--placeholder reveal reveal-delay-2">
+            <!-- Another placeholder card -->
 
-              <div class="project-card project-card--placeholder">
-              <!-- Another non-link placeholder card -->
+              <span class="project-feature-title">project three</span>
 
-                <span class="project-card-thumb"></span>
+              <span class="project-feature-subtitle">
+                This is a placeholder for a future project.
+              </span>
 
-                <span class="project-card-title">project three- this is a placeholder for a future project</span>
-              </div>
-            </li>
-          </ul>
+              <span
+                class="project-feature-image project-feature-image--placeholder"
+                role="img"
+                aria-label="Placeholder project preview"
+              ></span>
+            </div>
+          </div>
         </section>
 
         <section class="column-section" id="columns">
