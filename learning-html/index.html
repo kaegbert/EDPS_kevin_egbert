@@ -1,28 +1,47 @@
+<!-- Tells the browser this document is HTML5 -->
 <!DOCTYPE html>
+<!-- Root element; lang could be added (lang="en") for accessibility -->
 <html>
 
+<!-- Head holds metadata — not shown on the page itself -->
 <head>
+  <!-- Text shown in the browser tab -->
   <title>Brown Bears</title>
 </head>
 
+<!-- Everything visible on the page goes inside body -->
 <body>
+  <!-- nav = navigation section; first menu links to other pages -->
   <nav>
+    <!-- href="./index.html" links to this same page in the current folder -->
     <a href="./index.html">Brown Bear</a>
+    <!-- Links to aboutme.html in the same folder (create that file separately) -->
     <a href="./aboutme.html">About Me</a>
   </nav>
+  <!-- h1 = main heading (largest); one per page is best practice -->
   <h1>The Brown Bear</h1>
+  <!-- Second nav: table of contents for sections on this page -->
   <nav>
+    <!-- ul = unordered list (bullets); each li is one list item -->
     <ul>
+      <!-- #introduction jumps to the element with id="introduction" below -->
       <li><a href="#introduction">Introduction</a></li>
       <li><a href="#habitat">Habitat</a></li>
       <li><a href="#media">Media</a></li>
     </ul>
   </nav>
+  <!-- div groups content; id matches the # links above -->
   <div id="introduction">
+    <!-- h2 = section heading (smaller than h1) -->
     <h2>About Brown Bears</h2>
+    <!-- p = paragraph of text -->
     <p>The brown bear (<em>Ursus arctos</em>) is native to parts of northern Eurasia and North America. Its conservation status is currently <strong>Least Concern</strong>.<br /><br /> There are many subspecies within the brown bear species, including the
       Atlas bear and the Himalayan brown bear.</p>
+    <!-- em = emphasis (often italic); strong = strong importance (often bold) -->
+    <!-- br = line break; two br tags add extra vertical space -->
+    <!-- target="_blank" opens link in a new tab -->
     <a href="https://en.wikipedia.org/wiki/Brown_bear" target="_blank">Learn More</a>
+    <!-- h3 = subsection heading (smaller than h2) -->
     <h3>Species</h3>
     <ul>
       <li>Arctos</li>
@@ -33,9 +52,11 @@
     <h3>Features</h3>
     <p>Brown bears are not always completely brown. Some can be reddish or yellowish. They have very large, curved claws and huge paws. Male brown bears are often 30% larger than female brown bears. They can range from 5 feet to 9 feet from head to toe.</p>
   </div>
+  <!-- Second major section; id="habitat" is the jump target for #habitat -->
   <div id="habitat">
     <h2>Habitat</h2>
     <h3>Countries with Large Brown Bear Populations</h3>
+    <!-- ol = ordered list (numbered 1, 2, 3…) -->
     <ol>
       <li>Russia</li>
       <li>United States</li>
@@ -44,9 +65,12 @@
     <h3>Countries with Small Brown Bear Populations</h3>
     <p>Some countries with smaller brown bear populations include Armenia, Belarus, Bulgaria, China, Finland, France, Greece, India, Japan, Nepal, Poland, Romania, Slovenia, Turkmenistan, and Uzbekistan.</p>
   </div>
+  <!-- Third section: images and video -->
   <div id="media">
     <h2>Media</h2>
+    <!-- img embeds an image; src is the URL; alt text is recommended for accessibility (missing here) -->
     <img src="https://content.codecademy.com/courses/web-101/web101-image_brownbear.jpg" />
+    <!-- video plays a file; controls shows play/pause; text inside is fallback if video fails -->
     <video src="https://content.codecademy.com/courses/freelance-1/unit-1/lesson-2/htmlcss1-vid_brown-bear.mp4" height="240" width="320" controls>Video not supported</video>
   </div>
 </body>

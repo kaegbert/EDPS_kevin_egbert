@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>pseudo — flexbox practice</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <header class="nav">
+        <a class="nav-home" href="../index.html">..&#92;</a>
+        <nav class="nav-menu">
+          <ul class="nav-list">
+            <li><a class="nav-link" href="#projects">Projects</a></li>
+            <li><a class="nav-link" href="#about">About</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <main id="main" class="main">
+        <section class="projects" id="projects">
+          <h2 class="projects-heading">pseudo — flexbox practice</h2>
+          <p class="projects-note">
+            Edit <code>styles.css</code> — try <code>flex-wrap</code>, <code>gap</code>, and
+            <code>flex</code> on <code>.project-grid-item</code>.
+          </p>
+
+          <ul class="project-grid">
+            <li class="project-grid-item">
+              <a class="project-card" href="https://kaegbert.github.io/neolithia/">
+                <span class="project-card-thumb"></span>
+                <span class="project-card-title">Neolithia</span>
+              </a>
+            </li>
+            <li class="project-grid-item">
+              <div class="project-card project-card--placeholder">
+                <span class="project-card-thumb"></span>
+                <span class="project-card-title">project two</span>
+              </div>
+            </li>
+            <li class="project-grid-item">
+              <div class="project-card project-card--placeholder">
+                <span class="project-card-thumb"></span>
+                <span class="project-card-title">project three</span>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- <section class="about" id="about">
+          <h2 class="about-heading">About</h2>
+          <p>Placeholder section for the About nav link.</p>
+        </section> -->
+      </main>
+    </div>
+  </body>
+</html>
