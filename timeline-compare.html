@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>timeline-compare — kevin egbert</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.cdnfonts.com/css/proxima-nova-2"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <a href="index.html">kevin egbert</a>
+        <nav>
+          <a href="about.html">About</a>
+          <a
+            href="assets/kevin-egbert-resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Resume</a
+          >
+        </nav>
+        <p>
+          Student developer exploring web design and projects at the
+          intersection of art, technology, and learning.
+        </p>
+
+        <p>
+          For interactive art, see my
+          <a
+            href="https://kevinegbert.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >creative portfolio</a
+          >.
+        </p>
+      </aside>
+
+      <main class="main">
+        <h1>timeline-compare</h1>
+        <p class="timeline-intro">
+          Compare significant events across different fields of history. Click
+          events on the visual timeline to build your own comparison below.
+        </p>
+
+        <section class="timeline-maker" aria-label="Timeline compare">
+          <div class="timeline-panel">
+            <h2>Timelines</h2>
+            <p class="timeline-hint">
+              Enable or disable categories to focus your comparison.
+            </p>
+            <div id="timeline-filters" class="timeline-filters"></div>
+            <div class="timeline-actions">
+              <button type="button" id="timeline-show-all" class="timeline-btn">
+                Show all
+              </button>
+              <button type="button" id="timeline-hide-all" class="timeline-btn">
+                Hide all
+              </button>
+            </div>
+          </div>
+
+          <div class="timeline-panel">
+            <h2>Visual timeline</h2>
+            <p class="timeline-hint">
+              Hover dots for details. Click events to add or remove them from your
+              timeline below. Showing 1800–2020.
+            </p>
+            <p id="timeline-range-summary" class="timeline-hint"></p>
+            <div class="timeline-visual-frame">
+              <div id="timeline-chart" class="timeline-chart"></div>
+            </div>
+          </div>
+
+          <div class="timeline-panel">
+            <h2>Make your own timeline</h2>
+            <p id="custom-timeline-summary" class="timeline-hint">
+              Click events above to build a single timeline here.
+            </p>
+            <div class="timeline-custom-frame">
+              <div id="timeline-custom-chart" class="timeline-chart"></div>
+            </div>
+            <div class="timeline-actions">
+              <button type="button" id="custom-timeline-clear" class="timeline-btn">
+                Clear timeline
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="timeline-compare.js"></script>
+  </body>
+</html>
