@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>portfolio conceptual design — kevin egbert</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.cdnfonts.com/css/proxima-nova-2"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <a href="index.html">kevin egbert</a>
+        <nav>
+          <a href="about.html">About</a>
+          <a
+            href="assets/kevin-egbert-resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Resume</a
+          >
+        </nav>
+        <p>
+          Student developer exploring web design and projects at the
+          intersection of art, technology, and learning.
+        </p>
+
+        <p>
+          For interactive art, see my
+          <a
+            href="https://kevinegbert.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >creative portfolio</a
+          >.
+        </p>
+      </aside>
+
+      <main class="main blog-post">
+        <h1>portfolio conceptual design</h1>
+        <p>
+          Before building this site, I sketched a simple wireframe for how the
+          portfolio should feel and function. The layout is not meant to be
+          flashy — it is a frame for projects, learning notes, and documentation
+          about how the site itself is built.
+        </p>
+
+        <figure class="blog-figure">
+          <img
+            class="blog-image"
+            src="assets/website wireframe.jpg"
+            alt="Portfolio wireframe with a green sidebar, orange main project area, and blue footer"
+            loading="lazy"
+          />
+          <figcaption>
+            Early wireframe for the portfolio shell — sidebar, project area, and
+            footer.
+          </figcaption>
+        </figure>
+
+        <h2>Sidebar</h2>
+        <p>
+          The left column is for identity and navigation. My name sits at the
+          top, with links to About and my resume close by. The sidebar stays
+          visible on every page so visitors always know where they are and can
+          move between sections without hunting for a menu.
+        </p>
+        <p>
+          In the wireframe, a moon icon marks the top of the sidebar. That was a
+          placeholder for a small visual anchor — something quiet that signals
+          this is a personal site rather than a generic template.
+        </p>
+
+        <h2>Main project area</h2>
+        <p>
+          The large area on the right is where the work lives. Each project gets
+          its own card with a title, short description, and a link to a
+          dedicated page. The cards stack vertically so the page reads top to
+          bottom like a list of work, not a grid of thumbnails competing for
+          attention.
+        </p>
+        <p>
+          Below the projects, the same area holds blog and learning
+          documentation — notes on flexbox, styling choices, and process. The
+          main column is one continuous reading space for both finished work and
+          work-in-progress thinking.
+        </p>
+
+        <h2>Footer</h2>
+        <p>
+          The wireframe includes a footer band for social links and resume
+          access. The idea is to keep secondary links out of the main reading
+          flow but still easy to find at the bottom of the page. Some of that
+          information already lives in the sidebar on the live site; the footer
+          is a backup place for the same essentials when the page gets longer.
+        </p>
+
+        <h2>What I kept from the sketch</h2>
+        <p>
+          The live site follows the wireframe’s core idea: a fixed sidebar plus
+          a flexible main column built with flexbox. Projects and blog posts
+          share the same card pattern. Typography stays minimal — Proxima Nova
+          for headings, Courier for code and buttons — so the layout structure
+          stays clear.
+        </p>
+        <p>
+          This page is the conceptual map. For the actual class names and CSS,
+          see
+          <a href="how-this-site-is-styled.html">how this site is styled</a>.
+          For flexbox practice, see
+          <a href="learning-to-build-use-flexbox.html"
+            >learning to build using flexbox</a
+          >.
+        </p>
+      </main>
+    </div>
+  </body>
+</html>
