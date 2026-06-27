@@ -41,7 +41,7 @@ npx serve .
 
 Then visit `http://localhost:8000`.
 
-Deploy to GitHub Pages
+## Deploy to GitHub Pages
 
 1. Push this repository to GitHub (`kaegbert/EDPS_kevin_egbert` or your fork).
 2. Go to **Settings → Pages**.
