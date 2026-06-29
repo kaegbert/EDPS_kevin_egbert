@@ -1,0 +1,132 @@
+/* Global stylesheet — index, about, pseudo (learning mode)
+   Layout uses flexbox only. No CSS grid. No mobile hamburger styles.
+   Old styles archived in archive/styles-pre-simplify.css */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #222222;
+  background: #ffffff;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+code {
+  font-size: 0.9em;
+  color: #0550ae;
+}
+
+/* Shell: sidebar + main side by side (flexbox row) */
+.layout {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+/* Left column — fixed width, does not shrink */
+.sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  padding: 60px 24px 40px;
+  border-right: 1px solid #dddddd;
+}
+
+.sidebar > a {
+  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+}
+
+.sidebar > p {
+  font-size: 12px;
+  color: #999999;
+  margin: 20px 0 0;
+  max-width: 16rem;
+}
+
+.sidebar nav a {
+  display: block;
+  margin-top: 10px;
+  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  color: #999999;
+}
+
+.sidebar nav a:hover {
+  color: #222222;
+}
+
+/* Right column — grows to fill remaining space */
+.main {
+  flex: 1;
+  padding: 60px 5% 48px;
+}
+
+/* Grey learning notes and code snippets on the page */
+.note {
+  margin: 0 0 24px;
+  max-width: 42rem;
+  font-size: 14px;
+  color: #999999;
+}
+
+.note pre {
+  margin: 12px 0 0;
+  padding: 12px;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #222222;
+  background: #eeeeee;
+  border: 1px solid #dddddd;
+}
+
+/* Project card — capped width like before */
+.card {
+  display: block;
+  max-width: 42rem;
+  margin-bottom: 2.5rem;
+  color: #222222;
+}
+
+.card strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.card p {
+  margin: 0 0 0.75rem;
+  font-size: 13px;
+  color: #999999;
+}
+
+.card img,
+.card .placeholder {
+  display: block;
+  width: 100%;
+  border: 2px solid #000000;
+}
+
+.card .placeholder {
+  aspect-ratio: 1024 / 233;
+  min-height: 8rem;
+  background: #eeeeee;
+}

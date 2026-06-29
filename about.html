@@ -1,89 +1,75 @@
+<!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
+<!-- Head -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="About Kevin Egbert — art, electronics, communication, and the natural world."
-    />
     <title>About — kevin egbert</title>
     <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/proxima-nova-2" />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body class="page-about">
-    <a class="skip-link" href="#main">Skip to content</a>
+    <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
+    <!-- Body -->
+  <body>
+    <div class="layout">
+    
+      <aside class="sidebar">
+        
+        <a href="index.html">kevin egbert</a>
+        <nav>
+          <a href="about.html">About</a>
+          <a href="assets/kevin-egbert-resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+        </nav>
+        <p>
+          Student developer exploring web design and projects at the intersection of art,
+          technology, and learning.
+        </p>
+     
+        <p>
+          For interactive art, see my
+          <a href="https://kevinegbert.com/" target="_blank" rel="noopener noreferrer"
+            >creative portfolio</a
+          >.
+        </p>
+      </aside>
+  <!-- //////////////////////////////////////////////////////////////////////////////////////////////// -->
+  <!-- Main content -->
+      <main class="main">
+        <!-- <h1 style="font-family: 'Proxima Nova', sans-serif; font-size: 14px; font-weight: 400; margin: 0 0 24px;">
+          about
+        </h1> -->
+        <h1>about</h1>
+        <!-- Inline flexbox: portrait centered above text -->
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 32px; max-width: 42rem;">
+          <figure style="margin: 0; width: 100%; max-width: 42rem;">
+            <img
+              src="assets/about-portrait.png"
+              alt="Silhouette at the coast at dusk"
+              width="1024"
+              height="692"
+              loading="lazy"
+              style="display: block; width: 100%; border: 1px solid #dddddd;"
+            />
+          </figure>
 
-    <div class="site-shell">
-      <header class="site-header sidebar" role="banner">
-        <div class="sidebar-inner">
-          <p class="sidebar-site-title">
-            <a class="nav-logo logo-mark" href="index.html">kevin egbert</a>
-          </p>
-          <button
-            class="nav-toggle"
-            type="button"
-            aria-label="Open menu"
-            aria-expanded="false"
-            aria-controls="nav-menu"
-          >
-            <span class="nav-toggle-bar"></span>
-            <span class="nav-toggle-bar"></span>
-            <span class="nav-toggle-bar"></span>
-          </button>
-          <nav class="sidebar-nav" aria-label="Primary">
-            <ul class="nav-menu" id="nav-menu" role="list">
-              <li class="nav-item">
-                <a class="nav-link is-active" href="about.html" aria-current="page">About</a>
-              </li>
-            </ul>
-            <p class="nav-external">
-              For interactive art and installation work, see my
-              <a href="https://kevinegbert.com/" target="_blank" rel="noopener noreferrer"
-                >creative portfolio</a
-              >.
+          <div style="width: 100%;">
+            <p style="color: #999999; margin: 0 0 24px;">
+              My name is Kevin Egbert and I am interested in the intersection between electronic arts, communication, and
+              natural history.
             </p>
-          </nav>
+            <p style="color: #999999; margin: 0 0 24px;">
+              I am currently pursuing a Master of Education in Instructional Design &amp; Educational
+              Technology at the University of Utah, and work in the Exhibits department at the
+              Natural History Museum of Utah in Salt Lake City.
+            </p>
+            <p style="color: #999999; margin: 0;">
+              I graduated from SUNY Adirondack with an AAS in Media Arts in 2014 and from Purchase
+              College with a BA in New Media in 2017.
+            </p>
+          </div>
         </div>
-      </header>
-
-      <div class="site-main">
-        <main id="main">
-          <section class="section" id="about" aria-labelledby="about-heading">
-            <div class="content-wrap">
-              <header class="section-header reveal">
-                <h2 class="section-title" id="about-heading">About</h2>
-              </header>
-
-              <div class="about-layout reveal">
-                <figure class="about-portrait">
-                  <img
-                    src="assets/about-portrait.png"
-                    alt="Silhouette at the coast at dusk"
-                    width="1024"
-                    height="692"
-                    loading="lazy"
-                  />
-                </figure>
-                <div class="about-content">
-                  <p class="about-lead">
-                    I am interested in the intersection between art, electronics, communication,
-                    and the natural world.
-                  </p>
-                  <p>
-                    I currently work as part of the Exhibits department at the Natural History
-                    Museum of Utah in Salt Lake City. I graduated from SUNY Adirondack with an
-                    AAS in Media Arts in 2014 before graduating from Purchase College with a BA in
-                    New Media in 2017.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-        </main>
-      </div>
+      </main>
     </div>
-
-    <script src="script.js"></script>
   </body>
 </html>

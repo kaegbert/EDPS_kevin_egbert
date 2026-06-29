@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>haiku-maker — kevin egbert</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.cdnfonts.com/css/proxima-nova-2"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <a href="index.html">kevin egbert</a>
+        <nav>
+          <a href="about.html">About</a>
+          <a
+            href="assets/kevin-egbert-resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Resume</a
+          >
+        </nav>
+        <p>
+          Student developer exploring web design and projects at the
+          intersection of art, technology, and learning.
+        </p>
+
+        <p>
+          For interactive art, see my
+          <a
+            href="https://kevinegbert.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >creative portfolio</a
+          >.
+        </p>
+      </aside>
+
+      <main class="main">
+        <h1>Haiku maker</h1>
+        <p class="haiku-intro">
+          Drag words from the bank into the three lines below to compose a
+          haiku. Each line has a syllable target — 5, then 7, then 5. Add your
+          own words to the bank, and save finished poems to your browser.
+        </p>
+
+        <section class="haiku-maker" aria-label="Haiku maker">
+          <div class="haiku-panel">
+            <h2>Word bank</h2>
+            <p class="haiku-hint">Drag these words into your poem.</p>
+            <div
+              id="word-bank"
+              class="haiku-drop-zone haiku-word-bank"
+              aria-label="Word bank"
+            ></div>
+
+            <form id="haiku-add-word" class="haiku-add-word">
+              <label class="haiku-field">
+                <span class="haiku-field-label">Add your own word</span>
+                <input
+                  type="text"
+                  id="haiku-word-input"
+                  class="haiku-input"
+                  maxlength="24"
+                  autocomplete="off"
+                  placeholder="e.g. firefly"
+                />
+              </label>
+              <button type="submit" class="haiku-btn">Add word</button>
+              <p
+                id="haiku-syllable-preview"
+                class="haiku-syllable-preview"
+                aria-live="polite"
+              ></p>
+            </form>
+          </div>
+
+          <div class="haiku-panel">
+            <h2>Your haiku</h2>
+            <div class="haiku-lines">
+              <div class="haiku-line-row">
+                <span class="haiku-line-label">Line 1</span>
+                <div
+                  class="haiku-line haiku-drop-zone is-empty"
+                  data-target-syllables="5"
+                  aria-label="Haiku line 1, five syllables"
+                >
+                  <span class="haiku-line-placeholder">Drop words here</span>
+                </div>
+                <span class="haiku-line-count" aria-live="polite">0 / 5</span>
+              </div>
+
+              <div class="haiku-line-row">
+                <span class="haiku-line-label">Line 2</span>
+                <div
+                  class="haiku-line haiku-drop-zone is-empty"
+                  data-target-syllables="7"
+                  aria-label="Haiku line 2, seven syllables"
+                >
+                  <span class="haiku-line-placeholder">Drop words here</span>
+                </div>
+                <span class="haiku-line-count" aria-live="polite">0 / 7</span>
+              </div>
+
+              <div class="haiku-line-row">
+                <span class="haiku-line-label">Line 3</span>
+                <div
+                  class="haiku-line haiku-drop-zone is-empty"
+                  data-target-syllables="5"
+                  aria-label="Haiku line 3, five syllables"
+                >
+                  <span class="haiku-line-placeholder">Drop words here</span>
+                </div>
+                <span class="haiku-line-count" aria-live="polite">0 / 5</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="haiku-actions">
+            <button type="button" id="haiku-save" class="haiku-btn" disabled>
+              Save haiku
+            </button>
+            <button type="button" id="haiku-clear" class="haiku-btn">
+              Clear lines
+            </button>
+            <button type="button" id="haiku-shuffle" class="haiku-btn">
+              New words
+            </button>
+          </div>
+
+          <p
+            id="haiku-status"
+            class="haiku-status"
+            aria-live="polite"
+          >
+            Drag words from the bank into the three lines below.
+          </p>
+
+          <div class="haiku-panel">
+            <h2>Saved haikus</h2>
+            <p class="haiku-hint">
+              Complete poems are saved in your browser on this device.
+            </p>
+            <ul id="saved-haikus" class="saved-haikus"></ul>
+            <p id="saved-haikus-empty" class="haiku-hint">
+              No saved haikus yet.
+            </p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="haiku-maker.js"></script>
+  </body>
+</html>
