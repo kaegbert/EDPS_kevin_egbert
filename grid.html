@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>grid layout practice — kevin egbert</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.cdnfonts.com/css/proxima-nova-2"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="grid.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <a href="index.html">kevin egbert</a>
+        <nav>
+          <a href="about.html">About</a>
+          <a
+            href="assets/kevin-egbert-resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Resume</a
+          >
+        </nav>
+        <p>
+          Student developer exploring web design and projects at the
+          intersection of art, technology, and learning.
+        </p>
+
+        <p>
+          For interactive art, see my
+          <a
+            href="https://kevinegbert.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >creative portfolio</a
+          >.
+        </p>
+      </aside>
+
+      <main class="main blog-post">
+        <h1>grid layout practice</h1>
+        <p>
+          A flexbox exercise for a simple page shell — header, two-column
+          introduction row, main content row, and footer. The colored blocks make
+          it easy to see how each region stretches and aligns.
+        </p>
+
+        <div class="grid-demo" aria-label="Flexbox layout demo">
+          <div class="grid-demo-container">
+            <div class="grid-demo-header">Header</div>
+            <div class="grid-demo-introduction">
+              <div class="grid-demo-profile">profile</div>
+              <div class="grid-demo-intro">intro</div>
+            </div>
+            <div class="grid-demo-main">
+              <div class="grid-demo-logo">Logo</div>
+              <div class="grid-demo-content">Main Content</div>
+            </div>
+          </div>
+          <div class="grid-demo-footer">
+            <div class="grid-demo-social">x</div>
+            <div class="grid-demo-social">gh</div>
+            <div class="grid-demo-social">in</div>
+          </div>
+        </div>
+
+        <h2>What each row does</h2>
+        <p>
+          The outer <code>grid-demo-container</code> is a column flexbox. The
+          header sits on top. The introduction and main rows are nested flex
+          rows — profile and logo use <code>flex: 0.25</code> for a narrow side
+          column; intro and content use <code>flex: 1</code> to fill the rest.
+        </p>
+        <p>
+          The footer is a separate row below the container, centered with
+          <code>justify-content: center</code> and spaced social placeholders.
+        </p>
+
+        <h2>Related notes</h2>
+        <p>
+          For more flexbox practice on this site, see
+          <a href="learning-to-build-use-flexbox.html"
+            >learning to build using flexbox</a
+          >. For the original wireframe idea behind the portfolio shell, see
+          <a href="portfolio-conceptual-design.html"
+            >portfolio conceptual design</a
+          >.
+        </p>
+      </main>
+    </div>
+  </body>
+</html>

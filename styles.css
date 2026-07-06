@@ -1,7 +1,7 @@
 /* ==========================================================================
-   Global stylesheet — index, about, learning-to-build-use-flexbox.html,
-   how-this-site-is-styled.html, haiku-maker.html, timeline-compare.html,
-   portfolio-conceptual-design.html, instructional-design-files.html
+   Global stylesheet — index, about, how-this-site-is-styled.html,
+   haiku-maker.html, timeline-compare.html, math-game.html, portfolio-conceptual-design.html,
+   instructional-design-files.html
 
    Layout: flexbox only. No CSS grid. No mobile hamburger. No JavaScript.
    Old version: archive/styles-pre-simplify.css
@@ -147,6 +147,24 @@ code {
   border: 2px solid #000000;
 }
 
+.card-thumb-inset {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  aspect-ratio: 439 / 235;
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  background: #ffffff;
+}
+
+.card-thumb-inset img {
+  display: block;
+  width: 86%;
+  height: auto;
+  border: none;
+}
+
 .blog-image {
   display: block;
   width: 100%;
@@ -228,68 +246,6 @@ code {
   font-size: 13px;
   color: #999999;
   line-height: 1.45;
-}
-
-/* Grey box when a card has no screenshot yet */
-.card .placeholder {
-  aspect-ratio: 1024 / 233;
-  min-height: 8rem;
-  background: #eeeeee;
-}
-
-/* --- Flexbox helpers (learning-to-build-use-flexbox.html) -------------- */
-/* ///////////////////////////////////////////////////////////////////////////////////////////////////////// */
-/* Horizontal flex row with 16px gap between items */
-.flex-row {
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-}
-
-/* Vertical flex column — equal width columns inside a .flex-row */
-.flex-column {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  gap: 16px;
-}
-
-/* Single box inside a .flex-column (column layout demo) */
-.column-box {
-  border: 1px solid #222222;
-  padding: 12px;
-  min-height: 80px;
-}
-
-/* Vertical stack of project card rows */
-.card-stack {
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-  margin-bottom: 2.5rem;
-}
-
-/* Pair with .flex-row — moves the card left, center, or right in its row */
-.justify-left {
-  justify-content: left;
-}
-
-.justify-center {
-  justify-content: center;
-}
-
-.justify-right {
-  justify-content: right;
-}
-
-/* Placeholder project card (not a link) */
-.card-placeholder {
-  margin-bottom: 0;
-  color: #000000;
-}
-
-.card-placeholder strong {
-  text-decoration: none;
 }
 
 /* --- Haiku maker (haiku-maker.html) ------------------------------------ */

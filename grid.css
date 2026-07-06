@@ -1,0 +1,106 @@
+/* ==========================================================================
+   grid.html — flexbox layout demo for blog post only
+   ========================================================================== */
+
+.grid-demo {
+  margin: 0 0 2rem;
+  max-width: 42rem;
+  border: 2px solid #000000;
+}
+
+.grid-demo-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.grid-demo-header {
+  display: flex;
+  background-color: #cf222e;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+  color: #ffffff;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
+}
+
+.grid-demo-introduction {
+  display: flex;
+}
+
+.grid-demo-profile {
+  display: flex;
+  background-color: #0969da;
+  flex: 0.25;
+  min-height: 200px;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
+}
+
+.grid-demo-intro {
+  background-color: #8b949e;
+  flex: 1;
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
+}
+
+.grid-demo-main {
+  background-color: #1a7f37;
+  flex: 1;
+  min-height: 160px;
+  display: flex;
+}
+
+.grid-demo-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #8250df;
+  flex: 0.25;
+  min-height: 160px;
+  color: #ffffff;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
+}
+
+.grid-demo-content {
+  background-color: #9a6700;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  color: #ffffff;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
+}
+
+.grid-demo-footer {
+  display: flex;
+  background-color: #fb8500;
+  justify-content: center;
+  align-items: center;
+  min-height: 72px;
+  gap: 12px;
+}
+
+.grid-demo-social {
+  border-radius: 50%;
+  border: 1px solid #000000;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  text-align: center;
+}
