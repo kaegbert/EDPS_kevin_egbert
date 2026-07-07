@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>grid layout practice — kevin egbert</title>
+    <title>css grid & flexbox layout practice — kevin egbert</title>
     <link
       rel="stylesheet"
       href="https://fonts.cdnfonts.com/css/proxima-nova-2"
@@ -41,12 +41,19 @@
       </aside>
 
       <main class="main blog-post">
-        <h1>grid layout practice</h1>
+        <h1>css grid & flexbox layout practice</h1>
         <p>
-          A flexbox exercise for a simple page shell — header, two-column
-          introduction row, main content row, and footer. The colored blocks make
-          it easy to see how each region stretches and aligns.
+          Two layout exercises for a simple page shell — header, profile column,
+          intro, logo, main content, and footer. The colored blocks make it easy
+          to see how each region stretches and aligns.
         </p>
+        <p>
+          Note: I did not write the CSS for the flexbox example, but rather
+          generated it using Cursor. My hope is to learn how to reverse engineer
+          how it is working by analyzing the separate stylesheet.
+        </p>
+
+        <h2>flexbox example</h2>
 
         <div class="grid-demo" aria-label="Flexbox layout demo">
           <div class="grid-demo-container">
@@ -78,6 +85,23 @@
           The footer is a separate row below the container, centered with
           <code>justify-content: center</code> and spaced social placeholders.
         </p>
+
+        <h2>CSS grid example</h2>
+        <p>
+          Below is an adaptation of the CSS grid exercise we worked on in class.
+          Though it does not reflect my current portfolio, it is a good example of
+          how to use CSS grid to layout a page and acted as a good framework to
+          practice with.
+        </p>
+
+        <div class="grid-css-demo" aria-label="CSS grid layout demo">
+          <div class="grid-css-demo-item-1">header</div>
+          <div class="grid-css-demo-item-2">profile</div>
+          <div class="grid-css-demo-item-3">intro</div>
+          <div class="grid-css-demo-item-4">logo</div>
+          <div class="grid-css-demo-item-5">main content</div>
+          <div class="grid-css-demo-item-6">footer</div>
+        </div>
 
         <h2>Related notes</h2>
         <p>
