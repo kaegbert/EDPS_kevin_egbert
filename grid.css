@@ -1,19 +1,21 @@
 /* ==========================================================================
-   grid.html — flexbox layout demo for blog post only
+   grid.html — flexbox, CSS grid, and Bootstrap 4 grid demos for blog post only
    ========================================================================== */
 
-.grid-demo {
+/* --- Flexbox demo -------------------------------------------------------- */
+
+.flex {
   margin: 0 0 2rem;
   max-width: 42rem;
   border: 2px solid #000000;
 }
 
-.grid-demo-container {
+.flex-shell {
   display: flex;
   flex-direction: column;
 }
 
-.grid-demo-header {
+.flex-header {
   display: flex;
   background-color: #cf222e;
   justify-content: center;
@@ -24,11 +26,11 @@
   font-size: 14px;
 }
 
-.grid-demo-introduction {
+.flex-top {
   display: flex;
 }
 
-.grid-demo-profile {
+.flex-profile {
   display: flex;
   background-color: #0969da;
   flex: 0.25;
@@ -40,7 +42,7 @@
   font-size: 14px;
 }
 
-.grid-demo-intro {
+.flex-intro {
   background-color: #8b949e;
   flex: 1;
   min-height: 200px;
@@ -52,14 +54,14 @@
   font-size: 14px;
 }
 
-.grid-demo-main {
+.flex-body {
   background-color: #1a7f37;
   flex: 1;
   min-height: 160px;
   display: flex;
 }
 
-.grid-demo-logo {
+.flex-logo {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,7 +73,7 @@
   font-size: 14px;
 }
 
-.grid-demo-content {
+.flex-content {
   background-color: #9a6700;
   flex: 1;
   justify-content: center;
@@ -82,7 +84,7 @@
   font-size: 14px;
 }
 
-.grid-demo-footer {
+.flex-footer {
   display: flex;
   background-color: #fb8500;
   justify-content: center;
@@ -91,7 +93,7 @@
   gap: 12px;
 }
 
-.grid-demo-social {
+.flex-social {
   border-radius: 50%;
   border: 1px solid #000000;
   width: 36px;
@@ -107,7 +109,7 @@
 
 /* --- CSS grid demo ------------------------------------------------------- */
 
-.grid-css-demo {
+.css-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(6, minmax(48px, auto));
@@ -116,7 +118,7 @@
   border: 2px solid #000000;
 }
 
-.grid-css-demo-item-1 {
+.css-grid-header {
   background-color: #cf222e;
   grid-area: 1 / 1 / 2 / 13;
   display: flex;
@@ -127,7 +129,7 @@
   font-size: 14px;
 }
 
-.grid-css-demo-item-2 {
+.css-grid-profile {
   background-color: #0969da;
   grid-area: 2 / 1 / 4 / 5;
   display: flex;
@@ -138,7 +140,7 @@
   font-size: 14px;
 }
 
-.grid-css-demo-item-3 {
+.css-grid-intro {
   background-color: #8b949e;
   grid-area: 2 / 5 / 4 / 13;
   display: flex;
@@ -149,7 +151,7 @@
   font-size: 14px;
 }
 
-.grid-css-demo-item-4 {
+.css-grid-logo {
   background-color: #8250df;
   grid-area: 4 / 1 / 6 / 3;
   display: flex;
@@ -160,7 +162,7 @@
   font-size: 14px;
 }
 
-.grid-css-demo-item-5 {
+.css-grid-content {
   background-color: #9a6700;
   grid-area: 4 / 3 / 6 / 13;
   display: flex;
@@ -171,7 +173,7 @@
   font-size: 14px;
 }
 
-.grid-css-demo-item-6 {
+.css-grid-footer {
   background-color: #fb8500;
   grid-area: 6 / 1 / 7 / 13;
   display: flex;
@@ -180,4 +182,74 @@
   color: #ffffff;
   font-family: "Courier New", Courier, monospace;
   font-size: 14px;
+}
+
+/* --- Bootstrap 4 grid demo ------------------------------------------------ */
+
+.bs {
+  margin: 0 0 2rem;
+  max-width: 42rem;
+  border: 2px solid #000000;
+}
+
+/* Let the demo's outer border define the width instead of Bootstrap's
+   responsive max-widths and gutter padding. */
+.bs .container {
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.bs .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Shared look for every colored block in the Bootstrap demo.
+   Equivalent shortcut (for reference):
+   .bs [class*="col"] { ... }
+   That means: inside .bs, style any element whose class attribute
+   contains the text "col" (e.g. col-12, col-md-3). */
+.bs-header,
+.bs-profile,
+.bs-intro,
+.bs-logo,
+.bs-content,
+.bs-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
+}
+
+.bs-header {
+  background-color: #cf222e;
+  min-height: 120px;
+}
+
+.bs-profile {
+  background-color: #0969da;
+  min-height: 200px;
+}
+
+.bs-intro {
+  background-color: #8b949e;
+  min-height: 200px;
+}
+
+.bs-logo {
+  background-color: #8250df;
+  min-height: 160px;
+}
+
+.bs-content {
+  background-color: #9a6700;
+  min-height: 160px;
+}
+
+.bs-footer {
+  background-color: #fb8500;
+  min-height: 72px;
 }

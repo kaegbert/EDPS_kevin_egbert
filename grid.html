@@ -8,6 +8,13 @@
       rel="stylesheet"
       href="https://fonts.cdnfonts.com/css/proxima-nova-2"
     />
+    <!-- Bootstrap 4 grid-only stylesheet (no Reboot/global styles) -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap-grid.min.css"
+      integrity="sha384-z/qtbGncq69DzSbemjt/wyAbB04pnWdRoeto3+aikZpSqe6ASdRGz6vf2umnN7jz"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="grid.css" />
   </head>
@@ -55,34 +62,34 @@
 
         <h2>flexbox example</h2>
 
-        <div class="grid-demo" aria-label="Flexbox layout demo">
-          <div class="grid-demo-container">
-            <div class="grid-demo-header">Header</div>
-            <div class="grid-demo-introduction">
-              <div class="grid-demo-profile">profile</div>
-              <div class="grid-demo-intro">intro</div>
+        <div class="flex" aria-label="Flexbox layout demo">
+          <div class="flex-shell">
+            <div class="flex-header">Header</div>
+            <div class="flex-top">
+              <div class="flex-profile">profile</div>
+              <div class="flex-intro">intro</div>
             </div>
-            <div class="grid-demo-main">
-              <div class="grid-demo-logo">Logo</div>
-              <div class="grid-demo-content">Main Content</div>
+            <div class="flex-body">
+              <div class="flex-logo">Logo</div>
+              <div class="flex-content">Main Content</div>
             </div>
           </div>
-          <div class="grid-demo-footer">
-            <div class="grid-demo-social">x</div>
-            <div class="grid-demo-social">gh</div>
-            <div class="grid-demo-social">in</div>
+          <div class="flex-footer">
+            <div class="flex-social">x</div>
+            <div class="flex-social">gh</div>
+            <div class="flex-social">in</div>
           </div>
         </div>
 
         <h2>What each row does</h2>
         <p>
-          The outer <code>grid-demo-container</code> is a column flexbox. The
-          header sits on top. The introduction and main rows are nested flex
-          rows — profile and logo use <code>flex: 0.25</code> for a narrow side
-          column; intro and content use <code>flex: 1</code> to fill the rest.
+          The outer <code>flex-shell</code> is a column flexbox. The header sits
+          on top. The top and body rows are nested flex rows — profile and logo
+          use <code>flex: 0.25</code> for a narrow side column; intro and
+          content use <code>flex: 1</code> to fill the rest.
         </p>
         <p>
-          The footer is a separate row below the container, centered with
+          The footer is a separate row below the shell, centered with
           <code>justify-content: center</code> and spaced social placeholders.
         </p>
 
@@ -94,13 +101,40 @@
           practice with.
         </p>
 
-        <div class="grid-css-demo" aria-label="CSS grid layout demo">
-          <div class="grid-css-demo-item-1">header</div>
-          <div class="grid-css-demo-item-2">profile</div>
-          <div class="grid-css-demo-item-3">intro</div>
-          <div class="grid-css-demo-item-4">logo</div>
-          <div class="grid-css-demo-item-5">main content</div>
-          <div class="grid-css-demo-item-6">footer</div>
+        <div class="css-grid" aria-label="CSS grid layout demo">
+          <div class="css-grid-header">header</div>
+          <div class="css-grid-profile">profile</div>
+          <div class="css-grid-intro">intro</div>
+          <div class="css-grid-logo">logo</div>
+          <div class="css-grid-content">main content</div>
+          <div class="css-grid-footer">footer</div>
+        </div>
+
+        <h2>Bootstrap 4 grid example</h2>
+        <p>
+          The same page shell rebuilt with the Bootstrap 4 grid system. A
+          <code>container</code> wraps everything, each horizontal band is a
+          <code>row</code>, and the pieces inside are sized with
+          <code>col</code> classes on Bootstrap's 12-column grid.
+        </p>
+
+        <div class="bs" aria-label="Bootstrap 4 grid layout demo">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 bs-header">header</div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-md-3 bs-profile">profile</div>
+              <div class="col-12 col-md-9 bs-intro">intro</div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-md-2 bs-logo">logo</div>
+              <div class="col-12 col-md-10 bs-content">main content</div>
+            </div>
+            <div class="row">
+              <div class="col-12 bs-footer">footer</div>
+            </div>
+          </div>
         </div>
 
         <h2>Related notes</h2>
