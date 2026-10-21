@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>FreeCAD track lighting clip — kevin egbert</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.cdnfonts.com/css/proxima-nova-2"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <a href="index.html">kevin egbert</a>
+        <nav>
+          <a href="about.html">About</a>
+          <a
+            href="assets/kevin-egbert-resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Resume</a
+          >
+        </nav>
+        <p>
+          Student developer exploring web design and projects at the
+          intersection of art, technology, and learning.
+        </p>
+
+        <p>
+          For interactive art, see my
+          <a
+            href="https://kevinegbert.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >creative portfolio</a
+          >.
+        </p>
+      </aside>
+
+      <main class="main blog-post">
+        <h1>FreeCAD track lighting clip</h1>
+        <p>
+          A parametric clip modeled in FreeCAD with help from Codex computer
+          use. I described the part in inches, asked Codex to drive FreeCAD on
+          my machine, and iterated until the geometry matched the rail and boss
+          dimensions below.
+        </p>
+
+        <figure class="blog-figure">
+          <div
+            id="stl-viewer"
+            class="stl-viewer"
+            role="img"
+            aria-label="Interactive 3D model of the track lighting clip. Drag to rotate, scroll to zoom."
+          >
+            <p id="stl-viewer-status" class="stl-viewer-status">
+              Loading 3D model…
+            </p>
+          </div>
+          <figcaption>
+            Interactive STL — drag to rotate, scroll to zoom.
+            <a href="assets/TrackLightingClip_v2_mm.stl" download
+              >Download TrackLightingClip_v2_mm.stl</a
+            >
+          </figcaption>
+        </figure>
+
+        <h2>What it is</h2>
+        <p>
+          A small track-lighting clip: twin rails with a centered boss, an
+          entry gap for sliding onto the track, an internal cavity, and an
+          axial through-hole. Uniform arm thickness keeps the piece light while
+          the bridge ties the rails together along the length.
+        </p>
+
+        <h2>How I used Codex computer use</h2>
+        <p>
+          Instead of clicking every sketch and pad myself, I prompted Codex to
+          operate FreeCAD directly — opening the document, building sketches,
+          applying pads and pockets, and checking measurements against the
+          table. When a dimension was off, I corrected the prompt with the
+          exact inch and millimeter values and let Codex revise the model.
+        </p>
+        <p>
+          The prompt was essentially a feature checklist: rail length, width
+          across arms, body and boss heights, cavity size, arm thickness, entry
+          gap, bridge, and the centered through-hole. Codex translated that
+          list into FreeCAD operations until the part matched.
+        </p>
+
+        <h2>Prompt dimensions</h2>
+        <p>
+          These are the measurements I gave Codex so the FreeCAD model would
+          match the physical clip. Inch fractions are the source values;
+          millimeters are the converted targets used in the CAD file.
+        </p>
+
+        <div class="blog-table-wrap">
+          <table class="blog-table">
+            <thead>
+              <tr>
+                <th scope="col">Feature</th>
+                <th scope="col">Inches</th>
+                <th scope="col">Millimeters</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Rail length</td>
+                <td>1 5/16″</td>
+                <td>33.3375</td>
+              </tr>
+              <tr>
+                <td>Width across arms</td>
+                <td>3/4″</td>
+                <td>19.0500</td>
+              </tr>
+              <tr>
+                <td>Body height</td>
+                <td>7/16″</td>
+                <td>11.1125</td>
+              </tr>
+              <tr>
+                <td>Boss height</td>
+                <td>7/16″</td>
+                <td>11.1125</td>
+              </tr>
+              <tr>
+                <td>Overall height</td>
+                <td>7/8″</td>
+                <td>22.2250</td>
+              </tr>
+              <tr>
+                <td>Boss diameter</td>
+                <td>1/2″</td>
+                <td>12.7000</td>
+              </tr>
+              <tr>
+                <td>Uniform arm thickness</td>
+                <td>1/16″</td>
+                <td>1.5875</td>
+              </tr>
+              <tr>
+                <td>Entry gap</td>
+                <td>1/2″</td>
+                <td>12.7000</td>
+              </tr>
+              <tr>
+                <td>Internal cavity width</td>
+                <td>5/8″</td>
+                <td>15.8750</td>
+              </tr>
+              <tr>
+                <td>Internal cavity depth</td>
+                <td>1/4″</td>
+                <td>6.3500</td>
+              </tr>
+              <tr>
+                <td>Inner arm radius</td>
+                <td>1/8″</td>
+                <td>3.1750</td>
+              </tr>
+              <tr>
+                <td>Bridge length along rails</td>
+                <td>1/2″</td>
+                <td>12.7000</td>
+              </tr>
+              <tr>
+                <td>Bridge thickness</td>
+                <td>1/8″</td>
+                <td>3.1750</td>
+              </tr>
+              <tr>
+                <td>Centered axial through-hole diameter</td>
+                <td>3/16″</td>
+                <td>4.7625</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>Takeaway</h2>
+        <p>
+          Computer use let Codex act as a CAD operator while I stayed focused
+          on the design intent. A clear dimension table turned into a
+          reproducible FreeCAD part — and a documented prompt trail for how the
+          clip was built.
+        </p>
+      </main>
+    </div>
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module" src="freecad-track-lighting-clip.js"></script>
+  </body>
+</html>

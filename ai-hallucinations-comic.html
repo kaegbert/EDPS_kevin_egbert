@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AI hallucinations comic — kevin egbert</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.cdnfonts.com/css/proxima-nova-2"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <a href="index.html">kevin egbert</a>
+        <nav>
+          <a href="about.html">About</a>
+          <a
+            href="assets/kevin-egbert-resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Resume</a
+          >
+        </nav>
+        <p>
+          Student developer exploring web design and projects at the
+          intersection of art, technology, and learning.
+        </p>
+
+        <p>
+          For interactive art, see my
+          <a
+            href="https://kevinegbert.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >creative portfolio</a
+          >.
+        </p>
+      </aside>
+
+      <main class="main blog-post">
+        <h1>AI hallucinations &amp; evaluating AI outputs</h1>
+        <p>
+          A five-panel educational comic about why convincing AI answers still
+          need verification. I used Codex to generate each panel from a shared
+          character, setting, and learning goal — then assembled them into one
+          storyboard.
+        </p>
+
+        <figure class="blog-figure">
+          <img
+            class="blog-image"
+            src="assets/ai-hallucinations-comic.png"
+            alt="Five-panel educational comic about AI hallucinations: a student checks a polished AI citation, finds it fabricated, evaluates accuracy and bias, then revises with verified sources"
+            width="1024"
+            height="682"
+            loading="eager"
+          />
+          <figcaption>
+            Full storyboard — from a persuasive AI citation to a verified,
+            revised answer.
+          </figcaption>
+        </figure>
+
+        <h2>What the comic teaches</h2>
+        <p>
+          Confident-looking AI output can still include fabricated sources.
+          Before using an answer, check accuracy, relevance, bias, and missing
+          perspectives — then revise with evidence you can actually support.
+        </p>
+        <ol>
+          <li>
+            A polished AI response includes an impressive citation; the student
+            is pleased.
+          </li>
+          <li>
+            Before using it, they pause and check the evidence against a short
+            evaluation checklist.
+          </li>
+          <li>
+            Library and publisher searches turn up nothing — the citation was
+            fabricated.
+          </li>
+          <li>
+            A deeper pass flags unsupported claims, irrelevant detail, one-sided
+            language, and missing viewpoints.
+          </li>
+          <li>
+            The student revises with verified sources and can explain — and
+            support — the answer.
+          </li>
+        </ol>
+
+        <h2>How I made it</h2>
+        <p>
+          Each panel was generated with Codex from a reusable prompt template:
+          same student, AI metaphor character, library setting, pastel comic
+          style, and square panel shape. Only the story step, dialogue, and
+          visual clues changed from panel to panel. Below is the prompt used for
+          panel one.
+        </p>
+
+        <pre class="blog-prompt"><code>Create panel one of a five-panel educational comic storyboard about AI hallucinations and evaluating AI outputs.
+Learning goal: Show that convincing AI answers can contain fabricated information and should be checked before use.
+Reference images: Use the attached images as references for CHARACTER &amp; SETTING. Simplify them into clear comic illustrations, preserving minimalist aesthetic.
+Consistent visual style: [STYLE, e.g., clean classroom comic with bold outlines, flat colors, minimal shading, and uncluttered backgrounds].
+Color palette: consistent pastel.
+Panel shape: Square
+Recurring student: [AGE RANGE, HAIR, SKIN TONE, CLOTHING, DISTINCTIVE FEATURES, as seen in first image
+Recurring AI character: [a brown haired student with orange sweater and green laptop
+Setting: [library].
+This panel’s story step: [A student sits at a laptop. On screen, a polished AI response includes an impressive-looking citation. The student looks pleased.].
+Main action: Speech bubble: Student: “This sounds convincing—and it even includes a source!”
+Facial expression and body language: [Pleased].
+Composition: [desk and character in foreground, library in background.
+Essential visual clues: [TWO OR THREE DETAILS THAT COMMUNICATE THE LEARNING POINT].
+AI hallucination metaphor, if applicable: [e.g., the robot assembles an imaginary book from floating words; the book later dissolves when its citation is checked]. Present this as a metaphor for fabricated output, without implying deliberate deception..
+Text placement: [above head].
+Keep the scene focused on one main action. Make the learning point understandable through the visuals. Preserve character designs, clothing, setting, and illustration style from the reference panel. Generate only this panel.</code></pre>
+
+        <h2>Takeaway</h2>
+        <p>
+          Prompting for consistency — character, setting, style, and learning
+          goal — made it possible to generate a coherent multi-panel lesson
+          instead of five disconnected images. The comic’s closing line is also
+          the project’s: confident answers still need verification.
+        </p>
+      </main>
+    </div>
+  </body>
+</html>

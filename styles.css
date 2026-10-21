@@ -1,7 +1,8 @@
 /* ==========================================================================
    Global stylesheet — index, about, how-this-site-is-styled.html,
    haiku-maker.html, timeline-compare.html, math-game.html, portfolio-conceptual-design.html,
-   instructional-design-files.html
+   instructional-design-files.html, ai-hallucinations-comic.html,
+   freecad-track-lighting-clip.html
 
    Layout: flexbox only. No CSS grid. No mobile hamburger. No JavaScript.
    Old version: archive/styles-pre-simplify.css
@@ -209,6 +210,109 @@ code {
   font-size: 12px;
   color: #6c6c6c;
   line-height: 1.45;
+}
+
+/* Long prompt / code dump on project write-ups */
+.blog-prompt {
+  margin: 0 0 2rem;
+  padding: 1rem 1.1rem;
+  max-width: 42rem;
+  overflow-x: auto;
+  border: 2px solid #000000;
+  background: #f7f7f7;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #222222;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.blog-prompt code {
+  font-size: inherit;
+  color: inherit;
+}
+
+/* Dimension / data tables on project write-ups */
+.blog-table-wrap {
+  margin: 0 0 2rem;
+  max-width: 42rem;
+  overflow-x: auto;
+  border: 2px solid #000000;
+}
+
+.blog-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #222222;
+}
+
+.blog-table th,
+.blog-table td {
+  padding: 0.55rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #dddddd;
+  vertical-align: top;
+}
+
+.blog-table th {
+  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  background: #f7f7f7;
+  border-bottom: 2px solid #000000;
+}
+
+.blog-table th:nth-child(2),
+.blog-table th:nth-child(3),
+.blog-table td:nth-child(2),
+.blog-table td:nth-child(3) {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.blog-table tbody tr:last-child th,
+.blog-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Interactive STL viewer (freecad-track-lighting-clip.html) */
+.stl-viewer {
+  position: relative;
+  width: 100%;
+  max-width: 42rem;
+  aspect-ratio: 16 / 10;
+  min-height: 16rem;
+  margin: 0 0 0.5rem;
+  border: 2px solid #000000;
+  background: #f7f7f7;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.stl-viewer canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.stl-viewer-status {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 1rem;
+  font-size: 13px;
+  color: #6c6c6c;
+  pointer-events: none;
+}
+
+.stl-viewer-status[hidden] {
+  display: none;
 }
 
 .blog-doc-list {
