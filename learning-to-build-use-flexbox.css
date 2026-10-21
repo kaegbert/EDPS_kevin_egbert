@@ -1,0 +1,88 @@
+/* ==========================================================================
+   learning-to-build-use-flexbox.html — flexbox practice page only
+   ========================================================================== */
+
+/* --- Flexbox demos ------------------------------------------------------- */
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 16px;
+}
+
+.column-box {
+  border: 1px solid #222222;
+  padding: 12px;
+  min-height: 80px;
+}
+
+.card-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.justify-left {
+  justify-content: left;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-right {
+  justify-content: right;
+}
+
+.card-placeholder {
+  margin-bottom: 0;
+  color: #000000;
+}
+
+.card-placeholder strong {
+  text-decoration: none;
+}
+
+.card-placeholder .placeholder {
+  aspect-ratio: 1024 / 233;
+  min-height: 8rem;
+  background: #eeeeee;
+}
+
+/* --- Page notes and code samples ----------------------------------------- */
+
+.flexbox-note {
+  max-width: 42rem;
+  font-size: 14px;
+  color: #999999;
+  line-height: 1.55;
+  margin: 0 0 16px;
+}
+
+.flexbox-note:last-child {
+  margin-bottom: 0;
+}
+
+.flexbox-note strong {
+  color: #222222;
+}
+
+.flexbox-code {
+  max-width: 42rem;
+  margin: 0 0 16px;
+  padding: 12px;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #222222;
+  background: #eeeeee;
+  border: 1px solid #dddddd;
+}

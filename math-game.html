@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>math-game — kevin egbert</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.cdnfonts.com/css/proxima-nova-2"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="math-game.css" />
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <a href="index.html">kevin egbert</a>
+        <nav>
+          <a href="about.html">About</a>
+          <a
+            href="assets/kevin-egbert-resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Resume</a
+          >
+        </nav>
+        <p>
+          Student developer exploring web design and projects at the
+          intersection of art, technology, and learning.
+        </p>
+
+        <p>
+          For interactive art, see my
+          <a
+            href="https://kevinegbert.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            >creative portfolio</a
+          >.
+        </p>
+      </aside>
+
+      <main class="main">
+        <h1>math-game</h1>
+        <p class="math-intro">
+          Answer ten quick problems in a row. Pick a difficulty, then choose the
+          correct answer before moving on. Your best score for each level is
+          saved in your browser.
+        </p>
+
+        <section class="math-game" aria-label="Math game">
+          <div id="math-setup" class="math-panel">
+            <h2>Choose difficulty</h2>
+            <p class="math-hint">
+              Easy uses small addition and subtraction. Hard adds multiplication.
+            </p>
+            <div class="math-difficulty-list">
+              <button type="button" class="math-btn" data-level="easy">
+                Easy
+              </button>
+              <button type="button" class="math-btn" data-level="medium">
+                Medium
+              </button>
+              <button type="button" class="math-btn" data-level="hard">
+                Hard
+              </button>
+            </div>
+            <p id="math-best-scores" class="math-best-scores"></p>
+          </div>
+
+          <div id="math-play" class="math-panel math-play" hidden>
+            <div class="math-status-row">
+              <p id="math-progress" class="math-progress"></p>
+              <p id="math-score" class="math-score"></p>
+            </div>
+
+            <p
+              id="math-question"
+              class="math-question"
+              aria-live="polite"
+            ></p>
+
+            <div
+              id="math-choices"
+              class="math-choices"
+              role="group"
+              aria-label="Answer choices"
+            ></div>
+
+            <p id="math-feedback" class="math-feedback" aria-live="polite"></p>
+          </div>
+
+          <div id="math-results" class="math-panel math-results" hidden>
+            <h2>Round complete</h2>
+            <p id="math-final-score" class="math-final-score"></p>
+            <p id="math-final-best" class="math-hint"></p>
+            <div class="math-actions">
+              <button type="button" id="math-play-again" class="math-btn">
+                Play again
+              </button>
+              <button type="button" id="math-change-level" class="math-btn">
+                Change difficulty
+              </button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="math-game.js"></script>
+  </body>
+</html>

@@ -48,8 +48,9 @@
             <li><strong style="color: #222222;">portfolio-conceptual-design.html</strong> — wireframe and layout intent</li>
             <li><strong style="color: #222222;">instructional-design-files.html</strong> — instructional design PDFs</li>
             <li><strong style="color: #222222;">learning-to-build-use-flexbox.html</strong> — flexbox practice + class notes</li>
+            <li><strong style="color: #222222;">learning-to-build-use-flexbox.css</strong> — flexbox demo classes for that page only</li>
             <li><strong style="color: #222222;">how-this-site-is-styled.html</strong> — this page</li>
-            <li><strong style="color: #222222;">styles.css</strong> — shared stylesheet (~210 lines)</li>
+            <li><strong style="color: #222222;">styles.css</strong> — shared stylesheet</li>
             <li><strong style="color: #222222;">assets/</strong> — images and resume PDF</li>
             <li><strong style="color: #222222;">neolithia/</strong> — redirect to the live game</li>
             <li><strong style="color: #222222;">learning-html/</strong> — separate exercise, does not use <code>styles.css</code></li>
@@ -110,7 +111,7 @@
           </table>
 
           <h2 style="font-size: 16px; margin: 24px 0 12px;">
-            Flexbox helpers (learning-to-build-use-flexbox.html)
+            Flexbox helpers (<code>learning-to-build-use-flexbox.css</code>)
           </h2>
 
           <table style="width: 100%; border-collapse: collapse; font-size: 14px; margin-bottom: 16px;">
@@ -243,7 +244,8 @@
             <strong style="color: #222222;">Modifier pattern:</strong>
             <code>class="card"</code> on the outer element plus <code>class="placeholder"</code> on
             the span when there is no screenshot. Placeholder styling comes from
-            <code>.card .placeholder</code> in <code>styles.css</code>.
+            <code>.card .placeholder</code> in
+            <code>learning-to-build-use-flexbox.css</code>.
           </p>
         </section>
 
@@ -254,8 +256,9 @@
 
           <p style="font-size: 14px; color: #999999; margin: 0 0 12px;">
             About portrait layout and hint text on this page still use inline
-            <code>style="..."</code>. The flexbox learning page mixes classes from
-            <code>styles.css</code> with inline notes.
+            <code>style="..."</code>. The flexbox learning page uses classes from
+            <code>learning-to-build-use-flexbox.css</code> plus shared
+            <code>.card</code> from <code>styles.css</code>.
           </p>
 
           <pre style="margin: 0 0 12px; padding: 12px; overflow-x: auto; font-size: 13px; line-height: 1.45; color: #222222; background: #eeeeee; border: 1px solid #dddddd;">&lt;div class="flex-row justify-center"&gt;
@@ -385,8 +388,9 @@
             Where to edit
           </h2>
           <ul style="margin: 0; padding-left: 1.25rem; font-size: 14px; color: #999999; line-height: 1.55;">
-            <li><strong style="color: #222222;">Shared basics:</strong> <code>styles.css</code> — shell, cards, headings (<code>.main h1</code>, <code>.main h2</code>), flex helpers</li>
-            <li><strong style="color: #222222;">Per-page layout:</strong> inline styles on About and hint blocks; classes on the flexbox learning page</li>
+            <li><strong style="color: #222222;">Shared basics:</strong> <code>styles.css</code> — shell, cards, headings (<code>.main h1</code>, <code>.main h2</code>)</li>
+            <li><strong style="color: #222222;">Flexbox learning page:</strong> <code>learning-to-build-use-flexbox.css</code> — demo rows, columns, placeholder cards, notes</li>
+            <li><strong style="color: #222222;">Per-page layout:</strong> inline styles on About; classes on the flexbox learning page</li>
             <li><strong style="color: #222222;">Old code:</strong> <code>archive/</code> folder</li>
           </ul>
         </section>

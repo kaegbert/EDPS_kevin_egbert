@@ -1,0 +1,145 @@
+/* ==========================================================================
+   math-game.html
+   ========================================================================== */
+
+.math-intro {
+  max-width: 42rem;
+  margin: 0 0 2rem;
+  font-size: 14px;
+  color: #999999;
+}
+
+.math-game {
+  max-width: 42rem;
+}
+
+.math-panel {
+  margin-bottom: 2rem;
+}
+
+.math-panel h2 {
+  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 0.35rem;
+}
+
+.math-hint {
+  margin: 0 0 0.75rem;
+  font-size: 13px;
+  color: #999999;
+}
+
+.math-difficulty-list,
+.math-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.math-btn {
+  padding: 8px 14px;
+  border: 2px solid #000000;
+  background: #ffffff;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.math-btn:hover {
+  background: #f5f5f5;
+}
+
+.math-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.math-best-scores {
+  margin: 1rem 0 0;
+  font-size: 13px;
+  color: #999999;
+  line-height: 1.5;
+}
+
+.math-status-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.math-progress,
+.math-score {
+  margin: 0;
+  font-size: 13px;
+  color: #999999;
+}
+
+.math-question {
+  margin: 0 0 1.25rem;
+  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: #222222;
+}
+
+.math-choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 1rem;
+}
+
+.math-choice {
+  flex: 1 1 calc(50% - 6px);
+  min-width: 7rem;
+  padding: 14px 12px;
+  border: 2px solid #000000;
+  background: #ffffff;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.math-choice:hover:not(:disabled) {
+  background: #f5f5f5;
+}
+
+.math-choice.is-correct {
+  background: #e8f5e9;
+  border-color: #1a7f37;
+}
+
+.math-choice.is-wrong {
+  background: #fde8ea;
+  border-color: #cf222e;
+}
+
+.math-choice:disabled {
+  cursor: default;
+}
+
+.math-feedback {
+  min-height: 1.25rem;
+  margin: 0;
+  font-size: 14px;
+  color: #999999;
+}
+
+.math-feedback.is-correct {
+  color: #1a7f37;
+}
+
+.math-feedback.is-wrong {
+  color: #cf222e;
+}
+
+.math-final-score {
+  margin: 0 0 0.5rem;
+  font-family: "Proxima Nova", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #222222;
+}
